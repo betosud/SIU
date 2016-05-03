@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: SIU
+        psr4_prefix: SIU
+        src_path: app
