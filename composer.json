@@ -12,7 +12,7 @@
         "itbz/fpdf": "^1.7",
         "mews/captcha": "^2.1",
         "arielcr/numero-a-letras": "dev-master",
-        "guzzlehttp/guzzle": "~6.0"
+        "google/apiclient": "1.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

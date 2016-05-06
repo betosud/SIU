@@ -36,6 +36,10 @@
 {{--insertar menu--}}
 @include('layouts.menu')
 
+
+
+
+
 @yield('contenido')
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->

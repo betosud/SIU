@@ -12,17 +12,18 @@
 */
 
 
-Route::get('/', function () {
+//Route::get('/', function () {
+//
+//    return view('welcome');
+//});
+//
+//Route::get('/home', function () {
+//
+//    return view('welcome');
+//});
 
-    return view('welcome');
-});
-
-Route::get('/home', function () {
-
-    return view('welcome');
-});
-
-
+Route::get('/',['uses'=>'HomeController@index','as'=>'/']);
+Route::get('/home',['uses'=>'HomeController@index','as'=>'/home']);
 //capcha
 
 Route::post('registrosolicitud', function () {
@@ -39,6 +40,10 @@ Route::post('registrosolicitud', function () {
     }
 });
 
+
+
+//api
+Route::get('eventosestaca',['uses'=>'ApiCalendarioController@eventosestaca','as'=>'eventosestaca']);
 
 //sit
 Route::get('solicitudgasto',['uses'=>'SolicitudesController@create','as'=>'solicitudgasto']);

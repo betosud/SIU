@@ -27,7 +27,7 @@ class sit extends Model
     }
 
     public function getPteorganizacionNombreAttribute(){
-        $catalogo=lideres::findorfail($this->pteorganizacion);
+        $catalogo=lideres::findorfail($this->pteorganizacion)->withTrashed();
         return $catalogo->nombre;
     }
 

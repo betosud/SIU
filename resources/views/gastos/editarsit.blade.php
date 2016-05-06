@@ -153,7 +153,7 @@
                         <div class="discursos">
                             <table class="table table-bordered table-hover table-condensed clearfix">
                                 <th data-field="id">Nombre</th>
-                                <th data-field="descripcion">Descriocion</th>
+                                <th data-field="descripcion">Descripcion</th>
                                 <th data-field="tipo">Tipo</th>
                                 <th data-field="acciones">Acciones</th>
 
