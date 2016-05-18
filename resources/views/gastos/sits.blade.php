@@ -10,7 +10,7 @@
                 {{ Session::get('message') }}
             </div>
         @endif
-        <div class="col-md-10 col-lg-offset-1">
+        <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title text-center">Sit's</h3>

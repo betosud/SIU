@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
-
 @section('contenido')
-
-
 
     <div class="container-fluid">
         <div class="list-group col-md-6">
@@ -21,9 +18,9 @@
 
         <div class="list-group col-md-6">
             <a href="#" class="list-group-item active">
-                Formatos Para descargar
+                Video Tutoriales
             </a>
-            {{--<a href="#" class="list-group-item">Dapibus ac facilisis in</a>--}}
+            <a href="#" class="list-group-item" target="_blank">Solicitar Gasto</a>
             {{--<a href="#" class="list-group-item">Morbi leo risus</a>--}}
             {{--<a href="#" class="list-group-item">Porta ac consectetur ac</a>--}}
             {{--<a href="#" class="list-group-item">Vestibulum at eros</a>--}}

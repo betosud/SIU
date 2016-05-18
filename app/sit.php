@@ -22,12 +22,13 @@ class sit extends Model
 
 
     public function getOrganizacionNombreAttribute(){
-        $catalogo=catalogos::findorfail($this->organizacion);
+        $catalogo=catalogos::findorfail($this->organizacion)->withTrashed()->get();
         return $catalogo->nombre;
     }
 
     public function getPteorganizacionNombreAttribute(){
-        $catalogo=lideres::findorfail($this->pteorganizacion)->withTrashed();
+        $catalogo=lideres::withTrashed()->where('id',$this->pteorganizacion)->first();
+        
         return $catalogo->nombre;
     }
 

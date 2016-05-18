@@ -240,7 +240,7 @@ class SolicitudesController extends Controller
 
             $importeletra = \NumeroALetras::convertir($cantidad, 'Pesos', 'Centavos');
 
-//dd($solicitud->datosbarrio->datosbanco);
+//dd($solicitud->datossit->PteorganizacionNombre);
 
 
 //

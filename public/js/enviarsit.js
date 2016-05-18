@@ -5,10 +5,11 @@ function mostrar(btn) {
 
     $.get(route,function(res){
         $("#nombre").val(res.pagable);
+        $("#email").val(res.mail);
         $("#id").val(res.id);
         $("h4.titulo").text("Enviar Sit");
-        $("#email").val('');
-        $("#email").attr('placeholder','nombre@dominio.com');
+        // $("#email").val('');
+        // $("#email").attr('placeholder','nombre@dominio.com');
         $("#titulo").val('Enviar');
     });
 
