@@ -5,8 +5,10 @@ namespace SIU\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
 use SIU\Http\Requests;
 use SIU\Http\Controllers\Controller;
+use SIU\solicitudes;
 
 class HomeController extends Controller
 {
@@ -51,9 +53,14 @@ $registro="";
             $respuesta[]= $registro;
         }
 
+if(! Auth::guest()) {
+    $solicitudes = solicitudes::bybarrio(auth()->user()->idbarrio)->where('status', '<>', '66')->get();
+
+    $countsolicitudes = count($solicitudes);
+}
 
 //dd($respuesta);
-        return view('welcome',compact('respuesta'));
+        return view('welcome',compact('respuesta','countsolicitudes'));
     }
 
     /**

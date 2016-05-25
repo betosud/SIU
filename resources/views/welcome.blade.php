@@ -14,17 +14,33 @@
 
 
         </div>
+        @if(!Auth::guest())
 
 
-        <div class="list-group col-md-6">
-            <a href="#" class="list-group-item active">
-                Video Tutoriales
-            </a>
-            <a href="#" class="list-group-item" target="_blank">Solicitar Gasto</a>
-            {{--<a href="#" class="list-group-item">Morbi leo risus</a>--}}
-            {{--<a href="#" class="list-group-item">Porta ac consectetur ac</a>--}}
-            {{--<a href="#" class="list-group-item">Vestibulum at eros</a>--}}
-        </div>
+            <div class="list-group col-md-6">
+                <a href="#" class="list-group-item active">
+                    Notificaciones
+                </a>
+                <a href="{!! route('sits') !!}" class="list-group-item list-group-item-success">Solicitudes Gasto Nuevas <span class="badge">{!! $countsolicitudes !!}</span></a>
+                {{--<a href="#" class="list-group-item">Morbi leo risus</a>--}}
+                {{--<a href="#" class="list-group-item">Porta ac consectetur ac</a>--}}
+                {{--<a href="#" class="list-group-item">Vestibulum at eros</a>--}}
+            </div>
+        @endif
+
+        @if(Auth::guest() || !Auth::guest())
+            <div class="list-group col-md-6">
+                <a href="#" class="list-group-item active">
+                    Video Tutoriales
+                </a>
+                <a href="https://www.youtube.com/watch?v=O36d_pVtPWo" target="_blank" class="list-group-item">Solicitar gasto </a>
+                <a href="https://www.youtube.com/watch?v=do4PK7nOR9s" target="_blank" class="list-group-item">Adjuntar archivos a un SIT </a>
+                {{--<a href="#" class="list-group-item">Morbi leo risus</a>--}}
+                {{--<a href="#" class="list-group-item">Porta ac consectetur ac</a>--}}
+                {{--<a href="#" class="list-group-item">Vestibulum at eros</a>--}}
+            </div>
+        @endif
+
 
     </div>
     <div class="container-fluid">

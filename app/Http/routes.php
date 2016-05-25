@@ -58,9 +58,6 @@ Route::get('editarsit/{id}', ['uses' => 'SitController@edit', 'as' => 'editarsit
 Route::put('actualizarsit/{id}', ['uses' => 'SitController@update', 'as' => 'actualizarsit','middleware'=>'auth','middleware' => 'permission:edit.sit']);
 
 Route::get('eliminararchivosit/{id}',['uses'=>'SitController@destroyfile','as'=>'eliminararchivosit','middleware'=>'auth','middleware' => 'permission:delete.filesit']);
-
-
-
 Route::get('barriosbyestaca/{idestaca}',['uses'=>'SolicitudesController@barrios','as'=>'barriosbyestaca']);
 
 Route::get('pdfsit/{id}/{tipo}/{modo}', ['uses' => 'SolicitudesController@pdf', 'as' => 'pdfsit']);

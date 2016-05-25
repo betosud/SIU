@@ -46,7 +46,6 @@ class SitController extends Controller
     public function index(Request $request)
     {
         $sits=solicitudes::bybarrio(auth()->user()->idbarrio)->where('status','=','66')->orderBy('fecha','desc')->orderby('id','DESC')->paginate(10);
-
         if($request->ajax()){
             return response()->json(view('layouts.sit',compact('sits'))->render());
         }
@@ -128,8 +127,11 @@ class SitController extends Controller
         $categoria=catalogos::bycatalogo('categoria')->orderby('nombre')->lists('nombre','id');
         $status=catalogos::bycatalogo('statussit')->where('id','<>','29')->where('id','<>','30')->orderby('nombre')->lists('nombre','id');
         $archivossit=archivossit::where('idsolicitud',$id)->get();
-
-        return view('gastos.editarsit',compact('solicitud','obispado','lideres','categoria','status','archivossit'));
+        $organizacion=catalogos::bycatalogo('organizacion')->orderby('nombre')->lists('nombre','id');
+        $tipopago=catalogos::bycatalogo('tipopago')->orderby('nombre')->lists('nombre','id');
+        $combo['organizacion']=$organizacion;
+        $combo['tipopago']=$tipopago;
+        return view('gastos.editarsit',compact('solicitud','obispado','lideres','categoria','status','archivossit','combo'));
     }
 
     /**
@@ -141,6 +143,8 @@ class SitController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+
         $rules=array('id'=>'required|digits:12|unique:sit,id,'.$id,
             'categoria'=>'required',
             'pteorganizacion'=>'required',
@@ -148,7 +152,15 @@ class SitController extends Controller
             'status'=>'required',
             'statuscomprobantes'=>'required',
             'enviooficinas'=>'required',
-            'user_id'=>'required');
+            'user_id'=>'required',
+            'solicitante'=>'required',
+            'mail'=>'required|email',
+            'pagable'=>'required',
+            'ife'=>'required|size:13',
+            'descripcion'=>'required',
+            'cantidad'=>'required|numeric',
+            'organizacion'=>'required',
+            'tipopago'=>'required');
         $this->validate($request,$rules);
 
         $fecha=Carbon::createFromFormat('l d F Y',$request['fecha']);
@@ -156,6 +168,11 @@ class SitController extends Controller
 
         $sit=sit::findorfail($id);
         $sit->fill($request->all());
+        $solicitud=solicitudes::findorfail($request['idsolicitud']);dd($solicitud);
+        $solicitud->fill($request->all());
+
+
+        $solicitud->save();
         $sit->save();
         \Session::flash('message','Registro Guardado Correctamente');
         return redirect(route('editarsit',$sit->idsolicitud));

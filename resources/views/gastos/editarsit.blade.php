@@ -27,6 +27,8 @@
                     {!! Form::text('statuscomprobantes',67 ,['class'=>'hide']) !!}
                     {!! Form::text('enviooficinas','0' ,['class'=>'hide']) !!}
                     {!! Form::text('user_id',Auth::user()->id ,['class'=>'hide']) !!}
+                    {!! Form::text('idsolicitud',$solicitud->datossit->idsolicitud ,['class'=>'hide']) !!}
+
 
                 </div>
 
@@ -50,12 +52,96 @@
                         <div class=' input-group'>
                             <span class="input-group-addon glyphicon glyphicon-calendar"></span>
                             {!! Form::text('fecha',$solicitud->datossit->fechadma,['placeholder'=>'Fecha','class'=>'date form-control','id'=>'date']) !!}
-
-
-
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    {!! Form::label('Solicitante','',['class'=>'col-sm-2 control-label'])!!}
+                    <div class="col-sm-9">
+                        <div class=' input-group'>
+                            <span class="input-group-addon glyphicon glyphicon-user"></span>
+                            {!! Form::text('solicitante',$solicitud->solicitante,['placeholder'=>'Nombre completo del solicitante','class'=>'form-control','id'=>'solicitante']) !!}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    {!! Form::label('Pagable','',['class'=>'col-sm-2 control-label'])!!}
+                    <div class="col-sm-9">
+                        <div class=' input-group'>
+                            <span class="input-group-addon glyphicon glyphicon-user"></span>
+                            {!! Form::text('pagable',$solicitud->pagable,['placeholder'=>'Nombre completo','class'=>'form-control','id'=>'pagable']) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    {!! Form::label('IFE','',['class'=>'col-sm-2 control-label'])!!}
+                    <div class="col-sm-9">
+                        <div class=' input-group'>
+                            <span class="input-group-addon glyphicon glyphicon-credit-card"></span>
+                            {!! Form::text('ife',$solicitud->ife,['placeholder'=>'Numero de Ife 13 digitos','class'=>'form-control','id'=>'ife']) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    {!! Form::label('Correo','',['class'=>'col-sm-2 control-label'])!!}
+                    <div class="col-sm-9">
+                        <div class=' input-group'>
+                            <span class="input-group-addon glyphicon glyphicon-envelope"></span>
+                            {!! Form::text('mail',$solicitud->mail,['placeholder'=>'nombre@dominio.com','class'=>'form-control','id'=>'mail']) !!}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    {!! Form::label('Descripcion','',['class'=>'col-sm-2 control-label'])!!}
+                    <div class="col-sm-9">
+                        <div class=' input-group'>
+                            <span class="input-group-addon glyphicon glyphicon-menu-hamburger"></span>
+                            {!! Form::text('descripcion',$solicitud->descripcion,['placeholder'=>'Descripcion del Gasto','class'=>'form-control','id'=>'descripcion']) !!}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('Cantidad','',['class'=>'col-sm-2 control-label'])!!}
+                    <div class="col-sm-9">
+                        <div class=' input-group'>
+                            <span class="input-group-addon glyphicon glyphicon-usd"></span>
+                            {!! Form::text('cantidad',$solicitud->cantidad,['placeholder'=>'Cantidad','class'=>'form-control','id'=>'cantidad']) !!}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    {!! Form::label('Organizacion','',['class'=>'col-sm-2 control-label'])!!}
+                    <div class="col-sm-9">
+                        <div class='date input-group' id='time'>
+                            <span class="input-group-addon glyphicon glyphicon-th-large" ></span>
+                            {{--{!! Form::text('duracion',"",['placeholder'=>'Duracion','class'=>'form-control']) !!}--}}
+                            {!!  Form::select('organizacion', $combo['organizacion'],$solicitud->organizacion,['placeholder'=>'Selecciona Categoria','class'=>'form-control']) !!}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    {!! Form::label('Tipo de pago','',['class'=>'col-sm-2 control-label'])!!}
+                    <div class="col-sm-9">
+                        <div class='date input-group' id='time'>
+                            <span class="input-group-addon glyphicon glyphicon-th-large" ></span>
+                            {{--{!! Form::text('duracion',"",['placeholder'=>'Duracion','class'=>'form-control']) !!}--}}
+                            {!!  Form::select('tipopago', $combo['tipopago'],$solicitud->tipopago,['placeholder'=>'Selecciona Categoria','class'=>'form-control']) !!}
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="form-group">
                     {!! Form::label('Categoria','',['class'=>'col-sm-2 control-label'])!!}
@@ -241,7 +327,7 @@
                             {!! Form::text('nombre',"",['placeholder'=>'Nombre del Archivo','class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
-                            <label for="recipient-name" class="control-label">Nombre del Archivo:</label>
+                            <label for="recipient-name" class="control-label">Descripcion del Archivo:</label>
                             {!! Form::text('descripcion',"",['placeholder'=>'Descripcion','class'=>'form-control']) !!}
                         </div>
 
