@@ -42,15 +42,22 @@ Route::post('registrosolicitud', function () {
 
 
 
+
+
+
+//sacramental
+Route::get('nuevosacramental',['uses'=>'SacramentalController@create','as'=>'nuevosacramental','middleware'=>'auth']);
+Route::post('guardarsacramental',['uses'=>'SacramentalController@store','as'=>'guardarsacramental']);
+
 //api
-Route::get('eventosestaca',['uses'=>'ApiCalendarioController@eventosestaca','as'=>'eventosestaca']);
+Route::get('eventosestaca/{eventos}',['uses'=>'ApiCalendarioController@eventosestaca','as'=>'eventosestaca']);
 
 //sit
 Route::get('solicitudgasto',['uses'=>'SolicitudesController@create','as'=>'solicitudgasto']);
 Route::post('guardarsolicitud',['uses'=>'SolicitudesController@store','as'=>'guardarsolicitud']);
 Route::get('solicitudpdf/{id}/{evento}',['uses'=>'SolicitudesController@pdf','as'=>'solicitudpdf']);
 
-Route::post('guardararchivo',['uses'=>'SitController@uploadfile','as'=>'guardararchivo']);
+Route::post('guardararchivo',['uses'=>'SitController@uploadfile','as'=>'guardararchivo','middleware'=>'auth']);
 Route::get('sits',['uses'=>'SitController@index','as'=>'sits','middleware'=>'auth','middleware' => 'permission:add.sit|view.sit']);
 Route::get('nuevosit/{id}',['uses'=>'SitController@create','as'=>'nuevosit','middleware'=>'auth','middleware' => 'permission:add.sit']);
 Route::post('guardarsit',['uses'=>'SitController@store','as'=>'guardarsit','middleware'=>'auth','middleware' => 'permission:add.sit']);

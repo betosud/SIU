@@ -16,7 +16,7 @@ class ApiCalendarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function eventosestaca()
+    public function eventosestaca($eventos)
     {
         $client = new \Google_Client();
         $client->setApplicationName("calendario");
@@ -25,15 +25,43 @@ class ApiCalendarioController extends Controller
         $service = new \Google_Service_Calendar($client);
 
         $fecha=Carbon::create()->now();
-        $optParams = array('singleEvents'=>true, 'orderBy'=>'startTime', 'timeMin'=>$fecha->toRfc3339String(), 'maxResults'=>5);
+        $optParams = array('singleEvents'=>true, 'orderBy'=>'startTime', 'timeMin'=>$fecha->toRfc3339String(), 'maxResults'=>$eventos);
 
         $results = $service->events->listEvents('bt9imag1pljia49foievrvntq0@group.calendar.google.com',$optParams);
-
-//dd($results);
+        $respuesta=array();
+        
+        $total=0;
         foreach ($results->getItems() as $eventos){
-            echo $eventos->summary." Descripcion ".$eventos->description." hora ".$eventos->start->dateTime."<br>";
+            $registro="";
+            if(isset($eventos->start->dateTime)) {
+
+                $inicio=explode("T",$eventos->start->dateTime);
+
+//                    dd(explode(":",$inicio[1])[1]);
+                $startdate=Carbon::create(explode("-",$inicio[0])[0],explode("-",$inicio[0])[1],explode("-",$inicio[0])[2],explode(":",$inicio[1])[0],explode(":",$inicio[1])[1],"00","America/Mexico_City");
+                $registro=$eventos->summary;
+                $registro .= " Fecha " . $startdate->format("l d M Y");
+                $registro .= " Hora ".$startdate->format("h:m a");
+            }
+            elseif (isset($eventos->start->date)){
+                $inicio=$eventos->start->date;
+                $startdate=Carbon::createFromDate(explode("-",$inicio)[0],explode("-",$inicio)[1],explode("-",$inicio)[2]);
+                $registro=$eventos->summary;
+                $registro .= " Fecha " . $startdate->format("l d M Y");
+            }
+
+            $respuesta[$total]= $registro;
+            $total++;
         }
 
+
+$data=$respuesta;
+        return response()->json([
+            'id' => 1,
+            'code' => 200,
+            'data' => $data,
+            'message' => "exito",
+        ]);
 
     }
 
