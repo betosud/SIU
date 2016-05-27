@@ -6,7 +6,7 @@
     <a class="btn btn-danger glyphicon glyphicon-remove" href="#" role="button" data-toggle="tooltip" data-placement="top" title="Eliminar anuncio"></a>
 </div>
 
-
+@if(count($eventos>1))
 <?php $numanuncio=0;?>
 @foreach($eventos as $evento)
     <?php $numanuncio++ ?>
@@ -29,3 +29,21 @@
 
     </div>
 @endforeach
+
+@elseif(count($eventos==0))
+    <div class="row" id="anuncio1">
+
+        <div class="form-group referencia_anuncio">
+            {{--            {!! Form::label($numanuncio,'',['class'=>'col-md-1 control-label'])!!}--}}
+            <div class="col-md-12">
+                {{--<div class='anuncio{!! $numanuncio !!}' id='anuncio{!! $numanuncio !!}'>--}}
+                {!! Form::text('tbxanuncio1',"",['placeholder'=>'Datos del Evento','class'=>'form-control','id'=>'tbxanuncio1']) !!}
+                {{--</div>--}}
+            </div>
+        </div>
+
+
+
+
+    </div>
+@endif
