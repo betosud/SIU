@@ -163,6 +163,3 @@ Route::put('actualizaindicador/{id}', ['uses' => 'IndicadoresBarriosController@u
 
 
 
-Route::get('download', function() {
-    return Response::download(Input::get('path'));
-});
