@@ -1,101 +1,95 @@
-<nav class="navbar navbar-default" role="navigation">
-<div class="container-fluid">
-        <div class="navbar-header ">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#acolapsar">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+<div class="navbar-fixed">
+<nav>
+    <div class="nav-wrapper grey darken-4 ">
 
-            </button>
         @if(Auth::guest())
             <a href="/" class="brand-logo"><img style="max-width:55px; margin-top: -2px;" src="{!! asset('imagenes/logotransparente.png') !!}" border="0"></a>
         @else
             {{--<a href="/" class="navbar-brand">Test</a>--}}
-            <a href="/" class="brand-logo"><img style="max-width:55px; margin-top: -2px;" src="{!! asset('imagenes/logotransparente.png') !!}" border="0"></a>
-            <a class="brand-logo">{!! Auth::user()->barrionombre !!}</a>
+            <a href="/" class="brand-logo"><img style="max-width:55px; margin-top: -2px;" src="{!! asset('imagenes/logotransparente.png') !!}" border="0">{!! Auth::user()->barrionombre !!}</a>
+            {{--<a class="brand-logo">{!! Auth::user()->barrionombre !!}</a>--}}
+
+        @endif
+
+
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            @if(Auth::guest())
+                <li><a href="/"><i class="material-icons left">home</i>Inicio</a></li>
+                <li><a href="/"><i class="material-icons left">payment</i>Solicitar Gasto</a></li>
+
+                <li><a href="{!! route('auth/login') !!}"><i class="material-icons left">perm_identity</i>Ingresar</a></li>
+                {{--<li><a href="http://www.estacaamecameca.org">Pagina<i class=""></i></a></li>--}}
+                {{--<li><a href="http://www.lds.org">Sitio Oficial<i class=""></i></a></li>--}}
+                {{--<li><a href="http://www.facebook.com/estacaamecameca">Facebook<i class=""></i></a></li>--}}
+            @else
+
+                    {{--<li><a class="dropdown-button" href="#!" data-activates="cartas">Cartas<i class="material-icons right">collections_bookmark</i></a></li>--}}
+                    {{--@role('admin')--}}
+                        <li><a class="dropdown-button" href="#!" data-activates="administracion">Administracion<i class="material-icons right">supervisor_account</i></a></li>
+                    {{--@endrole--}}
+                    <li><a class="dropdown-button" href="#!" data-activates="usuario">{!! Auth::user()->name !!}<i class="material-icons right">perm_identity</i></a></li>
 
             @endif
-        </div>
-            <nav class="collapse navbar-collapse" id="acolapsar">
-                <ul class="nav navbar-nav navbar-right">
-                    @if(Auth::guest())
-                        <li><a href="/">Inicio<span class="glyphicon glyphicon-home"></span></a></li>
-                        <li><a href={!! route('solicitudgasto') !!}>Solicitar Gasto</a></li>
-                        <li><a href={!! route('auth/login') !!}>Ingresar</a></li>
-                        {{--<li><a href="http://www.estacaamecameca.org">Pagina<i class=""></i></a></li>--}}
-                        {{--<li><a href="http://www.lds.org">Sitio Oficial<i class=""></i></a></li>--}}
-                        {{--<li><a href="http://www.facebook.com/estacaamecameca">Facebook<i class=""></i></a></li>--}}
-                    @else
-                        {{--@permission('view.solicitudes')--}}
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gastos <span class="glyphicon gly glyphicon glyphicon glyphicon-usd"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href={!! route('solicitudgasto') !!}><span class="glyphicon-align-right glyphicon glyphicon glyphicon-menu-hamburger"></span> Nueva Solicitud</a></li>
-                                @permission('view.solicitudes|edit.solicitudes')
-                                <li><a href={!! route('solicitudes') !!}><span class="glyphicon-align-right glyphicon glyphicon glyphicon-inbox"></span> Solicitudes</a></li>
-                                @endpermission
+        </ul>
 
-                                @permission('view.sit|edit.sit')
-                                <li><a href={!! route('sits') !!}><span class="glyphicon-align-right glyphicon glyphicon glyphicon-menu-hamburger"></span> Sit's</a></li>
-                                @endpermission
-                            </ul>
+            {{--menus para mobiles--}}
+        <ul class="side-nav " id="mobile-demo">
+
+
+            @if(Auth::guest())
+                <li><a href="/" ><img style="max-width:55px; margin-top: -2px;" src="{!! asset('imagenes/logotransparente.png') !!}" border="0"></a></li>
+                <li><a href="/"><i class="material-icons left">home</i>Inicio</a></li>
+                <li><a href="/"><i class="material-icons left">payment</i>Solicitar Gasto</a></li>
+                <li><a href="{!! route('auth/login') !!}"><i class="material-icons left">perm_identity</i>Ingresar</a></li>
+            @else
+                <li><a href="/" ><img style="max-width:55px; margin-top: -2px;" src="{!! asset('imagenes/logotransparente.png') !!}" border="0"></a></li>
+                <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li>
+                            <a class="collapsible-header">{!! Auth::user()->name !!}<i class="material-icons">account_circle</i></a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <li>
+                                        <a class="black-text" href="{!!url('/logout') !!}">Salir<i class="material-icons left">exit_to_app</i></a>
+                                    </li>
+
+                                </ul>
+                            </div>
                         </li>
-                    {{--@endpermission--}}
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cartas <span class="glyphicon gly glyphicon glyphicon glyphicon-book"></span></a>
-                            <ul class="dropdown-menu">
-                                @permission('view.discurso|add.discurso')
-                                <li><a href={!! route('discursos') !!}><span class="glyphicon-align-right glyphicon glyphicon glyphicon-list-alt"></span> Discursos</a></li>
-                                @endpermission
-                                @permission('add.entrevista|view.entrevista')
-                                <li><a href={!! route('entrevistas') !!}><span class="glyphicon-align-right glyphicon glyphicon-list-alt"></span> Entrevistas</a></li>
-                                @endpermission
-
-                                @permission('add.asignacion|view.asignacion')
-                                <li><a href={!! route('asignaciones') !!}><span class="glyphicon-align-right glyphicon glyphicon-list-alt"></span> Asignaciones</a></li>
-                                @endpermission
-                            </ul>
-                        </li>
-
-
-
-                        @role('admin|pcia_estaca|sec_estaca|obispado|sec_barrio')
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Barrio <span class="glyphicon gly glyphicon-home"></span></a>
-                            <ul class="dropdown-menu">
-                                @permission('view.indicadores|edit.indicadores')
-                                <li><a href={!! route('indicadoresbarrio') !!}><span class="glyphicon glyphicon-stats"></span> Indicadores</a></li>
-                                @endpermission
-                                @permission('add.lider|view.lider')
-                                <li><a href={!! route('lideres') !!}><span class="glyphicon glyphicon-user"></span> Lideres</a></li>
-                                @endpermission
-                            </ul>
+                        @role('admin')
+                        <li>
+                            <a class="collapsible-header">Adminsitracion<i class="material-icons">supervisor_account</i></a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <li>
+                                    <li><a class="black-text" href="{!!url('usuarios') !!}">Usuarios<i class="material-icons right">supervisor_account</i></a></li>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                         @endrole
 
-                        @role('admin')
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administracion <span class="glyphicon gly glyphicon-cog"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href={!! route('usuarios') !!}><span class="glyphicon glyphicon-user"></span> Usuarios</a></li>
-                            </ul>
-                        </li>
-                        @endpermission
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{!! Auth::user()->name !!} <span class="glyphicon gly glyphicon-user"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href={!! route('auth/logout') !!}><span class="glyphicon gly glyphicon-log-out"></span> Salir</a></li>
-                            </ul>
-                        </li>
-
-                    @endif
+                    </ul>
+                </li>
+            @endif
 
 
-                    {{--<li><a href="#"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>--}}
+        </ul>
+    </div>
 
-                </ul>
-            </nav>
-</div>
+{{--combos para menu principal--}}
+    <ul id="usuario" class="dropdown-content">
+        <li><a class="black-text" href="{!!url('/logout') !!}">Salir<i class="material-icons right">exit_to_app</i></a></li>
+    </ul>
+    <ul id="administracion" class="dropdown-content">
+        <li><a class="black-text" href="{!!url('usuarios') !!}">Usuarios<i class="material-icons right">supervisor_account</i></a></li>
+    </ul>
+
+    <ul id="cartas" class="dropdown-content">
+        @permission('add.asignacion|view.asignacion')
+        <li><a class="black-text" href="{!!url('usuarios') !!}">Usuarios<i class="material-icons right">supervisor_account</i></a></li>
+        @endpermission
+    </ul>
 </nav>
+</div>

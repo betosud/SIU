@@ -109,7 +109,7 @@ return [
         'email'=>'Correo',
         'password'=>'Contraseña',
         'repassword'=>'Repetir Contraseña',
-        'forgot_password'=>'Recuperar Contraseña',
+        'forgot_password'=>'Olvide mi Contraseña',
         'login'=>'Ingresar',
         'resetpassword'=>'Enviar',
         'remember'=>'Recordarme',

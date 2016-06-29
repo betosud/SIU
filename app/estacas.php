@@ -13,5 +13,5 @@ class estacas extends Model
      *
      * @var array
      */
-    protected $fillable = ['id','nombre','emal','email', 'passwprd'];
+    protected $fillable = ['id','nombre','email','password'];
 }

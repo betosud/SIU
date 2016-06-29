@@ -1,67 +1,72 @@
 @extends('layouts.app')
 
-@section('contenido')
+@section('content')
 
-    <div class="container-fluid">
-        @if(Session::has('message'))
-            <div class="alert alert-success alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                {{ Session::get('message') }}
-            </div>
-        @endif
-        <div class="col-md-10 col-lg-offset-1">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title text-center">Usuarios</h3>
-                </div>
-
-                <div class="panel-body">
-                    <div class="btn-group">
-                        <a class="btn btn-success glyphicon glyphicon-plus" href="{!! route('nuevousuario') !!}" role="button" data-toggle="tooltip" data-placement="rigth" title="Agregar Nuevo Usuario"></a>
-                    </div>
-                    {{--@endpermission--}}
-                    <div class="table-responsive">
-                        <div class="usuarios">
-                            <table class="table table-bordered table-hover table-condensed clearfix">
-                                <th data-field="id">Nombre</th>
-                                <th data-field="id">Barrio</th>
-                                <th data-field="id">Perfil</th>
-                                <th data-field="id">Status</th>
-                                <th data-field="id">Acciones</th>
-                                @foreach($usuarios as $usuario)
-                                    <tr data-id={!! $usuario->id !!}>
-                                        <td>{!!$usuario->name !!}</td>
-                                        <td>{!!$usuario->barrionombre !!}</td>
-                                        <td>{!!$usuario->rolname!!}</td>
-                                        <td>{!!$usuario->status !!}</td>
-                                        <td>
-                                            <a href="{!! route('editarusuario',$usuario->id) !!}" class="btn btn-warning" aria-label="Left Align" role="button" data-toggle="tooltip" data-placement="top" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                                            <a href="{!! route('permisos',$usuario->id) !!}" class="btn btn-success" aria-label="Left Align" role="button" data-toggle="tooltip" data-placement="top" title="Permisos"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </table>
-
-
-                            <div class="pagination">
-                                {!! $usuarios->render() !!}
-                            </div>
-                        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 z-depth-3 card-panel">
+                @if(Session::has('message'))
+                    <script>
+                        Materialize.toast('{!! Session::get('message') !!}', 3000, 'rounded');
+                    </script>
+                @endif
+                <div class="row">
+                    <div class="input-field col s12 center">
+                        <h4 class="center login-form-text">Usuarios del Sistema</h4>
                     </div>
                 </div>
+
+                <a href="{!! route('nuevousuario') !!}" class="btn btn-floating waves-effect waves-light blue lighten-2 tooltipped " data-position="left" data-tooltip="Nuevo Usario"><i class="material-icons ">person_add</i></a>
+                <div class="usuarios">
+
+                    <table class="bordered responsive-table highlight">
+                        <thead>
+                        <tr>
+                            <th data-field="id">Nombre</th>
+                            <th data-field="name">Barrio</th>
+                            <th data-field="price">Perfil</th>
+                            <th data-field="price">Status</th>
+                            <th data-field="price">Acciones</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach($usuarios as $usuario)
+                            <tr data-id={!! $usuario->id !!}>
+                                <td>{!!$usuario->name !!}</td>
+                                <td>{!!$usuario->barrionombre !!}</td>
+                                <td>{!!$usuario->rolname!!}</td>
+                                <td>{!!$usuario->status !!}</td>
+                                <td>
+                                    <a href="{!! route('editarusuario',$usuario->id) !!}" class="btn btn-floating waves-effect waves-light green tooltipped " data-position="left" data-tooltip="Editar"><i class="material-icons ">edit</i></a>
+{{--                                    <a href="{!! route('editarusuario',$usuario->id) !!}" class="btn btn-warning" aria-label="Left Align" role="button" data-toggle="tooltip" data-placement="top" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>--}}
+{{--                                    <a href="{!! route('permisos',$usuario->id) !!}" class="btn btn-success" aria-label="Left Align" role="button" data-toggle="tooltip" data-placement="top" title="Permisos"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>--}}
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    <div class="pagination">
+
+                            {!! $usuarios->render() !!}
+
+                    </div>
+
+
+                </div>
+
+
             </div>
         </div>
     </div>
 
 
+    @include('layouts.loading')
 
-
-
-
-@include('layouts.loading')
 @endsection
 @section('scripts')
-    {!! Html::script('js/paginacion.js') !!}
-    {!! Html::script('js/quitaralerta.js') !!}
 
+    {!! Html::script('js/paginacion.js') !!}
 @endsection

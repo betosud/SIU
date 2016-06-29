@@ -36,22 +36,13 @@ class VerifyPermission
     public function handle($request, Closure $next, $permission)
     {
 
-//        if ($this->auth->guest()) {
-//            if ($request->ajax()) {
-//                return response('Unauthorized.', 401);
-//            } else {
-//                return redirect()->guest('auth/login');
-//            }
-//        }
-//
-//        return $next($request);
-
-        if($this->auth->guest()){
-            return redirect()->guest('auth/login');
+        if ($this->auth->guest()) {
+            return redirect()->guest('login');
         }
-
-        elseif ($this->auth->check() && $this->auth->user()->can($permission)) {
-            return $next($request);
+        else {
+            if ($this->auth->check() && $this->auth->user()->can($permission)) {
+                return $next($request);
+            }
         }
 
         throw new PermissionDeniedException($permission);

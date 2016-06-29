@@ -2,33 +2,15 @@
 
 namespace SIU;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use SIU\barrios;
 
 
-use Bican\Roles\Traits\HasRoleAndPermission;
-use Bican\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 
-class User extends Model implements AuthenticatableContract,
-                                    AuthorizableContract,
-                                    CanResetPasswordContract
+
+class User extends Authenticatable
 {
-    use Authenticatable, CanResetPassword,HasRoleAndPermission,SoftDeletes;
-    protected $dates = ['deleted_at'];
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'users';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -37,13 +19,16 @@ class User extends Model implements AuthenticatableContract,
     protected $fillable = ['id','idestaca','idbarrio','name', 'email', 'password','llamamiento'];
 
     /**
-     * The attributes excluded from the model's JSON form.
+     * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
 
+    protected $dates = ['deleted_at'];
 
     public function datos(){
         return $this->hasOne('SIU\barrios','id','idbarrio');
@@ -84,4 +69,7 @@ class User extends Model implements AuthenticatableContract,
         }
         return $status;
     }
+
+
+
 }

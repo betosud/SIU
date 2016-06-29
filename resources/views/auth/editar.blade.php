@@ -1,158 +1,76 @@
 @extends('layouts.app')
-@section('contenido')
 
-
-    <div class="container-fluid">
-        <div class="col-md-10 col-lg-offset-1">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title text-center">Nuevo Usuario</h3>
-                </div>
-
-                @if (count($errors) > 0)
-                    @foreach ($errors->all() as $error)
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {{ $error }}</div>
-                    @endforeach
-                @endif
-
-                {!! Form::model($usuario,['route'=>['actualizarusuario',$usuario->id],'method'=>'PUT','class'=>'form-horizontal']) !!}
-                <div class="form-group">
-
-                </div>
-                <div class="form-group">
-                    {!! Form::label('Estaca','',['class'=>'col-sm-2 control-label'])!!}
-                    <div class="col-sm-9">
-                        <div class='input-group'>
-                            <span class="input-group-addon glyphicon glyphicon-home" ></span>
-                            {{--{!! Form::text('duracion',"",['placeholder'=>'Duracion','class'=>'form-control']) !!}--}}
-                            {!!  Form::select('idestaca', $combos['estacas'],null,['placeholder'=>'Selecciona Estaca','class'=>'form-control']) !!}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('Barrios','',['class'=>'col-sm-2 control-label'])!!}
-                    <div class="col-sm-9">
-                        <div class='input-group'>
-                            <span class="input-group-addon glyphicon glyphicon-home" ></span>
-                            {{--{!! Form::text('duracion',"",['placeholder'=>'Duracion','class'=>'form-control']) !!}--}}
-                            {!!  Form::select('idbarrio', $combos['barrios'],null,['placeholder'=>'Selecciona Barrio','class'=>'form-control']) !!}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('Nombre','',['class'=>'col-sm-2 control-label'])!!}
-                    <div class="col-sm-9">
-                        <div class='input-group'>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon glyphicon-user"></span>
-                            </span>
-                            {!! Form::text('name',$usuario->name,['placeholder'=>'Nombre Completo','class'=>'form-control']) !!}
-
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    {!! Form::label('correo','',['class'=>'col-sm-2 control-label'])!!}
-                    <div class="col-sm-9">
-                        <div class='input-group'>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon glyphicon-envelope"></span>
-                            </span>
-                            {!! Form::text('email',$usuario->email,['placeholder'=>'nombre@dominio.com','class'=>'form-control']) !!}
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('password','',['class'=>'col-sm-2 control-label'])!!}
-                    <div class="col-sm-9">
-                        <div class='input-group'>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon glyphicon-asterisk"></span>
-                            </span>
-                            {{--                            {!! Form::password('password',"",['placeholder'=>'nombre@dominio.com','class'=>'form-control awesome']) !!}--}}
-                            {!! Form::password('password', array('class' => 'form-control awesome','placeholder'=>'minimo 6 caracteres')) !!}
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('Llamamiento','',['class'=>'col-sm-2 control-label'])!!}
-                    <div class="col-sm-9">
-                        <div class='input-group'>
-                            <span class="input-group-addon glyphicon glyphicon-heart-empty" ></span>
-                            {{--{!! Form::text('duracion',"",['placeholder'=>'Duracion','class'=>'form-control']) !!}--}}
-                            {!!  Form::select('llamamiento', $combos['llamamiento'],null,['placeholder'=>'Selecciona Llamamiento','class'=>'form-control']) !!}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('Perfil','',['class'=>'col-sm-2 control-label'])!!}
-                    <div class="col-sm-9">
-                        <div class='input-group'>
-                            <span class="input-group-addon glyphicon glyphicon-hdd" ></span>
-                            {{--{!! Form::text('duracion',"",['placeholder'=>'Duracion','class'=>'form-control']) !!}--}}
-                            {!!  Form::select('perfil', $combos['perfil'],$usuario->rolid,['placeholder'=>'Selecciona Perfil','class'=>'form-control']) !!}
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success">
-                            Guardar
-                        </button>
-                        <a  class="btn btn-danger" role="button" data-toggle="modal" data-target="#salir">Cancelar</a>
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 z-depth-3 card-panel">
+                <div class="row">
+                    <div class="input-field col s12 center">
+                        <h5 class="center login-form-text">Editar Usuario</h5>
+                        <h5 class="center login-form-text blue-text">{!! $usuario->name !!}</h5>
 
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col s12">
+                        <ul class="tabs ">
+                            <li class="blue-text tab col s6"><a href="#datos">Datos</a></li>
+                            <li class="blue-text tab col s6"><a href="#permisos">Permisos</a></li>
 
-                {!! Form::close() !!}
+                        </ul>
+                    </div>
+                    <div id="datos" class="col s12">
+                        @include('layouts.editarusuario')
+
+                    </div>
+
+                    <div id="permisos" class="col s12">
+                        <div class=""></div>
+                        @foreach($permisos as $permiso)
+                            <div class="col s6">
+                                <p>
+                                    @if($usuario->can($permiso->slug))
+                                        <input onchange="comprobar(this)" checked type="checkbox" id="{!! $permiso->id !!}" value="{!! $usuario->id !!}" />
+                                        <label for="{!! $permiso->id !!}">{!! $permiso->name !!}</label>
+                                    @else
+                                        <input onchange="comprobar(this)" type="checkbox" id="{!! $permiso->id !!}" value="{!! $usuario->id !!}" />
+                                        <label for="{!! $permiso->id !!}">{!! $permiso->name !!}</label>
+                                    @endif
 
 
-                @if($usuario->deleted_at != null)
-                    <a href="{!! route('activarusuario',$usuario->id) !!}" class="btn btn-success" role="button">Restaurar</a>
-                @else
-                    {!! Form::open(['route'=>['eliminarusuario',$usuario->id],'method'=>'DELETE']) !!}
-                    <button class="btn btn-danger" onclick="return confirm('Seguro que deseas Eliminar AL Usuario')" type="submit" name="action">{!! trans('validation.attributes.delete') !!}
-                    </button>
-                    {!! Form::Close() !!}
-                @endif
+                                </p>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
 
             </div>
         </div>
     </div>
-    <div class="modal fade" tabindex="-1" role="dialog" id="salir" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Si sale del modulo los cambios no se guardaran</h4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <a href="{!! route('usuarios') !!}" class="btn btn-success" role="button">Salir</a>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 
 
+
+
+    <!-- Modal Structure -->
+    <div id="salir" class="modal">
+        <div class="modal-content">
+
+            <p>Esta seguro que desea salir del modulo? si no ha guardado los cambios estos se perderan</p>
+        </div>
+        <div class="modal-footer">
+            <a href="{!! route('usuarios') !!}" class="modal-action modal-close waves-effect waves-green btn-flat">De Acuerdo</a>
+            <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat alert-dismissable">Cancelar</a>
+        </div>
+    </div>
+
+    {!! Form::open(['route'=>['permisos',':ID',$usuario->id],'method'=>'PUT','id'=>'form-update','class'=>'hide']) !!}
+    <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token">
+    {{--<input type="hidden" name="id" value="" id="id">--}}
+    {!! Form::close() !!}
 
 @endsection
-
 @section('scripts')
-
+    {!! Html::script('js/permisos.js') !!}
 
 @endsection

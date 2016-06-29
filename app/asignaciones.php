@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class asignaciones extends Model
 {
     protected $table = 'asignaciones';
+    
 
-
-    protected $fillable = ['id','idbarrio','fecha','hora', 'nombre', 'asignacion','lugar','realizado','lider1','lider2','lider3','user_id'];
+    protected $fillable = ['id','idbarrio','fecha','hora', 'nombre', 'asignacion','lugar','realizado','lider1','lider2','lider3','user_id','token'];
 
 
 

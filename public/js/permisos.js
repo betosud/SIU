@@ -9,7 +9,7 @@ function comprobar(elemento) {
     if ($(id).prop("checked")) {
 
         $(id).prop("checked", true);
-        console.log('agregar');
+        // console.log('agregar');
         evento='agregar';
 
     }
@@ -17,9 +17,10 @@ function comprobar(elemento) {
 
         $(id).prop("checked", false);
         evento='quitar';
+        // console.log('quitar');
     }
 
-// console.log('permiso '+permiso+" user "+user+"evento "+evento);
+console.log('permiso '+permiso+" user "+user+"evento "+evento);
 
     $.ajax({
         url:route,
@@ -29,6 +30,7 @@ function comprobar(elemento) {
         data:{permiso:permiso,usuario:user,evento:evento},
         success:function(mensaje){
 
+            Materialize.toast(mensaje.mensaje,3000,'rounded');
 
         },
         error:function(msj){

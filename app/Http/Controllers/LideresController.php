@@ -144,4 +144,21 @@ class LideresController extends Controller
         \Session::flash('message','El Lider '.$lider->nombre." se borro correctamente");
         return redirect()->route('lideres');
     }
+
+    public function getautocompletarlider(Request $request,$valor)
+    {
+        $result=array();
+        $lideres =lideres::bybarrio($request->user()->idbarrio)
+            ->where('nombre','like','%'.$valor.'%')
+            ->get();
+
+        foreach ($lideres as $lider)
+        {
+            $result[]=$lider->nombre." - ".$lider->llamamientonombre;
+        }
+
+        echo json_encode($result);
+
+
+    }
 }

@@ -1,52 +1,46 @@
-<div class="modal fade" tabindex="-1" role="dialog" id="enviar" data-keyboard="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<div id="enviar" class="modal">
+    <div class="modal-content">
+        <h4 class="modal-title titulo center-align"></h4>
 
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title titulo text-center"></h4>
-            </div>
+        <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token">
+        <input type="hidden" name="id" value="" id="id">
 
-
-            <div class="form-horizontal">
-                <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token">
-                <input type="hidden" name="id" value="" id="id">
-
-                    <div class="form-group">
-
-                        {!! Form::label('nombre','',['class'=>'col-sm-2 control-label'])!!}
-                        <div class="col-sm-9">
-                            <div class='date input-group' id='date'>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-user"></span>
+        <div class="row margin">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">account_circle</i>
+                {!! Form::text('nombre','',['class'=>'validate input-field','id'=>'nombre','placeholder'=>'Nombre'])  !!}
+                @if ($errors->has('nombre'))
+                    <span class="help-block red-text">
+                                <strong>{{ $errors->first('nombre') }}</strong>
                             </span>
-                                {!! Form::text('nombre',"",['placeholder'=>'nombre Completo','class'=>'form-control','id'=>'nombre']) !!}
+                @endif
+                <label for="email" data-error="dato no valido" data-success="Correcto" class="left-align">Nombre</label>
+                <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
+                </div>
+            </div>
+        </div>
 
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        {!! Form::label('correo','',['class'=>'col-sm-2 control-label'])!!}
-                        <div class="col-sm-9">
-                            <div class='date input-group' id='date'>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-envelope"></span>
+        <div class="row margin">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">mail</i>
+                {!! Form::email('email','',['class'=>'validate input-field','id'=>'email','placeholder'=>'nombre@dominio.com'])  !!}
+                @if ($errors->has('email'))
+                    <span class="help-block red-text">
+                                <strong>{{ $errors->first('email') }}</strong>
                             </span>
-                                {!! Form::text('email',"",['placeholder'=>'nombre@domino.com','class'=>'form-control','id'=>'email']) !!}
-
-                            </div>
-                        </div>
-                    </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-
-
-                {!! link_to('#',$title='Enviar',$attributes=['id'=>'enviarcorreo','class'=>'btn btn-success','role'=>'button'],$secure=null) !!}
+                @endif
+                <label for="email" data-error="dato no valido" data-success="Correcto" class="left-align">Correo Electronico</label>
+                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                </div>
             </div>
-            </div>
+        </div>
 
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+
+
+    </div>
+    <div class="modal-footer">
+        {!! link_to('#',$title='Enviar',$attributes=['id'=>'enviarcorreo','class'=>'modal-action modal-close waves-effect waves-green btn-flat','role'=>'button'],$secure=null) !!}
+        <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat alert-dismissable">Cancelar</a>
+
+    </div>
+</div>

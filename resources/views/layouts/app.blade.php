@@ -1,56 +1,109 @@
 <!DOCTYPE html>
-<html lang="es">
+{{--<html lang="es">--}}
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
     <title>SIU</title>
     <link rel="shortcut icon" href="{!! asset('imagenes/logotransparente.png') !!} ">
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{!! asset('materialize/css/materialize.min.css') !!}"  media="screen,projection"/>
 
-    <!-- Bootstrap -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    {{--<link href="{!! asset('bootstrap/bootstrap.min.css') !!}" rel="stylesheet">--}}
-    <link href="{!! asset('toastr/build/toastr.css') !!}" rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" href="{!! asset('time/lolliclock.css') !!}"  media="screen,projection"/>
 
 
-{{--datetime--}}
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="/datetime/moment.min.js"></script>
-    {{--<script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>--}}
-    <script type="text/javascript" src="/datetime/build/js/bootstrap-datetimepicker.min.js"></script>
-    {{--<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />--}}
-    <link rel="stylesheet" href="/datetime/build/css/bootstrap-datetimepicker.min.css" />
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    {!! Html::style('css/inputs.css') !!}
+
+
+    <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto';
+        }
+
+        .fa-btn {
+            margin-right: 4px;
+        }
+    </style>
+
+
+
+
 </head>
-<body>
+<body id="app-layout">
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+<script src="http://momentjs.com/downloads/moment.min.js"></script>
+<script src="{!! asset('time/lolliclock.js') !!}"></script>
 
-{{--insertar menu--}}
+
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+
 @include('layouts.menu')
 
 
+@yield('content')
 
 
 
-@yield('contenido')
-
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 
+<script>
+    $( document ).ready(function() {
 
-{!! Html::script('toastr/build/toastr.min.js') !!}
-{!! Html::script('js/utiles.js') !!}
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year
+            closeOnSelect: true,
+            labelMonthNext: 'Siguiente Mes',
+            labelMonthPrev: 'Mes Anterior',
+            labelMonthSelect: 'Selecciona Mes',
+            labelYearSelect: 'Selecciona Año',
+            monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Nombiembre', 'Diciembre' ],
+            monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+            weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado' ],
+            weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
+            weekdaysLetter: [ 'D', 'L', 'M', 'M', 'J', 'V', 'S' ],
+            today: 'Hoy',
+            clear: 'Borrar',
+            close: 'Cerrar',
+            format: 'yyyy-mm-dd'
+        });
+        $('#pick-a-time').lolliclock({autoclose:true});
+
+
+
+        $(".button-collapse").sideNav();
+        $('.slider').slider({
+            Height:200
+        });
+        $('.modal-trigger').leanModal({
+            dismissible: false,
+        });
+        $('select').material_select();
+
+        $('.tooltipped').tooltip({delay: 50});
+        $('.dropdown-button').dropdown({
+                    inDuration: 300,
+                    outDuration: 225,
+
+                    constrain_width: true, // Does not change width of dropdown to that of the activator
+                    hover: true, // Activate on hover
+                    gutter: 0, // Spacing from edge
+                    belowOrigin: true, // Displays dropdown below the button
+                    alignment: 'left' // Displays dropdown with edge aligned to the left of button
+                }
+        );
+    });
+</script>
 @yield('scripts')
-
-
 </body>
 </html>

@@ -6,21 +6,18 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.1.*",
-        "laravelcollective/html": "5.1.*",
-        "bican/roles": "^2.1",
-        "itbz/fpdf": "^1.7",
-        "mews/captcha": "^2.1",
-        "arielcr/numero-a-letras": "dev-master",
+        "laravel/framework": "5.2.*",
+        "laravelcollective/html": "5.2.*",
         "google/apiclient": "1.*",
-        "guzzlehttp/guzzle": "^6.2"
-
+        "itbz/fpdf": "^1.7",
+        "bican/roles": "2.1.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~4.0",
-        "phpspec/phpspec": "~2.1"
+        "symfony/css-selector": "2.8.*|3.0.*",
+        "symfony/dom-crawler": "2.8.*|3.0.*"
     },
     "autoload": {
         "classmap": [

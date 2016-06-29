@@ -2,8 +2,6 @@
 
 namespace Bican\Roles\Models;
 
-
-
 use Bican\Roles\Traits\Slugable;
 use Illuminate\Database\Eloquent\Model;
 use Bican\Roles\Traits\PermissionHasRelations;

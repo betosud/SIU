@@ -1,80 +1,90 @@
 @extends('layouts.app')
-@section('contenido')
 
-    <div class="container-fluid">
-        @if(Session::has('message'))
-            <div class="alert alert-success alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                {{ Session::get('message') }}
-            </div>
-        @endif
-        <div class="col-md-10 col-lg-offset-1">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title text-center">Asignaciones</h3>
-                </div>
+@section('content')
 
-                <div class="panel-body">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 z-depth-3 card-panel">
+                @if(Session::has('message'))
+                    <script>
+                        Materialize.toast('{!! Session::get('message') !!}', 3000, 'rounded');
+                    </script>
+                @endif
+                <div class="row">
+                    <div class="input-field col s12 center">
+                        <h4 class="center login-form-text">Asignaciones</h4>
+                    </div>
+
                     @permission('add.asignacion')
-                    <div class="btn-group">
-                        <a class="btn btn-success glyphicon glyphicon-plus" href="{!! route('nuevaasignacion') !!}" role="button" data-toggle="tooltip" data-placement="rigth" title="Agregar Nueva Aignacion"></a>
-                    </div>
+                        <a href="{!! route('nuevaasignacion') !!}" class="btn btn-floating waves-effect waves-light blue lighten-2 tooltipped " data-position="left" data-tooltip="Nueva Asignacion"><i class="material-icons ">add</i></a>
                     @endpermission
-                    <div class="table-responsive">
-                        <div class="asignaciones">
-                            <table class="table table-bordered table-hover table-condensed clearfix">
-                                <th data-field="id">Nombre</th>
-                                <th data-field="real">Fecha</th>
-                                <th data-field="real">Hora</th>
-                                <th data-field="meta">Realizado</th>
+                    <div class="usuarios">
 
-                                <th data-field="meta">Acciones</th>
+                        <table class="bordered responsive-table highlight">
+                            <thead>
+                            <tr>
+                                <th data-field="nombre">Nombre</th>
+                                <th data-field="fecha">Fecha</th>
+                                <th data-field="hora">Hora</th>
+                                <th data-field="realizado">Realizado</th>
+                                <th data-field="acciones">Acciones</th>
+                            </tr>
+                            </thead>
 
-                                {{--</tr>--}}
-                                @foreach($asignaciones as $asignacion)
-                                    <tr data-id={!! $asignacion->id !!} >
-                                        <td>{!!$asignacion->nombre !!}</td>
-                                        <td>{!!$asignacion->fechadma !!}</td>
-                                        <td>{!!$asignacion->horahm !!}</td>
-                                        <td>
-                                            {!!  Form::select('status', ['0'=>'No','1'=>'Si'],$asignacion->realizado,['class'=>'status form-control','id'=>'status'.$asignacion->id]) !!}
-                                        </td>
-                                        {{--@permission('edit.lider')--}}
-                                        <td>
-                                            <a href="{!! route('pdfasignacion',[$asignacion->id,'descargar']) !!}" class="btn btn-success" aria-label="Left Align" role="button" data-toggle="tooltip" data-placement="top" title="Descargar"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span></a>
-                                            @permission('edit.asignacion')
-                                            <a href="{!! route('editarasignacion',$asignacion->id) !!}" class="btn btn-primary" aria-label="Left Align" role="button" data-toggle="tooltip" data-placement="top" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                                            @endpermission
-                                            @permission('send.asignacion')
-                                            <span data-toggle="tooltip" data-placement="top" title="Enviar">
-                                                <a OnClick='mostrar(this)' id="{!! $asignacion->id !!}" class="btn btn-info" aria-label="Left Align" role="button"  data-toggle="modal" data-target="#enviar"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
-                                            </span>
-                                            @endpermission
-                                        </td>
-                                        {{--@endpermission--}}
-                                    </tr>
-                                @endforeach
+                            <tbody>
 
-                            </table>
+                            @foreach($asignaciones as $asignacion)
+                                <tr data-id={!! $asignacion->id !!}>
+                                    <td>{!!$asignacion->nombre !!}</td>
+                                    <td>{!!$asignacion->fechadma !!}</td>
+                                    <td>{!!$asignacion->hora !!}</td>
+                                    <td>
+                                        {!!  Form::select('status', ['0'=>'No','1'=>'Si'],$asignacion->realizado,['class'=>'status browser-default input-field','id'=>'status'.$asignacion->id]) !!}
+                                        {{--{!!$asignacion->realizadostr !!}--}}
+                                    </td>
+                                    <td>
 
-                            <div class="pagination">
-                                {!! $asignaciones->render() !!}
-                            </div>
-                            @include('layouts.enviar')
-                            {!! Html::script('js/enviarasignacion.js') !!}
-                            {!! Html::script('js/actualizastatusasignacion.js') !!}
+                                        <a href="{!! route('pdfasignacion',[$asignacion->id,'descargar']) !!}" class="btn btn-floating waves-effect waves-light black tooltipped " data-position="top" data-tooltip="Imprimir"><i class="material-icons ">print</i></a>
+                                        @permission('edit.asignacion')
+                                            <a href="{!! route('editarasignacion',$asignacion->id) !!}" class="btn btn-floating waves-effect waves-light green tooltipped " data-position="top" data-tooltip="Editar"><i class="material-icons ">edit</i></a>
+                                        @endpermission
+                                        @permission('send.asignacion')
+                                            <a OnClick='mostrar(this)' id="{!! $asignacion->id !!}" href="#enviar" class="btn btn-floating waves-effect waves-light blue tooltipped modal-trigger" data-position="top" data-tooltip="Enviar"><i class="material-icons ">mail_outline</i></a>
+                                        @endpermission
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
+                        <div class="pagination">
+
+                            {!! $asignaciones->render() !!}
+
                         </div>
+                        @include('layouts.enviar')
+                        {!! Html::script('js/enviarasignacion.js') !!}
+                        {!! Html::script('js/actualizastatusasignacion.js') !!}
+
+
                     </div>
+
+
+
                 </div>
             </div>
         </div>
     </div>
+
     {!! Form::open(['route'=>['actualizarasignacionstatus',':ID'],'method'=>'PUT','id'=>'form-update','class'=>'hide']) !!}
     {!! Form::text('realizado',':VALOR' ,['class'=>'realizado ']) !!}
     {!! Form::close() !!}
-    @include('layouts.loading')
+
+
+@include('layouts.loading')
+
 @endsection
 @section('scripts')
+
     {!! Html::script('js/paginacion.js') !!}
-    {!! Html::script('js/quitaralerta.js') !!}
 @endsection

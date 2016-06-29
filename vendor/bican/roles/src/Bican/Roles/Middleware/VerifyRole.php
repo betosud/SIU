@@ -5,6 +5,7 @@ namespace Bican\Roles\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Bican\Roles\Exceptions\RoleDeniedException;
+use Illuminate\Support\Facades\Auth;
 
 class VerifyRole
 {
@@ -35,8 +36,15 @@ class VerifyRole
      */
     public function handle($request, Closure $next, $role)
     {
-        if ($this->auth->check() && $this->auth->user()->is($role)) {
-            return $next($request);
+        
+        if ($this->auth->guest()) {
+            return redirect()->guest('login');
+        }
+        else {
+
+            if ($this->auth->check() && $this->auth->user()->is($role)) {
+                return $next($request);
+            }
         }
 
         throw new RoleDeniedException($role);

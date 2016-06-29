@@ -1,157 +1,194 @@
 @extends('layouts.app')
 
+@section('content')
 
-@section('contenido')
 
 
-    <div class="container-fluid">
-        <div class="col-md-10 col-lg-offset-1">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title text-center">Nueva Asignacion</h3>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 z-depth-3 card-panel">
+                <div class="row">
+                    <div class="input-field col s12 center">
+                        <h4 class="center login-form-text">Nueva Asignacion</h4>
 
-                @if (count($errors) > 0)
-                    @foreach ($errors->all() as $error)
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {{ $error }}</div>
-                    @endforeach
-                @endif
+                        {!! Form::open(array('url' => 'guardarasignacion', 'method' => 'post','class'=>'form-horizontal')) !!}
 
-                {!! Form::open(array('url' => 'guardarasignacion', 'method' => 'post','class'=>'form-horizontal')) !!}
-                <div class="form-group">
-                    {!! Form::text('idbarrio',Auth::user()->idbarrio ,['class'=>'hide']) !!}
-                    {!! Form::text('user_id',Auth::user()->id ,['class'=>'hide']) !!}
-                    {!! Form::text('realizado','0' ,['class'=>'hide']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('Fecha','',['class'=>'col-sm-2 control-label'])!!}
-                    <div class="col-sm-9">
-                        <div class='date input-group' id='date'>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
+                        {!! Form::text('idbarrio',Auth::user()->idbarrio ,['class'=>'hide']) !!}
+                        {!! Form::text('user_id',Auth::user()->id ,['class'=>'hide']) !!}
+                        {!! Form::text('realizado','0' ,['class'=>'hide']) !!}
+                        {!! Form::text('token',csrf_token() ,['class'=>'hide']) !!}
+
+
+                        {{--<input id="datetimepicker" type="text" >--}}
+                        <div class="row margin">
+                            <div class="input-field col  m6 s12">
+                                <i class="material-icons prefix ">event</i>
+                                {!! Form::text('fecha','',['class'=>'validate input-field datepicker','id'=>'datepicker','placeholder'=>'Seleeciona Fecha'])  !!}
+                                @if ($errors->has('fecha'))
+                                    <span class="help-block red-text">
+                                <strong>{{ $errors->first('fecha') }}</strong>
                             </span>
-                            {!! Form::text('fecha',"",['placeholder'=>'Seleccione Fecha','class'=>'form-control']) !!}
+                                @endif
+                                <label for="fecha" data-error="dato no valido" data-success="Correcto" class="left-align">Fecha</label>
+                                <div class="form-group{{ $errors->has('fecha') ? ' has-error' : '' }}">
+                                </div>
+                            </div>
+                        {{--</div>--}}
 
-                        </div>
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    {!! Form::label('Hora','',['class'=>'col-sm-2 control-label'])!!}
-                    <div class="col-sm-9">
-                        <div class='date input-group' id='time'>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
+                        {{--<div class="row margin">--}}
+                            <div class="input-field col  m6 s12">
+                                <i class="material-icons prefix">alarm</i>
+                                {!! Form::text('hora','',['class'=>'validate input-field pick-a-time','id'=>'pick-a-time','placeholder'=>'Seleeciona Hora'])  !!}
+                                @if ($errors->has('hora'))
+                                    <span class="help-block red-text">
+                                <strong>{{ $errors->first('hora') }}</strong>
                             </span>
-
-                            {!! Form::text('hora',"",['placeholder'=>'Seleccione Hora','class'=>'form-control']) !!}
+                                @endif
+                                <label for="hora" data-error="dato no valido" data-success="Correcto" class="left-align">Hora</label>
+                                <div class="form-group{{ $errors->has('hora') ? ' has-error' : '' }}">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    {!! Form::label('Nombre','',['class'=>'col-sm-2 control-label'])!!}
-                    <div class="col-sm-9">
-                        <div class='date input-group' id='time'>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon glyphicon-user"></span>
+
+
+
+                        <div class="row margin">
+                            <div class="input-field col m6 s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                {!! Form::text('nombre','',['class'=>'validate input-field','id'=>'nombre','placeholder'=>'Ingresa el Nombre completo'])  !!}
+                                @if ($errors->has('nombre'))
+                                    <span class="help-block red-text">
+                                <strong>{{ $errors->first('nombre') }}</strong>
                             </span>
-                            {!! Form::text('nombre',"",['placeholder'=>'Nombre Completo','class'=>'form-control']) !!}
+                                @endif
+                                <label for="nombre" data-error="dato no valido" data-success="Correcto" class="left-align">Nombre del Miembro o Familia</label>
+                                <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
+                                </div>
+                            </div>
+                        {{--</div>--}}
 
+                        {{--<div class="row margin">--}}
+                            <div class="input-field col m6 s12">
+                                <i class="material-icons prefix">description</i>
+                                {!! Form::text('asignacion','',['class'=>'validate input-field','id'=>'asignacion','placeholder'=>'Descripcion de la Asignacion'])  !!}
+                                @if ($errors->has('asignacion'))
+                                    <span class="help-block red-text">
+                                <strong>{{ $errors->first('asignacion') }}</strong>
+                            </span>
+                                @endif
+                                <label for="asignacion" data-error="dato no valido" data-success="Correcto" class="left-align">Asignacion</label>
+                                <div class="form-group{{ $errors->has('asignacion') ? ' has-error' : '' }}">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    {!! Form::label('Asignacion','',['class'=>'col-sm-2 control-label'])!!}
-                    <div class="col-sm-9">
-                        <div class='date input-group' id='time'>
-                            <span class="input-group-addon glyphicon glyphicon-tasks" ></span>
-                            {!! Form::text('asignacion',"",['placeholder'=>'Descripcion de la asignacion','class'=>'form-control']) !!}
+
+                        <div class="row margin">
+                            <div class="input-field col m6 s12">
+                                <i class="material-icons prefix">place</i>
+                                {!! Form::text('lugar','',['class'=>'validate input-field','id'=>'lugar','placeholder'=>'Lugar de la Asignacion'])  !!}
+                                @if ($errors->has('lugar'))
+                                    <span class="help-block red-text">
+                                <strong>{{ $errors->first('lugar') }}</strong>
+                            </span>
+                                @endif
+                                <label for="lugar" data-error="dato no valido" data-success="Correcto" class="left-align">Lugar</label>
+                                <div class="form-group{{ $errors->has('lugar') ? ' has-error' : '' }}">
+                                </div>
+                            </div>
+                        {{--</div>--}}
+
+                        {{--<div class="row margin">--}}
+                            <div class="input-field col m6 s12">
+                                {{--<i class="material-icons prefix">person</i>--}}
+                                {!!  Form::select('lider1', $lideres,null,['placeholder'=>'Selecciona Lider','class'=>'validate input-field lider1','id'=>'lider1']) !!}
+                                @if ($errors->has('lider1'))
+                                    <span class="help-block red-text">
+                                <strong>{{ $errors->first('lider1') }}</strong>
+                            </span>
+                                @endif
+                                <label for="lider1" data-error="dato no valido" data-success="Correcto" class="left-align ">Firma Lider 1</label>
+                                <div class="form-group{{ $errors->has('lider1') ? ' has-error' : '' }}">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
+                        <div class="row margin">
+                            <div class="input-field col m6 s12">
+                                {{--<i class="material-icons prefix">person</i>--}}
+                                {!!  Form::select('lider2', $lideres,null,['placeholder'=>'Selecciona Lider','class'=>'validate input-field lider2','id'=>'lider2']) !!}
+                                @if ($errors->has('lider2'))
+                                    <span class="help-block red-text">
+                                <strong>{{ $errors->first('lider2') }}</strong>
+                            </span>
+                                @endif
+                                <label for="lider2" data-error="dato no valido" data-success="Correcto" class="left-align">Firma Lider 2</label>
+                                <div class="form-group{{ $errors->has('lider2') ? ' has-error' : '' }}">
+                                </div>
+                            </div>
+                        {{--</div>--}}
 
-                <div class="form-group">
-                    {!! Form::label('Lugar','',['class'=>'col-sm-2 control-label'])!!}
-                    <div class="col-sm-9">
-                        <div class='date input-group' id='time'>
-                            <span class="input-group-addon glyphicon glyphicon-globe" ></span>
-                            {!! Form::text('lugar',"",['placeholder'=>'Lugar','class'=>'form-control']) !!}
+                        {{--<div class="row margin">--}}
+                            <div class="input-field col m6 s12">
+                                {{--<i class="material-icons prefix">person</i>--}}
+                                {!!  Form::select('lider3', $lideres,null,['placeholder'=>'Selecciona Lider','class'=>'validate input-field lider3','id'=>'lider3']) !!}
+                                @if ($errors->has('lider3'))
+                                    <span class="help-block red-text">
+                                <strong>{{ $errors->first('lider3') }}</strong>
+                            </span>
+                                @endif
+                                <label for="lider3" data-error="dato no valido" data-success="Correcto" class="left-align">Firma Lider 3</label>
+                                <div class="form-group{{ $errors->has('lider3') ? ' has-error' : '' }}">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    {!! Form::label('Lider 1','',['class'=>'col-sm-2 control-label'])!!}
-                    <div class="col-sm-9">
-                        <div class='date input-group' id='time'>
-                            <span class="input-group-addon glyphicon glyphicon-user" ></span>
-                            {{--{!! Form::text('duracion',"",['placeholder'=>'Duracion','class'=>'form-control']) !!}--}}
-                            {!!  Form::select('lider1', $lideres,null,['placeholder'=>'Selecciona Lider','class'=>'form-control']) !!}
+                        <div class="row">
+                            <div class="input-field col s4 m6 right">
+                                <button type="submit" class="btn waves-effect waves-light col s12 grey darken-1 tooltipped" data-position="top" data-tooltip="Guardar Usuario"> <i class="material-icons">save</i>Guardar</button>
+                            </div>
+                            {{--</div>--}}
+                            {{--<div class="row">--}}
+                            <div class="input-field col s4 m6 right">
+                                <a href="#salir"  class="btn waves-effect waves-light col s12 red lighten-2 tooltipped modal-trigger" data-position="top" data-tooltip="Salir del Modulo"><i class="material-icons">cancel</i>Cancelar</a>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    {!! Form::label('Lider 2','',['class'=>'col-sm-2 control-label'])!!}
-                    <div class="col-sm-9">
-                        <div class='date input-group' id='time'>
-                            <span class="input-group-addon glyphicon glyphicon-user" ></span>
-                            {{--{!! Form::text('duracion',"",['placeholder'=>'Duracion','class'=>'form-control']) !!}--}}
-                            {!!  Form::select('lider2', $lideres,null,['placeholder'=>'Selecciona Lider','class'=>'form-control']) !!}
-                        </div>
-                    </div>
-                </div>
+                        {!! Form::close() !!}
 
-                <div class="form-group">
-                    {!! Form::label('Lider 3','',['class'=>'col-sm-2 control-label'])!!}
-                    <div class="col-sm-9">
-                        <div class='date input-group' id='time'>
-                            <span class="input-group-addon glyphicon glyphicon-user" ></span>
-                            {{--{!! Form::text('duracion',"",['placeholder'=>'Duracion','class'=>'form-control']) !!}--}}
-                            {!!  Form::select('lider3', $lideres,null,['placeholder'=>'Selecciona Lider','class'=>'form-control']) !!}
-                        </div>
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success">
-                            Guardar
-                        </button>
-                        <a  class="btn btn-danger" role="button" data-toggle="modal" data-target="#salir">Cancelar</a>
+
+
+
+
 
                     </div>
                 </div>
-
-
-                {!! Form::close() !!}
-
             </div>
         </div>
     </div>
-    <div class="modal fade" tabindex="-1" role="dialog" id="salir" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Si sale del modulo los cambios no se guardaran</h4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <a href="{!! route('asignaciones') !!}" class="btn btn-success" role="button">Salir</a>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 
+    {!! Form::close() !!}
+    {!! Form::open(['route' => ['lideres', ':VAL'], 'method' => 'GET', 'id' => 'form-lideres']) !!}
+    <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token">
+    {!! Form::close() !!}
+    <!-- Modal Structure -->
+    <div id="salir" class="modal">
+        <div class="modal-content">
 
+            <p>Esta seguro que desea salir del modulo? si no ha guardado los cambios estos se perderan</p>
+        </div>
+        <div class="modal-footer">
+            <a href="{!! route('asignaciones') !!}" class="modal-action modal-close waves-effect waves-green btn-flat">De Acuerdo</a>
+            <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat alert-dismissable">Cancelar</a>
+        </div>
+    </div>
 
 @endsection
 
-@section('scripts')
 
+
+@section('scripts')
+    {!! Html::script('js/liderescartas.js') !!}
 
 @endsection

@@ -6,7 +6,11 @@ $(document).on('click','.pagination a',function(e){
     var route=page.split('?')[0];
     var pageid=page.split('=')[1];
     var clase='.'+route;
-    $('#loading').modal('show')
+
+    $('#loading').openModal({
+        opacity: .3,
+        dismissible: false,
+    });
     // console.log(page);
     // console.log(route);
     // console.log(pageid);
@@ -17,7 +21,7 @@ $(document).on('click','.pagination a',function(e){
         type:'GET',
         datatype: 'json',
         success: function (data) {
-            $('#loading').modal('hide')
+            $('#loading').closeModal();
             $(clase).html(data);
         }
     });

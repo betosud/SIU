@@ -39,36 +39,36 @@ class EnviarCorreoController extends Controller
 //
 //        }
 //
-        if ($modulo=='entrevista'){
-            $data = entrevistas::findorfail($id);
-            $nombrearchivo=$data->nombrearchivo.".pdf";
-            $pdf= route('pdfentrevista',[$data->id,'cadena']);
-            $descripcion="Cita Para Entrevista";
-            $nombre=$request->nombre;
-        }
+//        if ($modulo=='entrevista'){
+//            $data = entrevistas::findorfail($id);
+//            $nombrearchivo=$data->nombrearchivo.".pdf";
+//            $pdf= route('pdfentrevista',[$data->id,'cadena']);
+//            $descripcion="Cita Para Entrevista";
+//            $nombre=$request->nombre;
+//        }
 
-        else if ($modulo=='asignacion'){
+        if ($modulo=='asignacion'){
             $data = asignaciones::findorfail($id);
             $nombrearchivo=$data->nombrearchivo.".pdf";
             $pdf= route('pdfasignacion',[$data->id,'cadena']);
             $descripcion="Asignacion del Barrio";
             $nombre=$request->nombre;
         }
-        else if($modulo=='discurso') {
-            $data = discursos::findorfail($id);
-            $nombrearchivo=$data->nombrearchivo.".pdf";
-            $pdf= route('pdfdiscurso',[$data->id,'cadena']);
-            $descripcion="Asignacion de discurso";
-            $nombre=$request->nombre;
-        }
+//        else if($modulo=='discurso') {
+//            $data = discursos::findorfail($id);
+//            $nombrearchivo=$data->nombrearchivo.".pdf";
+//            $pdf= route('pdfdiscurso',[$data->id,'cadena']);
+//            $descripcion="Asignacion de discurso";
+//            $nombre=$request->nombre;
+//        }
 
-        else if($modulo=='sit') {
-            $data =solicitudes::findorfail($id);
-            $nombrearchivo=$data->nombrearchivo;
-            $pdf= route('pdfsit',[$data->id,'completo','cadena']);
-            $descripcion="Asignacion de Sit";
-            $nombre=$request->nombre;
-        }
+//        else if($modulo=='sit') {
+//            $data =solicitudes::findorfail($id);
+//            $nombrearchivo=$data->nombrearchivo;
+//            $pdf= route('pdfsit',[$data->id,'completo','cadena']);
+//            $descripcion="Asignacion de Sit";
+//            $nombre=$request->nombre;
+//        }
 
         $barrio=barrios::findorfail($data->idbarrio);
         $pdffile=file_get_contents($pdf);
