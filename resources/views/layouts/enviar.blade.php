@@ -1,3 +1,4 @@
+<div class="container-fluid col m10">
 <div id="enviar" class="modal">
     <div class="modal-content">
         <h4 class="modal-title titulo center-align"></h4>
@@ -6,7 +7,7 @@
         <input type="hidden" name="id" value="" id="id">
 
         <div class="row margin">
-            <div class="input-field col s12">
+            <div class="input-field col s11 m11">
                 <i class="material-icons prefix">account_circle</i>
                 {!! Form::text('nombre','',['class'=>'validate input-field','id'=>'nombre','placeholder'=>'Nombre'])  !!}
                 @if ($errors->has('nombre'))
@@ -21,7 +22,7 @@
         </div>
 
         <div class="row margin">
-            <div class="input-field col s12">
+            <div class="input-field col s11 m11">
                 <i class="material-icons prefix">mail</i>
                 {!! Form::email('email','',['class'=>'validate input-field','id'=>'email','placeholder'=>'nombre@dominio.com'])  !!}
                 @if ($errors->has('email'))
@@ -43,4 +44,5 @@
         <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat alert-dismissable">Cancelar</a>
 
     </div>
+</div>
 </div>

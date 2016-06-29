@@ -45,33 +45,28 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-
-
         if ($e instanceof \Bican\Roles\Exceptions\PermissionDeniedException) {
 //            return response('No cuentas Con Acceso a este modulo.', 401);
             \Session::flash('message', 'No tienes Permiso a este modulo');
-            return redirect()->route('/home');
+            return redirect()->back();
         }
         if ($e instanceof \Bican\Roles\Exceptions\LevelDeniedException) {
 //            return response('No cuentas Con Acceso a este modulo.', 401);
             \Session::flash('message', 'No tienes Permiso a este modulo');
-            return redirect()->route('/home');
+            return redirect()->back();
         }
         if ($e instanceof \Bican\Roles\Exceptions\RoleDeniedException) {
 
 //            return response('No cuentas Con Acceso a este modulo.', 401);
             \Session::flash('message', 'No tienes Permiso a este modulo');
-            return redirect()->route('/home');
+            return redirect()->back();
         }
         if ($e instanceof \Bican\Roles\Exceptions\AccessDeniedException) {
 //            return response('No cuentas Con Acceso a este modulo.', 401);
             \Session::flash('message', 'No tienes Permiso a este modulo');
-            return redirect()->route('/home');
+            return redirect()->back();
         }
+
         return parent::render($request, $e);
-
-
-
-
     }
 }

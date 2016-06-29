@@ -5,6 +5,7 @@ namespace SIU\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use SIU\catalogos;
 use SIU\Http\Requests;
 
@@ -39,9 +40,9 @@ class LideresController extends Controller
     {
         $llamamientos=catalogos::bycatalogo('llamamiento')->orderby('nombre')->lists('nombre','id');
         $organizacion=catalogos::bycatalogo('organizacion')->orderby('nombre')->lists('nombre','id');
-        $combo['llamamientos']=$llamamientos;
-        $combo['organizacion']=$organizacion;
-        return view('lideres.nuevo',compact('combo'));
+        $combos['llamamientos']=$llamamientos;
+        $combos['organizacion']=$organizacion;
+        return view('lideres.nuevo',compact('combos'));
     }
 
     /**
@@ -56,16 +57,28 @@ class LideresController extends Controller
             'nombre'=>'required',
             'email'=>'email',
             'phone'=>'digits:10',
-            'llamamiento'=>'required',
+            'llamamiento'=>'required|numeric',
             'organizacion'=>'required');
 
-        $this->validate($request,$rules);
+        $validacion=$this->validate($request,$rules);
+
+
+        $request['nombre']=Str::title($request['nombre']);
 
         $lider=new lideres($request->all());
         $lider->save();
 
-        \Session::flash('message','Registro Guardado Correctamente');
-        return \Redirect::route('lideres');
+
+        if($request->ajax()){
+            $liderselect=array('id'=>$lider->id,'nombre'=>$lider->conllamamiento);
+            return response()->json([
+                'error'=>$validacion,'lider'=>$liderselect
+            ]);
+        }
+        else {
+            \Session::flash('message','Registro Guardado Correctamente');
+            return \Redirect::route('lideres');
+        }
     }
 
     /**
@@ -74,9 +87,36 @@ class LideresController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function consulta($organizacion,$modo)
     {
-        //
+        if($organizacion=='todos'){
+            if($modo=='activos'){
+                $lista =lideres::bybarrio(Auth::user()->idbarrio)->orderBy('nombre')->get();
+            }
+            else{
+                $lista = lideres::bybarrio(Auth::user()->idbarrio)->withTrashed()->orderBy('nombre')->get();
+            }
+        }
+        else{
+            $catalogo= catalogos::where('nombre',$organizacion)->firstOrFail();
+
+//            dd($catalogo);
+            if ($modo=='activos'){
+                $lista =lideres::bybarrio(Auth::user()->idbarrio)->where('organizacion',$catalogo->id)->orderBy('nombre')->get();
+            }
+            else{
+                $lista = lideres::bybarrio(Auth::user()->idbarrio)->withTrashed()->where('organizacion',$catalogo->id)->orderBy('nombre')->get();
+            }
+
+        }
+        $lideres=array();
+//        dd($lista);
+        foreach($lista as $lider){
+            $lideres[]=array('id'=>$lider->id,'nombre'=>$lider->conllamamiento);
+        }
+
+
+        return response()->json(['combo'=>$lideres]);
     }
 
     /**
@@ -87,13 +127,15 @@ class LideresController extends Controller
      */
     public function edit($id)
     {
-        $combo['llamamientos']=catalogos::bycatalogo('llamamiento')->orderby('nombre')->lists('nombre','id');
-        $combo['organizacion']=catalogos::bycatalogo('organizacion')->orderby('nombre')->lists('nombre','id');
+        $combos['llamamientos']=catalogos::bycatalogo('llamamiento')->orderby('nombre')->lists('nombre','id');
+        $combos['organizacion']=catalogos::bycatalogo('organizacion')->orderby('nombre')->lists('nombre','id');
 
 
         $lider=$lideres=lideres::findorfail($id);
 
-        return view('lideres.editar',compact('lider','combo'));
+        $this->authorize('update', $lider);
+
+        return view('lideres.editar',compact('lider','combos'));
     }
 
     /**
@@ -105,14 +147,19 @@ class LideresController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules=array('idbarrio'=>'required',
-            'nombre'=>'required',
+
+
+        $rules=array('nombre'=>'required',
             'llamamiento'=>'required',
             'phone'=>'digits:10',
             'organizacion'=>'required');
         $this->validate($request,$rules);
-        //
+
         $lider=lideres::findorfail($id);
+
+
+        $this->authorize('update', $lider);
+
 
         if($request->organizacion==$lider->organizacion) {
             $lider->fill($request->all());
@@ -140,6 +187,7 @@ class LideresController extends Controller
     public function destroy($id)
     {
         $lider=lideres::withTrashed()->findorfail($id);
+        $this->authorize('update', $lider);
         $lider->delete();
         \Session::flash('message','El Lider '.$lider->nombre." se borro correctamente");
         return redirect()->route('lideres');

@@ -30,3 +30,5 @@
     {!! $usuarios->render() !!}
 
 </div>
+
+{!! Html::script('js/utiles.js') !!}

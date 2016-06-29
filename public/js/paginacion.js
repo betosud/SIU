@@ -6,6 +6,7 @@ $(document).on('click','.pagination a',function(e){
     var route=page.split('?')[0];
     var pageid=page.split('=')[1];
     var clase='.'+route;
+    
 
     $('#loading').openModal({
         opacity: .3,

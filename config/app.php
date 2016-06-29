@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'timezone' => 'America/Mexico_City',
+    'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -110,6 +110,8 @@ return [
 
     'log' => env('APP_LOG', 'single'),
 
+    'log_level' => env('APP_LOG_LEVEL', 'debug'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -155,13 +157,13 @@ return [
         SIU\Providers\AuthServiceProvider::class,
         SIU\Providers\EventServiceProvider::class,
         SIU\Providers\RouteServiceProvider::class,
+
         Collective\Html\HtmlServiceProvider::class,
 
-        Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
-        Illuminate\Auth\AuthServiceProvider::class,
-
-
         Bican\Roles\RolesServiceProvider::class,
+        Buzz\LaravelGoogleCaptcha\CaptchaServiceProvider::class,
+        
+
 
     ],
 
@@ -211,6 +213,8 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+
+    
 
     ],
 

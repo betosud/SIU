@@ -4,7 +4,6 @@ namespace SIU\Providers;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use SIU\Task;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -15,6 +14,12 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'SIU\Model' => 'SIU\Policies\ModelPolicy',
+        'SIU\lideres' => 'SIU\Policies\LiderPolicy',
+        'SIU\asignaciones' => 'SIU\Policies\AsignacionPolicy',
+        'SIU\entrevistas' => 'SIU\Policies\EntrevistaPolicy',
+        'SIU\discursos' => 'SIU\Policies\DiscursoPolicy',
+        'SIU\sit' => 'SIU\Policies\SitPolicy',
+        'SIU\archivossit' => 'SIU\Policies\ArchivoSitPolicy',
     ];
 
     /**
@@ -27,12 +32,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies($gate);
 
-        $gate->define('leer-asignacion-barrio',function ($user,$asignacion){
-            return $user->idbarrio === $asignacion->idbarrio;
-        });
-
-        $gate->define('leer-asignacion-usuario',function ($user,$asignacion){
-            return $user->id === $asignacion->user_id;
-        });
+        //
     }
 }

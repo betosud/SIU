@@ -5,12 +5,15 @@ namespace SIU;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use SIU\barrios;
-
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class User extends Authenticatable
 {
+
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
      *
@@ -28,8 +31,6 @@ class User extends Authenticatable
     ];
 
 
-    protected $dates = ['deleted_at'];
-
     public function datos(){
         return $this->hasOne('SIU\barrios','id','idbarrio');
     }
@@ -40,7 +41,7 @@ class User extends Authenticatable
     }
 
     public function getRolnameAttribute(){
-        $roluser=role_user::where('user_id',$this->id)->get();
+        $roluser= role_user::where('user_id',$this->id)->get();
 
         $rol=roles::where('id',$roluser[0]->role_id)->get();
         $name=$rol[0]->name;
@@ -49,7 +50,7 @@ class User extends Authenticatable
     public function getRolidAttribute(){
         $roluser=role_user::where('user_id',$this->id)->get();
 
-        $rol=roles::where('id',$roluser[0]->role_id)->get();
+        $rol= roles::where('id',$roluser[0]->role_id)->get();
         $id=$rol[0]->id;
         return $id;
     }
@@ -69,7 +70,4 @@ class User extends Authenticatable
         }
         return $status;
     }
-
-
-
 }

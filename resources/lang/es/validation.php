@@ -76,6 +76,7 @@ return [
     'timezone' => 'El :attribute debe ser una zona válida.',
     'unique' => ':attribute ya ha sido registrado.',
     'url' => 'El formato :attribute es inválido.',
+    'g-recaptcha-response' => 'El :attribute es necesario',
 
     /*
     |--------------------------------------------------------------------------
@@ -125,7 +126,13 @@ return [
         'delete'=>'Borrar',
         'phone'=>'Telefono',
         'exit'=>'Salir',
-        'restore'=>'Restablecer'
+        'restore'=>'Restablecer',
+        'g-recaptcha-response'=>'Captcha',
+        'idsit'=>'Numero de Referencia',
+        'fechasit'=>'Fecha de Emision',
+        'descripcionarchivo'=>'Descripcion del Archivo',
+        'nombrearchivo'=>"Nombre del Archivo",
+        'montoarchivo'=>'Monto del Archivo'
     ],
 
 ];

@@ -12,7 +12,7 @@ $(document).ready(function() {
         // console.log(data+'url='+url);
 
         $.post(url,data,function(result){
-            toastr.success(result.mensaje,{timeOut: 1500,"closeButton": true});
+            Materialize.toast(result.mensaje,3000,'rounded');
         });
     });
 });

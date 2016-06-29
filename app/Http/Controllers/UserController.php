@@ -20,7 +20,7 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $usuarios = User::paginate(10);
+        $usuarios = User::withTrashed()->paginate(10);
 
         if($request->ajax()){
             return response()->json(view('layouts.usuario',compact('usuarios'))->render());
@@ -76,7 +76,10 @@ class UserController extends Controller
         $combos['barrios']= barrios::lists('nombreunidad','id');
         $combos['llamamiento']=catalogos::where('combo','llamamiento')->orderby('nombre')->lists('nombre','id');
         $combos['perfil']= roles::orderby('name')->lists('name','id');
-        $usuario=User::withTrashed()->where('id', '=', $id)->first();
+//        $usuario=User::find($id);
+        $usuario=User::withTrashed()->where('id', $id)->first();
+
+//dd($usuario);
         $permisos=Permission::all()->sortBy('name');
 
 
@@ -95,7 +98,7 @@ class UserController extends Controller
             'perfil'=>'required');
         $this->validate($request,$rules);
 
-        $user=User::withTrashed()->where('id', '=', $id)->first();
+        $user=User::find($id);
         $request['name']=Str::title($request['name']);
         $user->fill($request->all());
         $user->save();
@@ -135,6 +138,29 @@ class UserController extends Controller
             'error'=>$error,'mensaje'=>$mensaje
         ]);
 
+    }
+
+    public function destroy($id)
+    {
+        //
+        $user=User::FindorFail($id);
+
+        $user->delete();
+        \Session::flash('message','Se Borro al Usuario '.$user->name);
+
+        return redirect()->route('usuarios');
+    }
+
+
+    public function restore($id)
+    {
+        //
+        $user=User::withTrashed()->where('id', $id)->first();
+//dd($user);
+        $user->restore();
+        \Session::flash('message','Se activo al usuario '.$user->name);
+
+        return redirect()->route('usuarios');
     }
 
 }

@@ -11,9 +11,9 @@
     Si el documento no esta adjunto puede verlo en el siguiente
     @if($modulo<>'sit')
 
-    <a href="{!! route('pdf'.$modulo,[$data->id,'ver']) !!}">>>Link<<</a>
+    <a href="{!! route('pdf'.$modulo,[$data->id,'ver',$data->token]) !!}">>>Link<<</a>
         @else
-        <a href="{!! route('pdf'.$modulo,[$data->id,'completo','ver']) !!}">>>Link<<</a>
+        <a href="{!! route('pdf'.$modulo,[$data->id,'completo','ver',$data->token]) !!}">>>Link<<</a>
     @endif
     <br>
     <br>

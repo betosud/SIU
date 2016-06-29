@@ -26,7 +26,9 @@ $("#enviarcorreo").click(function(){
     console.log('url '+route);
     console.log(email);
     console.log(token);
-    $('#loading').modal('show')
+    $('#loading').openModal({
+        dismissible: false,
+    });
     $.ajax({
         url:route,
         headers:{'X-CSRF-TOKEN':token},
@@ -36,15 +38,15 @@ $("#enviarcorreo").click(function(){
         success:function(salida){
 
 
-            toastr.success('El correo Fue enviado',{timeOut: 1500});
-            $('#loading').modal('hide');
-            $('#enviar').modal('hide');
+            Materialize.toast('El correo fue enviado',3000,'rounded');
+            $('#loading').closeModal();
+            $('#enviar').closeModal();
         },
         error:function(msj){
-            $('#loading').modal('hide')
+            $('#loading').closeModal();
             var result =msj.responseJSON;
             $.each(result, function(i, item) {
-                toastr.warning(item,{timeOut: 4000});
+                Materialize.toast(item,3000,'rounded');
             });
 
 

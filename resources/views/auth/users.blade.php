@@ -40,8 +40,6 @@
                                 <td>{!!$usuario->status !!}</td>
                                 <td>
                                     <a href="{!! route('editarusuario',$usuario->id) !!}" class="btn btn-floating waves-effect waves-light green tooltipped " data-position="left" data-tooltip="Editar"><i class="material-icons ">edit</i></a>
-{{--                                    <a href="{!! route('editarusuario',$usuario->id) !!}" class="btn btn-warning" aria-label="Left Align" role="button" data-toggle="tooltip" data-placement="top" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>--}}
-{{--                                    <a href="{!! route('permisos',$usuario->id) !!}" class="btn btn-success" aria-label="Left Align" role="button" data-toggle="tooltip" data-placement="top" title="Permisos"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>--}}
                                 </td>
                             </tr>
                             @endforeach
@@ -53,7 +51,7 @@
                             {!! $usuarios->render() !!}
 
                     </div>
-
+                    {!! Html::script('js/utiles.js') !!}
 
                 </div>
 

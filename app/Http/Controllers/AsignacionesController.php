@@ -5,18 +5,19 @@ namespace SIU\Http\Controllers;
 use Carbon\Carbon;
 use fpdf\FPDF;
 use Illuminate\Http\Request;
-use SIU\Http\Requests\asignacionesRequest;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use SIU\asignaciones;
 use SIU\Http\Requests;
-use GuzzleHttp\Client;
+use SIU\Http\Controllers\Controller;
+use SIU\lideres;
 
 class AsignacionesController extends Controller
 {
     function listalideres ($status){
         if ($status=='todos'){
-            $lista = lideres::bybarrio(Auth::user()->idbarrio)->withTrashed()->orderBy('nombre')->get();
+            $lista =lideres::bybarrio(Auth::user()->idbarrio)->withTrashed()->orderBy('nombre')->get();
         }
         elseif($status=='activos') {
             $lista = lideres::bybarrio(Auth::user()->idbarrio)->orderBy('nombre')->get();
@@ -26,7 +27,7 @@ class AsignacionesController extends Controller
         foreach($lista as $lider){
             $lideres[$lider->id]=$lider->conllamamiento;
         }
-        return response()->json(['lideres'=>$lideres]);
+        return $lideres;
     }
     /**
      * Display a listing of the resource.
@@ -57,7 +58,8 @@ class AsignacionesController extends Controller
      */
     public function create()
     {
-        return view('asignaciones.nueva');
+        $lideres=$this->listalideres('activos');
+        return view('asignaciones.nueva',compact('lideres'));
     }
 
     /**
@@ -66,13 +68,26 @@ class AsignacionesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(asignacionesRequest $request)
+    public function store(Request $request)
     {
+        $rules=array('idbarrio'=>'required',
+            'fecha'=>'required',
+            'hora'=>'required',
+            'nombre'=>'required',
+            'asignacion'=>'required',
+            'lugar'=>'required',
+            'lider1'=>'required',
+            'lider2'=>'required',
+            'lider3'=>'required',
+            'user_id'=>'required');
+        $this->validate($request,$rules);
+
         $fecha= Carbon::createFromFormat('Y-m-d',$request['fecha']);
         $request['fecha']=$fecha->format('Y-m-d');
-        $request['nombre']= Str::title($request['nombre']);
+        $request['nombre']=Str::title($request['nombre']);
         $request['asignacion']=Str::title($request['asignacion']);
         $request['lugar']=Str::title($request['lugar']);
+
         $asignacion= new asignaciones($request->all());
         $asignacion->save();
         \Session::flash('message','Registro Guardado Correctamente');
@@ -102,6 +117,15 @@ class AsignacionesController extends Controller
     {
         $lideres= $this->listalideres('todos');
         $asignacion=asignaciones::findorfail($id);
+
+
+        $this->authorize('updatebarrio', $asignacion);
+
+
+        if(Auth::user()->is('lider_estaca|aux_lider')){
+            $this->authorize('updateuser', $asignacion);
+        }
+
         return view('asignaciones.editar',compact('asignacion','lideres'));
     }
 
@@ -130,8 +154,17 @@ class AsignacionesController extends Controller
         $request['nombre']=Str::title($request['nombre']);
         $request['asignacion']=Str::title($request['asignacion']);
         $request['lugar']=Str::title($request['lugar']);
-
+        
         $asignacion=asignaciones::findorfail($id);
+
+        $this->authorize('updatebarrio', $asignacion);
+
+
+        if(Auth::user()->is('lider_estaca|aux_lider')){
+            $this->authorize('updateuser', $asignacion);
+        }
+
+
         $asignacion->fill($request->all());
         $asignacion->save();
 
@@ -159,14 +192,20 @@ class AsignacionesController extends Controller
         //
     }
 
-    public function pdf($id,$evento)
+    public function pdf($id,$evento,$token)
     {
+
+
         setlocale(LC_ALL,"es_ES");
         date_default_timezone_set("America/Mexico_City");
         $asignacion=asignaciones::findorfail($id);
-//dd($discurso->lider1datos->nombre);
+
+        if ($asignacion->token != $token){
+            abort(403);
+        }
+
         $ward=$asignacion->ward;
-//        dd($ward[0]['nameunit']);
+
 
         $fechaserv=strftime("%A %e de %B de %Y",strtotime($asignacion->fecha));
 

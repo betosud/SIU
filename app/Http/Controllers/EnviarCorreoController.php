@@ -39,28 +39,28 @@ class EnviarCorreoController extends Controller
 //
 //        }
 //
-//        if ($modulo=='entrevista'){
-//            $data = entrevistas::findorfail($id);
-//            $nombrearchivo=$data->nombrearchivo.".pdf";
-//            $pdf= route('pdfentrevista',[$data->id,'cadena']);
-//            $descripcion="Cita Para Entrevista";
-//            $nombre=$request->nombre;
-//        }
+        if ($modulo=='entrevista'){
+            $data = entrevistas::findorfail($id);
+            $nombrearchivo=$data->nombrearchivo.".pdf";
+            $pdf= route('pdfentrevista',[$data->id,'cadena',$data->token]);
+            $descripcion="Cita Para Entrevista";
+            $nombre=$request->nombre;
+        }
 
-        if ($modulo=='asignacion'){
+        elseif ($modulo=='asignacion'){
             $data = asignaciones::findorfail($id);
             $nombrearchivo=$data->nombrearchivo.".pdf";
-            $pdf= route('pdfasignacion',[$data->id,'cadena']);
+            $pdf= route('pdfasignacion',[$data->id,'cadena',$data->token]);
             $descripcion="Asignacion del Barrio";
             $nombre=$request->nombre;
         }
-//        else if($modulo=='discurso') {
-//            $data = discursos::findorfail($id);
-//            $nombrearchivo=$data->nombrearchivo.".pdf";
-//            $pdf= route('pdfdiscurso',[$data->id,'cadena']);
-//            $descripcion="Asignacion de discurso";
-//            $nombre=$request->nombre;
-//        }
+        else if($modulo=='discurso') {
+            $data = discursos::findorfail($id);
+            $nombrearchivo=$data->nombrearchivo.".pdf";
+            $pdf= route('pdfdiscurso',[$data->id,'cadena',$data->token]);
+            $descripcion="Asignacion de discurso";
+            $nombre=$request->nombre;
+        }
 
 //        else if($modulo=='sit') {
 //            $data =solicitudes::findorfail($id);

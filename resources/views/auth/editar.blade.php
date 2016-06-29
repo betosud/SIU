@@ -14,7 +14,7 @@
 
                 <div class="row">
                     <div class="col s12">
-                        <ul class="tabs ">
+                        <ul class="tabs">
                             <li class="blue-text tab col s6"><a href="#datos">Datos</a></li>
                             <li class="blue-text tab col s6"><a href="#permisos">Permisos</a></li>
 
@@ -26,7 +26,7 @@
                     </div>
 
                     <div id="permisos" class="col s12">
-                        <div class=""></div>
+
                         @foreach($permisos as $permiso)
                             <div class="col s6">
                                 <p>
@@ -56,11 +56,11 @@
     <div id="salir" class="modal">
         <div class="modal-content">
 
-            <p>Esta seguro que desea salir del modulo? si no ha guardado los cambios estos se perderan</p>
+            <h5>Si Sale del Modulo no se Guardara los Cambios</h5>
         </div>
         <div class="modal-footer">
-            <a href="{!! route('usuarios') !!}" class="modal-action modal-close waves-effect waves-green btn-flat">De Acuerdo</a>
-            <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat alert-dismissable">Cancelar</a>
+            <a href="{!! route('usuarios') !!}" class="modal-action modal-close waves-effect waves-green btn-flat green lighten-2">De Acuerdo</a>
+            <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat alert-dismissable red lighten-2">Cancelar</a>
         </div>
     </div>
 

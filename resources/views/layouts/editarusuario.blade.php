@@ -127,3 +127,25 @@
 </div>
 
 {!! Form::close() !!}
+@if($usuario->deleted_at == null)
+{!! Form::open(['route'=>['eliminarusuario',$usuario->id],'method'=>'DELETE']) !!}
+<div class="row">
+    <div class="input-field col s4 m6 right">
+        <button type="submit" class="btn waves-effect waves-light col s12 red tooltipped " onclick="return confirm('Seguro que deseas Eliminar al Usuario')" data-position="top" data-tooltip="Eliminar Usuario"> <i class="material-icons">delete</i>Eliminar</button>
+    </div>
+</div>
+{{--<button class="btn waves-effect waves-light red lighten-2" onclick="return confirm('Seguro que deseas Eliminar al Usuario')" type="submit" name="action">Borrar--}}
+    {{--<i class="material-icons right">delete</i>--}}
+{!! Form::Close() !!}
+    @else
+    {!! Form::open(['route'=>['activarusuario',$usuario->id],'method'=>'get']) !!}
+    <div class="row">
+        <div class="input-field col s4 m6 right">
+            <button type="submit" class="btn waves-effect waves-light col s12 grey darken-1 tooltipped "  data-position="top" data-tooltip="Restaurar Usuario"> <i class="material-icons">check</i>Activar</button>
+        </div>
+    </div>
+    {{--<button class="btn waves-effect waves-light red lighten-2" onclick="return confirm('Seguro que deseas Eliminar al Usuario')" type="submit" name="action">Borrar--}}
+    {{--<i class="material-icons right">delete</i>--}}
+    {!! Form::Close() !!}
+    @endif
+

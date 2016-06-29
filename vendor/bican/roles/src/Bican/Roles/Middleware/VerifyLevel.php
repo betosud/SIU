@@ -35,6 +35,11 @@ class VerifyLevel
      */
     public function handle($request, Closure $next, $level)
     {
+//        if ($this->auth->check() && $this->auth->user()->level() >= $level) {
+//            return $next($request);
+//        }
+//
+//        throw new LevelDeniedException($level);
 
         if ($this->auth->guest()) {
             return redirect()->guest('login');
