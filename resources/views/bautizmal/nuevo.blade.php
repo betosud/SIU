@@ -275,7 +275,5 @@
     {!! Form::close() !!}
 @endsection
 @section('scripts')
-
     {!! Html::script('js/himnosbautizmal.js') !!}
-
 @endsection
