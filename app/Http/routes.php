@@ -121,38 +121,32 @@ Route::get('editarsolicitud/{id}',['uses'=>'SitController@editarsolicitud','as'=
 Route::put('actualizarsolicitud/{id}', ['uses' => 'SitController@updatesolicitud', 'as' => 'actualizarsolicitud', 'middleware'=>'auth','middleware' => 'permission:edit.solicitudes']);
 Route::delete('eliminarsolicitud/{id}',['uses'=>'SitController@eliminarsolicitud','as'=>'eliminarsolicitud','middleware'=>'auth','middleware' => 'permission:edit.solicitudes']);
 Route::put('actualizarsit/{id}', ['uses' => 'SitController@updatesit', 'as' => 'actualizarsit', 'middleware'=>'auth','middleware' => 'permission:edit.sit']);
-
 Route::get('crearsit/{id}',['uses'=>'SitController@crearsit','as'=>'crearsit','middleware'=>'auth','middleware' => 'permission:add.sit']);
 Route::put('guardarsit/{id}',['uses'=>'SitController@guardarsit','as'=>'guardarsit','middleware'=>'auth','middleware' => 'permission:add.sit|edit:sit']);
-
 Route::get('sits',['uses'=>'SitController@sits','as'=>'sits','middleware'=>'auth','middleware' => 'permission:view.sit|edit.sit']);
 Route::put('actualizastatussit/{id}', ['uses' => 'SitController@updatestatus', 'as' => 'actualizastatussit', 'middleware'=>'auth']);
 Route::get('pdfsit/{id}/{tipo}/{modo}/{token}', ['uses' => 'SitController@pdf', 'as' => 'pdfsit']);
-
 Route::get('editarsit/{id}',['uses'=>'SitController@editarsit','as'=>'editarsit','middleware'=>'auth','middleware' => 'permission:edit.sit']);
 Route::post('guardararchivo',['uses'=>'SitController@uploadfile','as'=>'guardararchivo','middleware'=>'auth','middleware' => 'permission:add.archivosit']);
 Route::post('guardararchivoexterno/{token}',['uses'=>'SitController@uploadfileexterno','as'=>'guardararchivoexterno']);
-
 Route::get('eliminararchivosit/{id}',['uses'=>'SitController@destroyfile','as'=>'eliminararchivosit','middleware'=>'auth','middleware' => 'permission:delete.filesit']);
 Route::put('actualizavalidadocomporbante/{id}', ['uses' => 'SitController@updatevalidadopor', 'as' => 'actualizavalidadocomporbante', 'middleware'=>'auth']);
 
 
-//Route::get('buscarsit',['uses'=>'SitController@buscarsit','as'=>'eliminararchivosit','middleware'=>'auth','middleware' => 'permission:delete.filesit']);
+//Bautizmales
+Route::get('bautizmales', ['uses' => 'BautizmalController@index', 'as' => 'bautizmales','middleware'=>'auth','middleware' => 'permission:view.bautizmal']);
+Route::get('nuevobautizmal', ['uses' => 'BautizmalController@create', 'as' => 'nuevobautizmal','middleware'=>'auth','middleware' => 'permission:add.bautizmal']);
+
 
 
 Route::get('download', function() {
     return Response::download(\Illuminate\Support\Facades\Input::get('path'));
 });
-
-
 Route::get('barriosbyestaca/{idestaca}',['uses'=>'SitController@barrios','as'=>'barriosbyestaca']);
-
-
-
-
-
-Route::get('solicitudpdf/{id}/{evento}',['uses'=>'SitController@pdf','as'=>'solicitudpdf']);
 
 
 //enviar correo
 Route::put('enviarcorreo/{id}/{modulo}',['uses'=>'EnviarCorreoController@enviarcorreo','as'=>'enviarcorreo','middleware'=>'auth']);
+
+//himnos
+Route::get('himnos/{valor}',['uses'=>'HimnosController@getautocompletarhimnos', 'as'=>'himnos']);

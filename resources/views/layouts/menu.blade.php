@@ -23,6 +23,7 @@
 
 
                     @role('admin|pcia_estaca|sec_estaca|obispado|sec_barrio')
+                    <li><a class="dropdown-button" href="#!" data-activates="programas">Formatos Programas  <i class="material-icons right">assignment</i></a></li>
                     <li><a class="dropdown-button" href="#!" data-activates="gastos">Gastos Unidad  <i class="material-icons right">payment</i></a></li>
                     @endrole
 
@@ -122,8 +123,10 @@
                                     <ul>
 
                                         <li><a class="black-text" href="{!!url('solicitudgasto') !!}">Solicitar Gasto<i class="material-icons right">content_paste</i></a></li>
-                                        @permission('add.sit|view.sit|edit.solicitudes|add.solicitudes')
+                                        @permission('edit.solicitudes|add.solicitudes|view.solicitudes')
                                         <li><a class="black-text" href="{!!url('solicitudes') !!}">Solicitudes<i class="material-icons right">card_membership</i></a></li>
+                                        @endpermission
+                                        @permission('add.sit|view.sit')
                                         <li><a class="black-text" href="{!!url('sits') !!}">Sit`s<i class="material-icons right">account_balance_wallet</i></a></li>
                                         @endpermission
 
@@ -131,6 +134,24 @@
                                 </div>
                             </li>
                             {{--fin gastos--}}
+                            {{--inicio de programas--}}
+                            <li>
+                                <a class="collapsible-header">Programas<i class="material-icons">assignment</i></a>
+                                <div class="collapsible-body">
+                                    <ul>
+
+
+                                        @permission('add.bautizmal|edit.bautizmales')
+                                        <li><a class="black-text" href="{!!url('bautizmales') !!}">Bautismales<i class="material-icons right">accessibility</i></a></li>
+                                        @endpermission
+                                        {{--@permission('add.sit|view.sit')--}}
+                                        {{--<li><a class="black-text" href="{!!url('sits') !!}">Sit`s<i class="material-icons right">account_balance_wallet</i></a></li>--}}
+                                        {{--@endpermission--}}
+
+                                    </ul>
+                                </div>
+                            </li>
+                            {{--fin de programas--}}
 
 
                         </ul>
@@ -159,8 +180,21 @@
         <ul id="gastos" class="dropdown-content">
             <li>
                 <a class="black-text"  href="{!!url('solicitudgasto') !!}">Solicitar<i class="material-icons right">attach_money</i></a>
+                @permission('add.solicitudes|view.solicitudes')
                 <a class="black-text"  href="{!!url('solicitudes') !!}">Solicitudes<i class="material-icons right">card_membership</i></a>
+                @endpermission
+                @permission('add.sit|view.sit')
                 <a class="black-text"  href="{!!url('sits') !!}">Sit's<i class="material-icons right">account_balance_wallet</i></a>
+                @endpermission
+            </li>
+        </ul>
+
+        <ul id="programas" class="dropdown-content">
+            <li>
+                @permission('add.bautizmal|view.bautizmal')
+                <a class="black-text"  href="{!!url('bautizmales') !!}">Bautizmales<i class="material-icons right">accessibility</i></a>
+                {{--<a class="black-text"  href="{!!url('solicitudes') !!}">Solicitudes<i class="material-icons right">card_membership</i></a>--}}
+                @endpermission
 
             </li>
         </ul>
