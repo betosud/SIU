@@ -12,8 +12,17 @@
                 </div>
 
 
+                @if (count($errors) > 0)
+                @foreach ($errors->all() as $error)
+                <script>
+                Materialize.toast('{!! $error !!}', 3000, 'rounded');
+                </script>
+                @endforeach
+                @endif
+
+
                 <div class="container-fluid">
-                    {!! Form::open(array('url' => 'guardarentrevista', 'method' => 'post','class'=>'form-horizontal')) !!}
+                    {!! Form::open(array('url' => 'guardarbautizmal', 'method' => 'post','class'=>'form-horizontal')) !!}
                     <div class="form-group">
                         {!! Form::text('idbarrio',Auth::user()->idbarrio ,['class'=>'hide']) !!}
                         {!! Form::text('user_id',Auth::user()->id ,['class'=>'hide']) !!}
@@ -52,7 +61,7 @@
                     </div>
 
                     <div class="row margin">
-                        <div class="input-field col m12 s12">
+                        <div class="input-field col m6 s12">
                             <i class="material-icons prefix">account_circle</i>
                             {!! Form::text('bautizmode','',['class'=>'validate input-field','id'=>'bautizmode','placeholder'=>'Ingresa el Nombre completo'])  !!}
                             @if ($errors->has('bautizmode'))
@@ -67,32 +76,32 @@
                         {{--</div>--}}
 
                         {{--<div class="row margin">--}}
-                        {{--<div class="input-field col m6 s12">--}}
-                            {{--<i class="material-icons prefix">insert_emoticon</i>--}}
-                            {{--{!!  Form::select('entrevistador', $lideres,null,['placeholder'=>'Selecciona Lider','class'=>'validate input-field entrevistador','id'=>'entrevistador']) !!}--}}
-                            {{--@if ($errors->has('entrevistador'))--}}
-                                {{--<span class="help-block red-text">--}}
-                                {{--<strong>{{ $errors->first('entrevistador') }}</strong>--}}
-                            {{--</span>--}}
-                            {{--@endif--}}
-                            {{--<label for="entrevistador" data-error="dato no valido" data-success="Correcto" class="left-align">Entrevistador</label>--}}
-                            {{--<div class="form-group{{ $errors->has('entrevistador') ? ' has-error' : '' }}">--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <div class="input-field col m6 s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            {!! Form::text('dirigidopor','',['class'=>'validate input-field','id'=>'dirigidopor','placeholder'=>'Ingresa el Nombre completo'])  !!}
+                            @if ($errors->has('dirigidopor'))
+                                <span class="help-block red-text">
+                                <strong>{{ $errors->first('dirigidopor') }}</strong>
+                            </span>
+                            @endif
+                            <label for="dirigidopor" data-error="dato no valido" data-success="Correcto" class="left-align">Direccion del Programa </label>
+                            <div class="form-group{{ $errors->has('dirigidopor') ? ' has-error' : '' }}">
+                            </div>
+                        </div>
                     </div>
 
 
                     <div class="row margin">
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">account_circle</i>
-                            {!! Form::text('direccion','',['class'=>'validate input-field','id'=>'direccion','placeholder'=>'Ingresa el Nombre completo'])  !!}
-                            @if ($errors->has('direccion'))
+                            {!! Form::text('direccion_himnos','',['class'=>'validate input-field','id'=>'direccion_himnos','placeholder'=>'Ingresa el Nombre completo'])  !!}
+                            @if ($errors->has('direccion_himnos'))
                                 <span class="help-block red-text">
-                                <strong>{{ $errors->first('direccion') }}</strong>
+                                <strong>{{ $errors->first('direccion_himnos') }}</strong>
                             </span>
                             @endif
-                            <label for="direccion" data-error="dato no valido" data-success="Correcto" class="left-align">Direccion Himnos</label>
-                            <div class="form-group{{ $errors->has('direccion') ? ' has-error' : '' }}">
+                            <label for="direccion_himnos" data-error="dato no valido" data-success="Correcto" class="left-align">Direccion Himnos</label>
+                            <div class="form-group{{ $errors->has('direccion_himnos') ? ' has-error' : '' }}">
                             </div>
                         </div>
                         {{--</div>--}}
@@ -143,6 +152,65 @@
                         </div>
                     </div>
 
+                    {{--oradores--}}
+                    <div class="row margin">
+                    <div class="row" id ='discursantes1'>
+                        <h4 class="referencia_orador center">1 Orador</h4>
+                        <div class="col m12 discursantes">
+
+                            <div class="input-field col m6 s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                {!! Form::text('tbxnombre_orador1','',['class'=>'validate input-field tbxnombre_orador1','id'=>'tbxnombre_orador1','placeholder'=>'Nombre Completo'])  !!}
+                                @if ($errors->has('tbxnombre_orador1'))
+                                    <span class="help-block red-text">
+                                <strong>{{ $errors->first('tbxnombre_orador1') }}</strong>
+                            </span>
+                                @endif
+                                <label for="tbxnombre_orador1" id="tbxnombre_orador1" name="tbxnombre_orador1" data-error="dato no valido" data-success="Correcto" class="left-align">Nombre</label>
+                                <div class="form-group{{ $errors->has('tbxnombre_orador1') ? ' has-error' : '' }}">
+                                </div>
+                            </div>
+                            <div class="input-field col m6 s12">
+                                <i class="material-icons prefix">chrome_reader_mode</i>
+                                {!! Form::text('tbxtema_orador1','',['class'=>'validate input-field tbxtema_orador1','id'=>'tbxtema_orador1','placeholder'=>'Tema'])  !!}
+                                @if ($errors->has('tbxtema_orador1'))
+                                    <span class="help-block red-text">
+                                <strong>{{ $errors->first('tbxtema_orador1') }}</strong>
+                            </span>
+                                @endif
+                                <label for="tbxtema_orador1" data-error="dato no valido" data-success="Correcto" class="left-align">Tema</label>
+                                <div class="form-group{{ $errors->has('tbxtema_orador1') ? ' has-error' : '' }}">
+                                </div>
+                            </div>
+
+
+                            {{--<div class="row">--}}
+                                {{--<div class="col s6 input-field">--}}
+
+                                    {{--{!! Form::text('tbxnombre_orador1', '',['id'=>'tbxnombre_orador1', 'class'=>'tbxnombre_orador1']) !!}--}}
+
+                                    {{--{!! Form::label('lblnombre_orador', 'Nombre Discursante')!!}--}}
+                                {{--</div>--}}
+                                {{--<div class="col s6 input-field">--}}
+
+                                    {{--{!! Form::text('tbxtema_orador1', '',['id'=>'tbxtema_orador1','class'=>'tbxtema_orador1']) !!}--}}
+                                    {{--{!! Form::label('lbltema_orador', 'Tema')!!}--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+
+
+                        </div>
+                    </div>
+
+                    <div class="col m12">
+                        <a href="#!" id="agregar_discursante" class="agregar_discursante btn-floating btn-small waves-effect waves-light blue lighten-2 "><i class="material-icons">add</i></a>
+                        <a href="#!" id='eliminar_discursante' class="eliminar_discursante btn-floating btn-small waves-effect waves-light blue lighten-2"><i class="material-icons">remove</i></a>
+                    </div>
+
+</div>
+
+                    {{--fin oradores--}}
+
 
                     <div class="row margin">
                         <div class="input-field col m6 s12">
@@ -190,7 +258,7 @@
                         </div>
                         </div>
 
-                        <div class="row margin">
+                    <div class="row margin">
                         <div class="input-field col m12 s12">
                             <i class="material-icons prefix">format_list_bulleted</i>
                             {!! Form::textarea('actividades','',['class'=>'validate materialize-textarea','id'=>'actividades','placeholder'=>'Actividades'])  !!}
@@ -201,6 +269,22 @@
                             </span>
                             @endif
                             <label for="actividades" data-error="dato no valido" data-success="Correcto" class="left-align">Actividades de Espera</label>
+                            <div class="form-group{{ $errors->has('actividades') ? ' has-error' : '' }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row margin">
+                        <div class="input-field col m12 s12">
+                            <i class="material-icons prefix">format_list_bulleted</i>
+                            {!! Form::textarea('bienvenida','',['class'=>'validate materialize-textarea','id'=>'bienvenida','placeholder'=>'Hnos que dan la bienvenida al Barrio'])  !!}
+                            {{--<textarea id="actividades" name="actividades" class="materialize-textarea"></textarea>--}}
+                            @if ($errors->has('bienvenida'))
+                                <span class="help-block red-text">
+                                <strong>{{ $errors->first('bienvenida') }}</strong>
+                            </span>
+                            @endif
+                            <label for="actividades" data-error="dato no valido" data-success="Correcto" class="left-align">Hnos que dan la Bienvenida al Barrio</label>
                             <div class="form-group{{ $errors->has('actividades') ? ' has-error' : '' }}">
                             </div>
                         </div>
@@ -234,6 +318,38 @@
                             <div class="form-group{{ $errors->has('oracion_final') ? ' has-error' : '' }}">
                             </div>
                         </div>
+                    </div>
+
+
+
+                    <div class="row margin">
+                        <div class="input-field col offset-l9 m3 s6">
+                            <i class="material-icons prefix">supervisor_account</i>
+                            {!! Form::text('asistencia','',['class'=>'validate input-field asistencia','id'=>'asistencia','placeholder'=>'Total Asistencia'])  !!}
+                            @if ($errors->has('asistencia'))
+                                <span class="help-block red-text">
+                                <strong>{{ $errors->first('asistencia') }}</strong>
+                            </span>
+                            @endif
+                            <label for="asistencia" data-error="dato no valido" data-success="Correcto" class="left-align">Total Asistencia</label>
+                            <div class="form-group{{ $errors->has('asistencia') ? ' has-error' : '' }}">
+                            </div>
+                        </div>
+                        {{--</div>--}}
+
+                        {{--<div class="row margin">--}}
+                        {{--<div class="input-field col m6 s12">--}}
+                            {{--<i class="material-icons prefix">account_circle</i>--}}
+                            {{--{!! Form::text('oracion_final','',['class'=>'validate input-field','id'=>'oracion_final','placeholder'=>'Ingresa el Nombre completo'])  !!}--}}
+                            {{--@if ($errors->has('oracion_final'))--}}
+                                {{--<span class="help-block red-text">--}}
+                                {{--<strong>{{ $errors->first('oracion_final') }}</strong>--}}
+                            {{--</span>--}}
+                            {{--@endif--}}
+                            {{--<label for="oracion_final" data-error="dato no valido" data-success="Correcto" class="left-align">Oracion Final</label>--}}
+                            {{--<div class="form-group{{ $errors->has('oracion_final') ? ' has-error' : '' }}">--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </div>
 
 
@@ -276,4 +392,38 @@
 @endsection
 @section('scripts')
     {!! Html::script('js/himnosbautizmal.js') !!}
+
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '.agregar_discursante', function () {
+                var oradores= $('.referencia_orador').length, // how many "duplicatable" input fields we currently have
+                        newNum  = new Number(oradores + 1);
+                newElem = $('#discursantes'+oradores).clone().attr('id', 'discursantes'+newNum).fadeIn('slow');
+                newElem.find('.referencia_orador').attr('id', newNum+'_orador').attr('name', newNum+'_orador').html(newNum+' Orador');
+                //nombre
+                newElem.find('.tbxnombre_orador'+oradores).attr('id',  'txtnombre_orador'+newNum).attr('name',  'txtnombre_orador'+newNum).val('');
+                newElem.find('.tbxtema_orador'+oradores).attr('id',  'tbxtema_orador'+newNum).attr('name', 'tbxtema_orador'+newNum).val('');
+                $('#discursantes'+oradores).after(newElem);
+
+            });
+
+            $('#eliminar_discursante').click(function () {
+                // confirmation
+                var oradores = $('.referencia_orador').length;
+                if (oradores > 1) {
+//                    // how many "duplicatable" input fields we currently have
+                    $('#discursantes' + oradores).slideUp('slow', function () {
+                        $(this).remove();
+//                        // if only one element remains, disable the "remove" button
+                    });
+
+                    return false;
+                }
+                else{
+                    Materialize.toast('Debe haber al menos un discursante', 4000,'rounded')
+                }
+            });
+
+        });
+    </script>
 @endsection

@@ -132,7 +132,11 @@ return [
         'fechasit'=>'Fecha de Emision',
         'descripcionarchivo'=>'Descripcion del Archivo',
         'nombrearchivo'=>"Nombre del Archivo",
-        'montoarchivo'=>'Monto del Archivo'
+        'montoarchivo'=>'Monto del Archivo',
+        'bautizmode'=>'Bautizmo de',
+        'dirigidopor'=>'Direccion del Programa',
+        'direccion_himnos'=>'Director de Himnos',
+        'ordenanzapor'=>'QUien realiza la ordenanza'
     ],
 
 ];

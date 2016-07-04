@@ -20,6 +20,7 @@ class AuthServiceProvider extends ServiceProvider
         'SIU\discursos' => 'SIU\Policies\DiscursoPolicy',
         'SIU\sit' => 'SIU\Policies\SitPolicy',
         'SIU\archivossit' => 'SIU\Policies\ArchivoSitPolicy',
+        'SIU\bautizmal' => 'SIU\Policies\BautizmalesPolicy',
     ];
 
     /**
