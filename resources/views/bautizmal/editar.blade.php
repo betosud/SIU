@@ -6,33 +6,32 @@
             <div class="col s12 m12 z-depth-3 card-panel">
                 <div class="row">
                     <div class="input-field col s12 center">
-                        <h5 class="center login-form-text">Nuevo Bautizmal</h5>
+                        <h5 class="center login-form-text">Editar Bautizmal</h5>
+                        <h5 class="center login-form-text">{!! $bautizmal->bautizmode !!}</h5>
 
                     </div>
                 </div>
 
 
                 @if (count($errors) > 0)
-                @foreach ($errors->all() as $error)
-                <script>
-                Materialize.toast('{!! $error !!}', 3000, 'rounded');
-                </script>
-                @endforeach
+                    @foreach ($errors->all() as $error)
+                        <script>
+                            Materialize.toast('{!! $error !!}', 3000, 'rounded');
+                        </script>
+                    @endforeach
                 @endif
 
-
                 <div class="container-fluid">
-                    {!! Form::open(array('url' => 'guardarbautizmal', 'method' => 'post','class'=>'form-horizontal')) !!}
+                    {!! Form::model($bautizmal,['route' => ['actualizabautizmal',$bautizmal->id], 'method' => 'PUT','class'=>'form-horizontal']) !!}
+
                     <div class="form-group">
-                        {!! Form::text('idbarrio',Auth::user()->idbarrio ,['class'=>'hide']) !!}
                         {!! Form::text('user_id',Auth::user()->id ,['class'=>'hide']) !!}
                     </div>
-
 
                     <div class="row margin">
                         <div class="input-field col  m6 s12">
                             <i class="material-icons prefix ">event</i>
-                            {!! Form::text('fecha','',['class'=>'validate input-field datepicker','id'=>'datepicker','placeholder'=>'Seleeciona Fecha'])  !!}
+                            {!! Form::text('fecha',$bautizmal->fecha,['class'=>'validate input-field datepicker','id'=>'datepicker','placeholder'=>'Seleeciona Fecha'])  !!}
                             @if ($errors->has('fecha'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('fecha') }}</strong>
@@ -48,7 +47,7 @@
                         {{--<div class="row margin">--}}
                         <div class="input-field col  m6 s12">
                             <i class="material-icons prefix">alarm</i>
-                            {!! Form::text('hora','',['class'=>'validate input-field pick-a-time','id'=>'pick-a-time','placeholder'=>'Seleeciona Hora'])  !!}
+                            {!! Form::text('hora',$bautizmal->horahm,['class'=>'validate input-field pick-a-time','id'=>'pick-a-time','placeholder'=>'Seleeciona Hora'])  !!}
                             @if ($errors->has('hora'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('hora') }}</strong>
@@ -63,7 +62,7 @@
                     <div class="row margin">
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">account_circle</i>
-                            {!! Form::text('bautizmode','',['class'=>'validate input-field','id'=>'bautizmode','placeholder'=>'Ingresa el Nombre completo'])  !!}
+                            {!! Form::text('bautizmode',$bautizmal->bautizmode,['class'=>'validate input-field','id'=>'bautizmode','placeholder'=>'Ingresa el Nombre completo'])  !!}
                             @if ($errors->has('bautizmode'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('bautizmode') }}</strong>
@@ -78,7 +77,7 @@
                         {{--<div class="row margin">--}}
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">account_circle</i>
-                            {!! Form::text('dirigidopor','',['class'=>'validate input-field','id'=>'dirigidopor','placeholder'=>'Ingresa el Nombre completo'])  !!}
+                            {!! Form::text('dirigidopor',$bautizmal->dirigidopor,['class'=>'validate input-field','id'=>'dirigidopor','placeholder'=>'Ingresa el Nombre completo'])  !!}
                             @if ($errors->has('dirigidopor'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('dirigidopor') }}</strong>
@@ -94,7 +93,7 @@
                     <div class="row margin">
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">account_circle</i>
-                            {!! Form::text('direccion_himnos','',['class'=>'validate input-field','id'=>'direccion_himnos','placeholder'=>'Ingresa el Nombre completo'])  !!}
+                            {!! Form::text('direccion_himnos',$bautizmal->direccion_himno,['class'=>'validate input-field','id'=>'direccion_himnos','placeholder'=>'Ingresa el Nombre completo'])  !!}
                             @if ($errors->has('direccion_himnos'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('direccion_himnos') }}</strong>
@@ -109,7 +108,7 @@
                         {{--<div class="row margin">--}}
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">account_circle</i>
-                            {!! Form::text('pianista','',['class'=>'validate input-field','id'=>'pianista','placeholder'=>'Ingresa el Nombre completo'])  !!}
+                            {!! Form::text('pianista',$bautizmal->pianista,['class'=>'validate input-field','id'=>'pianista','placeholder'=>'Ingresa el Nombre completo'])  !!}
                             @if ($errors->has('pianista'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('pianista') }}</strong>
@@ -125,7 +124,7 @@
                     <div class="row margin">
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">chrome_reader_mode</i>
-                            {!! Form::text('himno_inicial','',['class'=>'validate input-field himno_inicial','id'=>'himno_inicial','placeholder'=>'Numero y titulo de Himno'])  !!}
+                            {!! Form::text('himno_inicial',$bautizmal->himno_inicial,['class'=>'validate input-field himno_inicial','id'=>'himno_inicial','placeholder'=>'Numero y titulo de Himno'])  !!}
                             @if ($errors->has('himno_inicial'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('himno_inicial') }}</strong>
@@ -140,7 +139,7 @@
                         {{--<div class="row margin">--}}
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">account_circle</i>
-                            {!! Form::text('oracion_inicial','',['class'=>'validate input-field','id'=>'oracion_inicial','placeholder'=>'Ingresa el Nombre completo'])  !!}
+                            {!! Form::text('oracion_inicial',$bautizmal->oracion_inicial,['class'=>'validate input-field','id'=>'oracion_inicial','placeholder'=>'Ingresa el Nombre completo'])  !!}
                             @if ($errors->has('oracion_inicial'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('oracion_inicial') }}</strong>
@@ -154,45 +153,49 @@
 
                     {{--oradores--}}
                     <div class="row margin">
-                    <div class="row" id ='discursantes1'>
-                        <h4 class="referencia_orador center">1 Orador</h4>
-                        <div class="col m12 discursantes">
+                        <?php $numoradores=0;?>
+                        @foreach($oradores as $orador)
+                                <?php $numoradores++;?>
+                        <div class="row" id ='discursantes{!! $numoradores !!}'>
+                            <h4 class="referencia_orador center" id="orador{!! $numoradores !!}">{!! $numoradores !!} Orador</h4>
+                            <div class="col m12 discursantes">
 
-                            <div class="input-field col m6 s12">
-                                <i class="material-icons prefix">account_circle</i>
-                                {!! Form::text('tbxnombre_orador1','',['class'=>'validate input-field tbxnombre_orador1','id'=>'tbxnombre_orador1','placeholder'=>'Nombre Completo'])  !!}
-                                @if ($errors->has('tbxnombre_orador1'))
-                                    <span class="help-block red-text">
-                                <strong>{{ $errors->first('tbxnombre_orador1') }}</strong>
-                            </span>
-                                @endif
-                                <label for="tbxnombre_orador1"  data-error="dato no valido" data-success="Correcto" class="left-align">Nombre</label>
-                                <div class="form-group{{ $errors->has('tbxnombre_orador1') ? ' has-error' : '' }}">
+                                <div class="input-field col m6 s12">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    {!! Form::text('tbxnombre_orador'.$numoradores,$orador->nombre,['class'=>'validate input-field tbxnombre_orador'.$numoradores,'id'=>'tbxnombre_orador'.$numoradores,'placeholder'=>'Nombre Completo'])  !!}
+                                    @if ($errors->has('tbxnombre_orador'.$numoradores))
+                                        <span class="help-block red-text">
+                                            <strong>{{ $errors->first('tbxnombre_orador'.$numoradores) }}</strong>
+                                        </span>
+                                    @endif
+                                    <label for="lblnombre_orador{!! $numoradores !!}"  data-error="dato no valido" data-success="Correcto" class="left-align">Nombre</label>
+                                    <div class="form-group{{ $errors->has('tbxnombre_orador'.$numoradores) ? ' has-error' : '' }}">
+                                    </div>
+                                </div>
+                                <div class="input-field col m6 s12">
+                                    <i class="material-icons prefix">chrome_reader_mode</i>
+                                    {!! Form::text('tbxtema_orador'.$numoradores,$orador->tema,['class'=>'validate input-field tbxtema_orador'.$numoradores,'id'=>'tbxtema_orador'.$numoradores,'placeholder'=>'Tema'])  !!}
+                                    @if ($errors->has('tbxtema_orador'.$numoradores))
+                                        <span class="help-block red-text">
+                                            <strong>{{ $errors->first('tbxtema_orador'.$numoradores) }}</strong>
+                                         </span>
+                                    @endif
+                                    <label for="lbltema_orador1" data-error="dato no valido" data-success="Correcto" class="left-align">Tema</label>
+                                    <div class="form-group{{ $errors->has('tbxtema_orador'.$numoradores) ? ' has-error' : '' }}">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="input-field col m6 s12">
-                                <i class="material-icons prefix">chrome_reader_mode</i>
-                                {!! Form::text('tbxtema_orador1','',['class'=>'validate input-field tbxtema_orador1','id'=>'tbxtema_orador1','placeholder'=>'Tema'])  !!}
-                                @if ($errors->has('tbxtema_orador1'))
-                                    <span class="help-block red-text">
-                                <strong>{{ $errors->first('tbxtema_orador1') }}</strong>
-                            </span>
-                                @endif
-                                <label for="tbxtema_orador1" data-error="dato no valido" data-success="Correcto" class="left-align">Tema</label>
-                                <div class="form-group{{ $errors->has('tbxtema_orador1') ? ' has-error' : '' }}">
-                                </div>
-                            </div>
-
-
                         </div>
-                    </div>
 
-                    <div class="col m12">
-                        <a href="#!" id="agregar_discursante" class="agregar_discursante btn-floating btn-small waves-effect waves-light blue lighten-2 "><i class="material-icons">add</i></a>
-                        <a href="#!" id='eliminar_discursante' class="eliminar_discursante btn-floating btn-small waves-effect waves-light blue lighten-2"><i class="material-icons">remove</i></a>
-                    </div>
 
-</div>
+                        @endforeach
+
+                        <div class="col m12">
+                            <a href="#!" id="agregar_discursante" class="agregar_discursante btn-floating btn-small waves-effect waves-light blue lighten-2 "><i class="material-icons">add</i></a>
+                            <a href="#!" id='eliminar_discursante' class="eliminar_discursante btn-floating btn-small waves-effect waves-light blue lighten-2"><i class="material-icons">remove</i></a>
+                        </div>
+
+                    </div>
 
                     {{--fin oradores--}}
 
@@ -200,7 +203,7 @@
                     <div class="row margin">
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">account_circle</i>
-                            {!! Form::text('testigo1','',['class'=>'validate input-field','id'=>'testigo1','placeholder'=>'Nombre Completo'])  !!}
+                            {!! Form::text('testigo1',$bautizmal->testigo1,['class'=>'validate input-field','id'=>'testigo1','placeholder'=>'Nombre Completo'])  !!}
                             @if ($errors->has('testigo1'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('testigo1') }}</strong>
@@ -215,7 +218,7 @@
                         {{--<div class="row margin">--}}
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">account_circle</i>
-                            {!! Form::text('testigo2','',['class'=>'validate input-field','id'=>'testigo2','placeholder'=>'Nombre Completo'])  !!}
+                            {!! Form::text('testigo2',$bautizmal->testigo2,['class'=>'validate input-field','id'=>'testigo2','placeholder'=>'Nombre Completo'])  !!}
                             @if ($errors->has('testigo2'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('testigo2') }}</strong>
@@ -231,7 +234,7 @@
                     <div class="row margin">
                         <div class="input-field col m12 s12">
                             <i class="material-icons prefix">account_circle</i>
-                            {!! Form::text('ordenanzapor','',['class'=>'validate input-field','id'=>'ordenanzapor','placeholder'=>'Nombre Completo'])  !!}
+                            {!! Form::text('ordenanzapor',$bautizmal->ordenanzapor,['class'=>'validate input-field','id'=>'ordenanzapor','placeholder'=>'Nombre Completo'])  !!}
                             @if ($errors->has('ordenanzapor'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('ordenanzapor') }}</strong>
@@ -241,12 +244,12 @@
                             <div class="form-group{{ $errors->has('ordenanzapor') ? ' has-error' : '' }}">
                             </div>
                         </div>
-                        </div>
+                    </div>
 
                     <div class="row margin">
                         <div class="input-field col m12 s12">
                             <i class="material-icons prefix">format_list_bulleted</i>
-                            {!! Form::textarea('actividades','',['class'=>'validate materialize-textarea','id'=>'actividades','placeholder'=>'Actividades'])  !!}
+                            {!! Form::textarea('actividades',$bautizmal->actividades,['class'=>'validate materialize-textarea','id'=>'actividades','placeholder'=>'Actividades'])  !!}
                             {{--<textarea id="actividades" name="actividades" class="materialize-textarea"></textarea>--}}
                             @if ($errors->has('actividades'))
                                 <span class="help-block red-text">
@@ -262,7 +265,7 @@
                     <div class="row margin">
                         <div class="input-field col m12 s12">
                             <i class="material-icons prefix">format_list_bulleted</i>
-                            {!! Form::textarea('bienvenida','',['class'=>'validate materialize-textarea','id'=>'bienvenida','placeholder'=>'Hnos que dan la bienvenida al Barrio'])  !!}
+                            {!! Form::textarea('bienvenida',$bautizmal->bienvenida,['class'=>'validate materialize-textarea','id'=>'bienvenida','placeholder'=>'Hnos que dan la bienvenida al Barrio'])  !!}
                             {{--<textarea id="actividades" name="actividades" class="materialize-textarea"></textarea>--}}
                             @if ($errors->has('bienvenida'))
                                 <span class="help-block red-text">
@@ -278,7 +281,7 @@
                     <div class="row margin">
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">chrome_reader_mode</i>
-                            {!! Form::text('himno_final','',['class'=>'validate input-field himno_final','id'=>'himno_final','placeholder'=>'Numero y titulo de Himno'])  !!}
+                            {!! Form::text('himno_final',$bautizmal->himno_final,['class'=>'validate input-field himno_final','id'=>'himno_final','placeholder'=>'Numero y titulo de Himno'])  !!}
                             @if ($errors->has('himno_final'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('himno_final') }}</strong>
@@ -293,7 +296,7 @@
                         {{--<div class="row margin">--}}
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">account_circle</i>
-                            {!! Form::text('oracion_final','',['class'=>'validate input-field','id'=>'oracion_final','placeholder'=>'Ingresa el Nombre completo'])  !!}
+                            {!! Form::text('oracion_final',$bautizmal->oracion_final,['class'=>'validate input-field','id'=>'oracion_final','placeholder'=>'Ingresa el Nombre completo'])  !!}
                             @if ($errors->has('oracion_final'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('oracion_final') }}</strong>
@@ -310,7 +313,7 @@
                     <div class="row margin">
                         <div class="input-field col offset-l9 m3 s6">
                             <i class="material-icons prefix">supervisor_account</i>
-                            {!! Form::text('asistencia','',['class'=>'validate input-field asistencia','id'=>'asistencia','placeholder'=>'Total Asistencia'])  !!}
+                            {!! Form::text('asistencia',$bautizmal->asistencia,['class'=>'validate input-field asistencia','id'=>'asistencia','placeholder'=>'Total Asistencia'])  !!}
                             @if ($errors->has('asistencia'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('asistencia') }}</strong>
@@ -324,16 +327,16 @@
 
                         {{--<div class="row margin">--}}
                         {{--<div class="input-field col m6 s12">--}}
-                            {{--<i class="material-icons prefix">account_circle</i>--}}
-                            {{--{!! Form::text('oracion_final','',['class'=>'validate input-field','id'=>'oracion_final','placeholder'=>'Ingresa el Nombre completo'])  !!}--}}
-                            {{--@if ($errors->has('oracion_final'))--}}
-                                {{--<span class="help-block red-text">--}}
-                                {{--<strong>{{ $errors->first('oracion_final') }}</strong>--}}
-                            {{--</span>--}}
-                            {{--@endif--}}
-                            {{--<label for="oracion_final" data-error="dato no valido" data-success="Correcto" class="left-align">Oracion Final</label>--}}
-                            {{--<div class="form-group{{ $errors->has('oracion_final') ? ' has-error' : '' }}">--}}
-                            {{--</div>--}}
+                        {{--<i class="material-icons prefix">account_circle</i>--}}
+                        {{--{!! Form::text('oracion_final','',['class'=>'validate input-field','id'=>'oracion_final','placeholder'=>'Ingresa el Nombre completo'])  !!}--}}
+                        {{--@if ($errors->has('oracion_final'))--}}
+                        {{--<span class="help-block red-text">--}}
+                        {{--<strong>{{ $errors->first('oracion_final') }}</strong>--}}
+                        {{--</span>--}}
+                        {{--@endif--}}
+                        {{--<label for="oracion_final" data-error="dato no valido" data-success="Correcto" class="left-align">Oracion Final</label>--}}
+                        {{--<div class="form-group{{ $errors->has('oracion_final') ? ' has-error' : '' }}">--}}
+                        {{--</div>--}}
                         {{--</div>--}}
                     </div>
 
@@ -351,13 +354,17 @@
                             <a href="#salir"  class="btn waves-effect waves-light col s12 red lighten-2 tooltipped modal-trigger" data-position="top" data-tooltip="Salir del Modulo"><i class="material-icons">cancel</i>Cancelar</a>
                         </div>
                     </div>
-                    {!! Form::close() !!}
-                </div>
 
+
+                    {!! Form::close() !!}
+
+
+                </div>
 
             </div>
         </div>
     </div>
+
 
 
 
@@ -372,8 +379,7 @@
             <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat alert-dismissable red lighten-2">Cancelar</a>
         </div>
     </div>
-    {!! Form::open(['route' => ['himnos', ':VAL'], 'method' => 'GET', 'id' => 'form-getHimnos']) !!}
-    {!! Form::close() !!}
+
 @endsection
 @section('scripts')
     {!! Html::script('js/himnosbautizmal.js') !!}

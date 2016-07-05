@@ -136,7 +136,8 @@ return [
         'bautizmode'=>'Bautizmo de',
         'dirigidopor'=>'Direccion del Programa',
         'direccion_himnos'=>'Director de Himnos',
-        'ordenanzapor'=>'QUien realiza la ordenanza'
+        'ordenanzapor'=>'Quien realiza la ordenanza',
+        'tbxtema'=>'Tema',
     ],
 
 ];

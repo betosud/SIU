@@ -138,6 +138,7 @@ Route::get('bautizmales', ['uses' => 'BautizmalController@index', 'as' => 'bauti
 Route::get('nuevobautizmal', ['uses' => 'BautizmalController@create', 'as' => 'nuevobautizmal','middleware'=>'auth','middleware' => 'permission:add.bautizmal']);
 Route::post('guardarbautizmal',['uses'=>'BautizmalController@store','as'=>'guardarbautizmal','middleware'=>'auth','middleware' => 'permission:add.bautizmal']);
 Route::get('editarbautizmal/{id}/edit', ['uses' => 'BautizmalController@edit', 'as' => 'editarbautizmal','middleware'=>'auth','middleware' => 'permission:edit.bautizmal']);
+Route::put('actualizabautizmal/{id}', ['uses' => 'BautizmalController@update', 'as' => 'actualizabautizmal', 'middleware'=>'auth','middleware' => 'permission:edit.bautizmal']);
 
 Route::get('download', function() {
     return Response::download(\Illuminate\Support\Facades\Input::get('path'));

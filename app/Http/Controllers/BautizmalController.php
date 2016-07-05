@@ -2,6 +2,7 @@
 
 namespace SIU\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use SIU\bautizmal;
@@ -75,7 +76,10 @@ class BautizmalController extends Controller
             'himno_final'=>'required',
             'oracion_final'=>'required',
             'actividades'=>'required',
-            'bienvenida'=>'required');
+            'bienvenida'=>'required',
+            'tbxnombre_orador1'=>'required',
+            'tbxtema_orador1'=>'required'
+        );
 //        foreach($request->all() as $key => $value) {
 //
 //            if (strpos($key, "nombre_orador",1) !== false) {
@@ -131,7 +135,92 @@ $bautizmal->save();
         $bautizmal=bautizmal::findorfail($id);
 
         $this->authorize('updatebarriobautizmal', $bautizmal);
-dd($bautizmal);
-        return view('bautizmal.edit',compact('bautizmal'));
+
+        $oradores=oradores_bautizmal::where('idprograma',$bautizmal->id)->get();
+//        dd($oradores);
+        return view('bautizmal.editar',compact('bautizmal','oradores'));
+    }
+
+
+    public function update(Request $request,$id){
+        $bautizmal=bautizmal::findorfail($id);
+$totaloradores=0;
+        $rules=array('bautizmode'=>'required',
+            'fecha'=>'required',
+            'hora'=>'required',
+            'dirigidopor'=>'required',
+            'direccion_himnos'=>'required',
+            'pianista'=>'required',
+            'himno_inicial'=>'required',
+            'oracion_inicial'=>'required',
+            'testigo1'=>'required',
+            'testigo2'=>'required',
+            'ordenanzapor'=>'required',
+            'himno_final'=>'required',
+            'oracion_final'=>'required',
+            'actividades'=>'required',
+            'bienvenida'=>'required',
+            'tbxnombre_orador1'=>'required',
+            'tbxtema_orador1'=>'required'
+        );
+//        foreach($request->all() as $key => $value) {
+//
+//            if (strpos($key, "nombre_orador",1) !== false) {
+//                $totaloradores++;
+//                $rules['tbxnombre_orador'.$totaloradores]='required';
+//                $rules['tbxtema_orador'.$totaloradores]='required';
+//            }
+//        }
+//        dd($request->all());
+
+        $this->validate($request,$rules);
+        $fecha=Carbon::createFromFormat('Y-m-d',$request['fecha']);
+        $hora=Carbon::createFromFormat('H:i A',$request['hora']);
+        $request['fecha']=$fecha->format('Y-m-d');
+        $request['hora']=$hora->format('H:i');
+
+        $request['bautizmode']=Str::title($request['bautizmode']);
+        $request['dirigidopor']=Str::title($request['dirigidopor']);
+        $request['direccion_himnos']=Str::title($request['direccion_himnos']);
+        $request['pianista']=Str::title($request['pianista']);
+        $request['oracion_inicial']=Str::title($request['oracion_inicial']);
+        $request['testigo1']=Str::title($request['testigo1']);
+        $request['testigo2']=Str::title($request['oracion_inicial']);
+        $request['ordenanzapor']=Str::title($request['ordenanzapor']);
+        $request['oracion_final']=Str::title($request['oracion_final']);
+        $request['actividades']=Str::title($request['actividades']);
+        $request['bienvenida']=Str::title($request['bienvenida']);
+        $bautizmal->fill($request->all());
+        $bautizmal->save();
+        $oradorsave=oradores_bautizmal::where('idprograma',$id)->get();
+        foreach($oradorsave as $orador){
+            oradores_bautizmal::destroy($orador->id);
+        }
+        foreach($request->all() as $key => $value) {
+            if (strpos($key, "nombre_orador",1) !== false) {
+                //results here
+                $oradores[]=Str::title($value);
+            }
+            if (strpos($key, "tema_orador",1) !== false) {
+                //results here
+                $temas[]=Str::title($value);
+            }
+        }
+        $countoradores=count($oradores);
+        for($i=0;$i<$countoradores;$i++){
+            $orador=array('idprograma'=>$bautizmal->id,'nombre'=> $oradores[$i],'tema'=>$temas[$i]);
+            $speck=new oradores_bautizmal($orador);
+            $speck->save();
+        }
+
+
+
+        \Session::flash('message','Registro Guardado Correctamente');
+
+        return redirect()->route('bautizmales');
+
+
+
+
     }
 }
