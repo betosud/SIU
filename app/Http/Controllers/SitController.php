@@ -102,7 +102,7 @@ class SitController extends Controller
 
         Mail::send('emails.nuevasolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
             $message->from($barrio->email,$barrio->nombreunidad);
-            $message->subject('Solicitud De gasto');
+            $message->subject('Registro de Solicitud');
             $message->to($sit->mail,$sit->solicitante);
         });
 
@@ -217,8 +217,8 @@ class SitController extends Controller
         //notificar
         Mail::send('emails.notificasolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
             $message->from($barrio->email,$barrio->nombreunidad);
-            $message->subject('Solicitud De gasto');
-            $message->to($sit->mail,$sit->solicitante);
+            $message->subject('Solicitud De gasto '.$sit->idsit);
+            $message->to($sit->mail,$sit->pagable);
         });
 
         \Session::flash('message','Se elimino Correctamente la solicitud '.$sit->id);
@@ -323,7 +323,7 @@ class SitController extends Controller
             $barrio=barrios::findorfail($sit->idbarrio);
 
 
-            Mail::send('emails.notificasolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
+            Mail::send('emails.infosolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
                 $message->from($barrio->email,$barrio->nombreunidad);
                 $message->subject('Solicitud De gasto');
                 $message->to($sit->mail,$sit->solicitante);
@@ -335,7 +335,7 @@ class SitController extends Controller
             $barrio=barrios::findorfail($sit->idbarrio);
 
 
-            Mail::send('emails.notificasolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
+            Mail::send('emails.infosolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
                 $message->from($barrio->email,$barrio->nombreunidad);
                 $message->subject('Solicitud De gasto');
                 $message->to($sit->mail,$sit->solicitante);

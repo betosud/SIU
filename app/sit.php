@@ -71,4 +71,8 @@ class sit extends Model
         $fecha=Carbon::createFromFormat('Y-m-d',$this->fecha);
         return $fecha->format('l d F Y');
     }
+    public function getFechasitdmaAttribute(){
+        $fecha=Carbon::createFromFormat('Y-m-d',$this->fechasit);
+        return $fecha->format('l d F Y');
+    }
 }

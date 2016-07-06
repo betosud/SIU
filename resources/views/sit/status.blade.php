@@ -21,7 +21,7 @@
                     <div class="col s12">
                         <ul class="tabs">
                             <li class="blue-text tab col s6"><a href="#datos">Datos</a></li>
-                            @if($sit->idsit=='')
+                            @if($sit->idsit=='' || $sit->status==64)
                                 <li class="blue-text tab col disabled s6"><a href="#comprobantes">Comprobantes</a></li>
                                 @else
                                 <li class="blue-text tab col s6"><a href="#comprobantes">Comprobantes</a></li>
@@ -58,6 +58,7 @@
 
 
                                 <li class="collection-item">Pagable: <strong> {!! $sit->pagable !!}</strong></li>
+                                <li class="collection-item">IFE: <strong> {!! $sit->ife !!}</strong></li>
                                 <li class="collection-item">Cantidad: <strong>{!! $sit->cantidad !!}</strong></li>
                                 <li class="collection-item">Descripcion: <strong>{!! $sit->descripcion !!}</strong></li>
                                 <li class="collection-item">Organizacion: <strong>{!! $sit->organizacionnombre !!}</strong></li>
