@@ -600,7 +600,7 @@
 
                                                             <td class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;" valign="top">
 
-                                                                <h1 style="text-align: center;">Solicitud De Gasto Registrada</h1>
+                                                                <h1 style="text-align: center;">Solicitud De Gasto Registrada id: <strong>{!! $sit->id !!}</strong></h1>
                                                                 Le informamos que se ha recibido una Solicitud de Gasto para la Unidad <strong>{!! $sit->datosbarrio->nombreunidad !!}</strong>
                                                                 con los siguientes datos
 

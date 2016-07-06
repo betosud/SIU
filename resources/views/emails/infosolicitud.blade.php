@@ -626,7 +626,7 @@
 
                                                 <td class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;" valign="top">
 
-                                                    <h1 style="text-align: center;">Solicitud de Gasto</h1>
+                                                    <h1 style="text-align: center;">Solicitud de Gasto <strong>{!! $sit->id !!}</strong></h1>
 
                                                     @if($sit->idsit !="")
                                                         <h2 style="text-align: center;">{!! $sit->idsit !!}</h2>
@@ -696,7 +696,10 @@
                                     </td>
                                 </tr>
                                 </tbody>
-                            </table><table class="mcnButtonBlock" style="min-width:100%;" border="0" cellpadding="0" cellspacing="0" width="100%">
+                            </table>
+
+                            @endif
+                            <table class="mcnButtonBlock" style="min-width:100%;" border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tbody class="mcnButtonBlockOuter">
                                 <tr>
                                     <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" class="mcnButtonBlockInner" align="center" valign="top">
@@ -742,7 +745,6 @@
                             <![endif]-->
                         </td>
                     </tr>
-@endif
                     {{--fin if--}}
 
                     <tr>

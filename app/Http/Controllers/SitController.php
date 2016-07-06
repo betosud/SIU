@@ -215,7 +215,7 @@ class SitController extends Controller
         $barrio=barrios::findorfail($sit->idbarrio);
 
         //notificar
-        Mail::send('emails.notificasolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
+        Mail::send('emails.infosolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
             $message->from($barrio->email,$barrio->nombreunidad);
             $message->subject('Solicitud De gasto '.$sit->idsit);
             $message->to($sit->mail,$sit->pagable);
@@ -792,11 +792,6 @@ class SitController extends Controller
 
     public function  destroyfile($id){
         $archivosit=archivossit::findorfail($id);
-
-
-
-
-
         $archivosit->delete();
 
         return redirect()->back();
