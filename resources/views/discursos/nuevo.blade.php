@@ -17,7 +17,6 @@
                     <div class="form-group">
                         {!! Form::text('idbarrio',Auth::user()->idbarrio ,['class'=>'hide']) !!}
                         {!! Form::text('user_id',Auth::user()->id ,['class'=>'hide']) !!}
-                        {!! Form::text('token',csrf_token(),['class'=>'hide']) !!}
                         {!! Form::text('realizado','0' ,['class'=>'hide']) !!}
                     </div>
 

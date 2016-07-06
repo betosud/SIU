@@ -82,14 +82,14 @@ class DiscursosController extends Controller
             'lider1'=>'required',
             'lider2'=>'required',
             'lider3'=>'required',
-            'user_id'=>'required',
-            'token'=>'required');
+            'user_id'=>'required');
         $this->validate($request,$rules);
         $fecha=Carbon::createFromFormat('Y-m-d',$request['fecha']);
         $request['fecha']=$fecha->format('Y-m-d');
         $request['nombre']=Str::title($request['nombre']);
         $request['tema']=Str::title($request['tema']);
         $request['lugar']=Str::title($request['lugar']);
+        $request['token']=str_random(40);
 
         $discurso= new discursos($request->all());
         $discurso->save();
