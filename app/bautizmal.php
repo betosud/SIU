@@ -5,6 +5,8 @@ namespace SIU;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use SIU\barrios;
+use SIU\oradores_bautizmal;
 
 class bautizmal extends Model
 {
@@ -30,5 +32,18 @@ class bautizmal extends Model
         $hora=Carbon::createFromTime($horaarray[0],$horaarray[1],$horaarray[2]);
         return $hora->format('g:i a');
 
+    }
+    public function barrio(){
+        return $this->hasMany('SIU\barrios', 'id', 'idbarrio');
+    }
+
+
+    public function oradores(){
+        return $this->hasMany('SIU\oradores_bautizmal','idprograma','id');
+    }
+    public function getnombrearchivoAttribute(){
+        $nombre="Bautizmo".$this->id."_".$this->bautizmode;
+        $nombre=str_replace(' ','_',$nombre);
+        return $nombre;
     }
 }

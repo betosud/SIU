@@ -3,6 +3,7 @@
 namespace SIU\Http\Controllers;
 
 use Carbon\Carbon;
+use fpdf\FPDF;
 use Illuminate\Http\Request;
 
 use SIU\bautizmal;
@@ -212,15 +213,137 @@ $totaloradores=0;
             $speck=new oradores_bautizmal($orador);
             $speck->save();
         }
-
-
-
         \Session::flash('message','Registro Guardado Correctamente');
-
         return redirect()->route('bautizmales');
+    }
+    public function pdf($id,$evento)
+    {
+        setlocale(LC_ALL, "es_ES");
+        date_default_timezone_set("America/Mexico_City");
+        $bautizmal =bautizmal::findorfail($id);
+
+        $fecha = strftime("%A %e de %B de %Y", strtotime($bautizmal->fecha));
+
+        $hora = $bautizmal->horahm;
+        $pdf=new FPDF();
+        $pdf->AddPage("P", "letter");
+        $pdf->SetFont("helvetica", "B", 16);
+        $pdf->Image("imagenes/LOGO_LDS" . ".png", 10, 7, 45, 20);
+        $y=$pdf->GetY();
+        $pdf->Image("imagenes/logo" . ".png", 170, 7, 25, 25);
+        $pdf->ln(25);
+        $pdf->Cell(200, 5, "Programa Bautizmal", 0, 1, "C");
+        $pdf->ln(5);
+        $pdf->SetFont("helvetica", "B", 18);
+        $pdf->Cell(200, 5, utf8_decode($bautizmal->bautizmode), 0, 1, "C");
+        $pdf->ln(8);
+        $pdf->SetFont("helvetica", "", 12);
+        $pdf->Cell(200, 5, utf8_decode($fecha." ".$hora), 0, 1, "R");
+        $pdf->ln(8);
+        $pdf->Cell(62, 5, utf8_decode("Direccion del Programa"), 0, 0, "l");
+        $pdf->Cell(7, 5, utf8_decode(""), 0, 0, "l");
+        $pdf->Cell(62, 5, utf8_decode("Director Himnos"), 0, 0, "");
+        $pdf->Cell(7, 5, utf8_decode(""), 0, 0, "l");
+        $pdf->Cell(62, 5, utf8_decode("Pianista"), 0, 1, "");
+        $pdf->SetFont("helvetica", "B", 12);
+        $pdf->Cell(62, 5, utf8_decode($bautizmal->dirigidopor), "B", 0, "l");
+        $pdf->Cell(7, 5, utf8_decode(""), 0, 0, "l");
+        $pdf->Cell(62, 5, utf8_decode($bautizmal->direccion_himnos), "B", 0, "");
+        $pdf->Cell(7, 5, utf8_decode(""), 0, 0, "l");
+        $pdf->Cell(62, 5, utf8_decode($bautizmal->pianista), "B", 1, "l");
+        $pdf->ln(8);
+        $pdf->SetFont("helvetica", "", 12);
+        $pdf->Cell(95, 5, utf8_decode("Himno Inicial"), 0, 0, "l");
+        $pdf->Cell(5, 5, utf8_decode(""), 0, 0, "l");
+        $pdf->Cell(100, 5, utf8_decode("Oracion Inicial"), 0, 1, "");
+        $pdf->SetFont("helvetica", "B", 12);
+        $pdf->Cell(95, 5, utf8_decode($bautizmal->himno_inicial), "B", 0, "l");
+        $pdf->Cell(5, 5, utf8_decode(""), 0, 0, "l");
+        $pdf->Cell(100, 5, utf8_decode($bautizmal->oracion_inicial), "B", 1, "");
+        $totaloradores=0;
+        $pdf->ln(5);
+        $pdf->SetFont("helvetica", "B", 14);
+        $pdf->Cell(200, 5, utf8_decode("Oradores"), 0, 1, "C");
+        $pdf->ln(5);
+        foreach ($bautizmal->oradores as $orador){
+            $totaloradores++;
+            $pdf->SetFont("helvetica", "", 12);
+            $pdf->Cell(95, 5, utf8_decode($totaloradores." Orador"), 0, 0, "l");
+            $pdf->Cell(5, 5, utf8_decode(""), 0, 0, "l");
+            $pdf->Cell(100, 5, utf8_decode("Tema Mensaje"), 0, 1, "l");
+            $pdf->SetFont("helvetica", "B", 12);
+            $pdf->Cell(95, 5, utf8_decode($orador->nombre), "B", 0, "l");
+            $pdf->Cell(5, 5, utf8_decode(""), 0, 0, "l");
+            $pdf->Cell(100, 5, utf8_decode($orador->tema), "B", 1, "l");
+            $pdf->ln(5);
+        }
+
+        $pdf->ln(5);
+        $pdf->SetFont("helvetica", "B", 14);
+        $pdf->Cell(200, 5, utf8_decode("Ordenanza"), 0, 1, "C");
+        $pdf->ln(5);
+        $pdf->SetFont("helvetica", "", 12);
+        $pdf->Cell(95, 5, utf8_decode("bautizmo de"), 0, 0, "l");
+        $pdf->Cell(5, 5, utf8_decode(""), 0, 0, "l");
+        $pdf->Cell(100, 5, utf8_decode("Ordenanza Por"), 0, 1, "");
+        $pdf->SetFont("helvetica", "B", 12);
+        $pdf->Cell(95, 5, utf8_decode($bautizmal->bautizmode), "B", 0, "l");
+        $pdf->Cell(5, 5, utf8_decode(""), 0, 0, "l");
+        $pdf->Cell(100, 5, utf8_decode($bautizmal->ordenanzapor), "B", 1, "");
+
+        $pdf->ln(5);
+        $pdf->SetFont("helvetica", "", 12);
+        $pdf->Cell(95, 5, utf8_decode("Testigo"), 0, 0, "l");
+        $pdf->Cell(5, 5, utf8_decode(""), 0, 0, "l");
+        $pdf->Cell(100, 5, utf8_decode("Testigo"), 0, 1, "");
+        $pdf->SetFont("helvetica", "B", 12);
+        $pdf->Cell(95, 5, utf8_decode($bautizmal->testigo1), "B", 0, "l");
+        $pdf->Cell(5, 5, utf8_decode(""), 0, 0, "l");
+        $pdf->Cell(100, 5, utf8_decode($bautizmal->testigo2), "B", 1, "");
+        $pdf->SetFont("helvetica", "B", 14);
+        $pdf->ln(5);
+        $pdf->Cell(200, 5, utf8_decode("Actividades"), 0, 1, "C");
+        $pdf->ln(5);
+        $pdf->SetFont("helvetica", "B", 12);
+//        $pdf->Cell(200, 5, utf8_decode($bautizmal->actividades), 0, 1, "");
+        $pdf->MultiCell(200,5,utf8_decode($bautizmal->bienvenida),0,"",0);
+        $pdf->ln(5);
+
+        $pdf->SetFont("helvetica", "B", 14);
+        $pdf->Cell(200, 5, utf8_decode("Bienvenida"), 0, 1, "C");
+        $pdf->ln(5);
+        $pdf->SetFont("helvetica", "B", 12);
+//        $pdf->Cell(200, 5, utf8_decode($bautizmal->bienvenida), 0, 1, "");
+        $pdf->MultiCell(200,5,utf8_decode($bautizmal->bienvenida),0,"",0);
+        $pdf->ln(5);
+        $pdf->SetFont("helvetica", "", 12);
+        $pdf->Cell(95, 5, utf8_decode("Himno Inicial"), 0, 0, "l");
+        $pdf->Cell(5, 5, utf8_decode(""), 0, 0, "l");
+        $pdf->Cell(100, 5, utf8_decode("Oracion Inicial"), 0, 1, "");
+        $pdf->SetFont("helvetica", "B", 12);
+        $pdf->Cell(95, 5, utf8_decode($bautizmal->himno_inicial), "B", 0, "l");
+        $pdf->Cell(5, 5, utf8_decode(""), 0, 0, "l");
+        $pdf->Cell(100, 5, utf8_decode($bautizmal->oracion_inicial), "B", 1, "");
+
+
+        $pdf->ln(5);
+        $pdf->SetFont("helvetica", "", 12);
+        $pdf->Cell(160, 5, utf8_decode(""), "", 0, "");
+        $pdf->Cell(25, 5, utf8_decode("Asistencia"), 0, 0, "");
+        $pdf->SetFont("helvetica", "B", 12);
+        $pdf->Cell(15, 5, utf8_decode($bautizmal->asistencia), "B", 1, "C");
 
 
 
+
+
+
+
+        if ($evento == 'descargar') {
+            $pdf->Output($bautizmal->nombrearchivo . ".pdf", "D");
+        }
+
+        dd($hora);
 
     }
 }

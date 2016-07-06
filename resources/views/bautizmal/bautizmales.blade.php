@@ -42,9 +42,9 @@
                                     @permission('edit.bautizmal')
                                     <a href="{!! route('editarbautizmal',$bautizmal->id) !!}" class="btn btn-floating waves-effect waves-light green tooltipped " data-position="top" data-tooltip="Editar"><i class="material-icons ">edit</i></a>
                                     @endpermission
-                                    {{--@permission('send.asignacion')--}}
-                                    {{--<a OnClick='mostrar(this)' id="{!! $discurso->id !!}" href="#enviar" class="btn btn-floating waves-effect waves-light blue tooltipped modal-trigger" data-position="top" data-tooltip="Enviar"><i class="material-icons ">mail_outline</i></a>--}}
-                                    {{--@endpermission--}}
+                                    @permission('print.bautizmal')
+                                    <a  href="{!! route('pdfbautizmal',[$bautizmal->id,'descargar']) !!}" class="btn btn-floating waves-effect waves-light blue tooltipped modal-trigger" data-position="top" data-tooltip="Imprimir"><i class="material-icons ">print</i></a>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
