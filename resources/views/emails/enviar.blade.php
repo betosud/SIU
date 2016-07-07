@@ -631,9 +631,9 @@
 
 
                                                                 @if($modulo<>'sit')
-                                                                    <a class="mcnButton " title="Ver en Linea" href="{!! route('pdf'.$modulo,[$data->id,'completo','ver',$data->token]) !!}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Ver en Linea</a>
+                                                                    <a class="mcnButton " title="Ver en Linea" href="{!! route('pdf'.$modulo,[$data->id,'ver',$data->token]) !!}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Ver en Linea</a>
                                                                 @else
-                                                                    <a class="mcnButton " title="Ver en Linea" href="{!! route('pdf'.$modulo,[$data->id,'completo','ver',$data->token]) !!}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">er en Linea</a>
+                                                                    <a class="mcnButton " title="Ver en Linea" href="{!! route('pdf'.$modulo,[$data->id,'ver',$data->token]) !!}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">er en Linea</a>
                                                                 @endif
 
 
