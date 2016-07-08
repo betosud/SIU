@@ -325,7 +325,18 @@ class SitController extends Controller
 
             Mail::send('emails.infosolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
                 $message->from($barrio->email,$barrio->nombreunidad);
-                $message->subject('Solicitud De gasto');
+                $message->subject('Solicitud De gasto '.$sit->id);
+                $message->to($sit->mail,$sit->solicitante);
+            });
+        }
+
+        if($sit->status==68){
+            $barrio=barrios::findorfail($sit->idbarrio);
+
+
+            Mail::send('emails.infosolicitudcobrado',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
+                $message->from($barrio->email,$barrio->nombreunidad);
+                $message->subject('Solicitud De gasto '.$sit->id);
                 $message->to($sit->mail,$sit->solicitante);
             });
         }
@@ -337,7 +348,7 @@ class SitController extends Controller
 
             Mail::send('emails.infosolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
                 $message->from($barrio->email,$barrio->nombreunidad);
-                $message->subject('Solicitud De gasto');
+                $message->subject('Solicitud De gasto '.$sit->id);
                 $message->to($sit->mail,$sit->solicitante);
             });
         }
