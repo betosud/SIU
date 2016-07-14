@@ -56,7 +56,7 @@
     <div class="modal-footer">
         <button  type="submit" href="#!" class=" waves-effect waves-green btn-flat tooltipped" data-position="top" data-tooltip="Guardar Registro">Guardar</button>
         {{--<a  id="addfile" class="btn-flat waves-effect waves-light green lighten-3" data-position="top" data-tooltip="Guardar"><i class="material-icons">save</i>Guardar</a>--}}
-        <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat ">Canlcel</a>
+        <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
 
     </div>
 

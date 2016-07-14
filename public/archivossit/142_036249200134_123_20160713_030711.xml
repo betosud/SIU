@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><cfdi:Comprobante NumCtaPago="****" LugarExpedicion="AMECAMECA DE JUAREZ MEXICO" metodoDePago="Efectivo" tipoDeComprobante="ingreso" total="196.64" Moneda="Pesos" TipoCambio="1" descuento="0.0" subTotal="169.5172" certificado="MIIEfTCCA2WgAwIBAgIUMDAwMDEwMDAwMDAyMDI2MzQxMzIwDQYJKoZIhvcNAQEFBQAwggGVMTgwNgYDVQQDDC9BLkMuIGRlbCBTZXJ2aWNpbyBkZSBBZG1pbmlzdHJhY2nDs24gVHJpYnV0YXJpYTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSEwHwYJKoZIhvcNAQkBFhJhc2lzbmV0QHNhdC5nb2IubXgxJjAkBgNVBAkMHUF2LiBIaWRhbGdvIDc3LCBDb2wuIEd1ZXJyZXJvMQ4wDAYDVQQRDAUwNjMwMDELMAkGA1UEBhMCTVgxGTAXBgNVBAgMEERpc3RyaXRvIEZlZGVyYWwxFDASBgNVBAcMC0N1YXVodMOpbW9jMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxPjA8BgkqhkiG9w0BCQIML1Jlc3BvbnNhYmxlOiBDZWNpbGlhIEd1aWxsZXJtaW5hIEdhcmPDrWEgR3VlcnJhMB4XDTEyMTIxODExNTMzOFoXDTE2MTIxODExNTMzOFowgb4xIDAeBgNVBAMTF01PREFURUxBUyBTIEEgUCBJIERFIENWMSAwHgYDVQQpExdNT0RBVEVMQVMgUyBBIFAgSSBERSBDVjEgMB4GA1UEChMXTU9EQVRFTEFTIFMgQSBQIEkgREUgQ1YxJTAjBgNVBC0THE1PRDA0MTAxNEtJMyAvIE1PQUozODA5MTBLQjQxHjAcBgNVBAUTFSAvIE1PQUozODA5MTBIWU5TWk4wMjEPMA0GA1UECxMGTWF0cml6MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDExTAv14dU5tDuJQBud8N/AlEYwXlx+Z6pPzvGKblwsXGDgaOF1LyVnnZFdosBuiC+4ZMKDnujT7a5JE7RgWUfkANBs5FrUAqG/cRtRQOQePEnqugvQk6NpwjqFuwTgcqd6mVxACkYGQYOcx/2M2Vj2wMvkYj7fmqfb0obDRl0WQIDAQABox0wGzAMBgNVHRMBAf8EAjAAMAsGA1UdDwQEAwIGwDANBgkqhkiG9w0BAQUFAAOCAQEAZcronUleYCoZOTDhAXQVmGo+7EJG9YvkKSKDxbi3wfenox81ORh/OK0j8xSU+fdMvubJUIwnyWfifVwhxImSmziH0PbyJ7iO1/4U/Je+kn5cmvQs8lM7p2QOwOfdcBM9evH4rEcIJgMphuI1voOEv/asaya8vpoQjpUCxmZ19Oumq1odncoBpdvX3y+nDoIzTDhuk9qhbndhRcbrFX9164Lbqfmv7FeY8Hw2Md3BWQtyeF6PjYoQStVwQXGqtkETrzZxKftoUlS16dOsDBVgzf8MS1rcjSewfzxY1LWz032WSr0s14euQWqdpWwDjXj2obMqnluJvEmfasfiFirk6g==" noCertificado="00001000000202634132" formaDePago="PAGO EN UNA SOLA EXHIBICION" sello="SbQq6I3MQVP3cdfJAofFy66Rian1G8OCDW8cBwPJKZqDvNv9U4B3ju+sIVPuOQwiVqOIh3xAeYjyxYrNcyvPMMrqFT2h7ZA79GmHC1Rc98srNy7XtMIfsZdMV4LB4pa+1Ei8pll/sgckWE0K64Gf5qC+kdPKdWn2IQE7A/L3i1Q=" fecha="2015-11-07T13:46:55" folio="1189" serie="GX1" version="3.2" xsi:schemaLocation="http://www.sat.gob.mx/cfd/3  http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd" xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <cfdi:Emisor nombre="MODATELAS SAPI DE CV" rfc="MOD041014KI3">
+        <cfdi:DomicilioFiscal codigoPostal="05120" pais="MEXICO" estado="DISTRITO FEDERAL" municipio="CUAJIMALPA DE MORELOS" colonia="BOSQUES DE LAS LOMAS " noInterior="PB 2B " noExterior="100" calle="PASEO DE LOS TAMARINDOS"/>
+        <cfdi:ExpedidoEn codigoPostal="56900" pais="Mexico" estado="MEXICO" municipio="AMECAMECA DE JUAREZ" colonia="CENTRO" calle="AVENIDA DE FRAY MARTIN DE VALENCIA NO. 48"/>
+        <cfdi:RegimenFiscal Regimen="REGIMEN GENERAL DE LEY PERSONAS MORALES"/>
+    </cfdi:Emisor>
+    <cfdi:Receptor nombre="LA IGLESIA DE JESUCRISTO DE LOS SANTOS DE LOS ULTIMOS DIAS EN MEXICO A.R." rfc="IJS930831J80">
+        <cfdi:Domicilio codigoPostal="53950" pais="MEXICO" estado="DE MEXICO" municipio="NAUCALPAN" colonia="LOMAS DE TECAMACHALCO" noInterior="PISO 9,10,11" noExterior="1" calle="AV FUENTE DE PIRAMIDES"/>
+    </cfdi:Receptor>
+    <cfdi:Conceptos>
+        <cfdi:Concepto importe="10.3362" valorUnitario="10.336207" descripcion="5153155000 LT. P.CH,XC" unidad="PZA" cantidad="1.0"/>
+        <cfdi:Concepto importe="34.4655" valorUnitario="17.232759" descripcion="5146240000 MX-LF-063 VARA DE CEDRO X1,XC" unidad="PZA" cantidad="2.0"/>
+        <cfdi:Concepto importe="13.7759" valorUnitario="6.887931" descripcion="5146181000 MX-LF-002 37cm GLITTER ENGLISH I" unidad="PZA" cantidad="2.0"/>
+        <cfdi:Concepto importe="29.1379" valorUnitario="14.568966" descripcion="5146304000 VARA DE CHURRO MX-SE-103" unidad="PZA" cantidad="2.0"/>
+        <cfdi:Concepto importe="55.1034" valorUnitario="6.887931" descripcion="5146291000 MINI PICK NOCHEBUENA LV-12148" unidad="PZA" cantidad="8.0"/>
+        <cfdi:Concepto importe="6.0259" valorUnitario="6.025862" descripcion="5153245000 ESPUMA FLORAL OASIS ADVANTAGE PL" unidad="PZA" cantidad="1.0"/>
+        <cfdi:Concepto importe="20.6724" valorUnitario="10.336207" descripcion="5153155000 LT. P.CH,XC" unidad="PZA" cantidad="2.0"/>
+    </cfdi:Conceptos>
+    <cfdi:Impuestos totalImpuestosTrasladados="27.1228" totalImpuestosRetenidos="0.0">
+        <cfdi:Retenciones>
+            <cfdi:Retencion importe="0.0" impuesto="IVA"/>
+        </cfdi:Retenciones>
+        <cfdi:Traslados>
+            <cfdi:Traslado importe="27.1228" tasa="16.0" impuesto="IVA"/>
+        </cfdi:Traslados>
+    </cfdi:Impuestos>
+	<cfdi:Complemento>
+		<tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/TimbreFiscalDigital/TimbreFiscalDigital.xsd" version="1.0" UUID="9fd02fee-eca4-4e7d-932c-d1a642863859" FechaTimbrado="2015-11-07T13:47:55" selloCFD="SbQq6I3MQVP3cdfJAofFy66Rian1G8OCDW8cBwPJKZqDvNv9U4B3ju+sIVPuOQwiVqOIh3xAeYjyxYrNcyvPMMrqFT2h7ZA79GmHC1Rc98srNy7XtMIfsZdMV4LB4pa+1Ei8pll/sgckWE0K64Gf5qC+kdPKdWn2IQE7A/L3i1Q=" noCertificadoSAT="00001000000203092957" selloSAT="AppqxICc5A5p/PZK2S99sQnGcdNU4vqtjWCqtmXOKPIvDbCPVQz+WFGeBZvHZzsOeKGFaFK3qIs9HieF1qLMdRI3KL+h/EnzvyKYpAsx1uDZ9+34OuS28ginHNuOFRv+YtTp2BttEHFfznuyaXsoBEwgMafScm2g5xR7QX170pY=" />
+    </cfdi:Complemento>
+</cfdi:Comprobante>

@@ -12,7 +12,8 @@
         "google/apiclient": "1.*",
         "itbz/fpdf": "^1.7",
         "buzz/laravel-google-captcha": "1.*",
-        "arielcr/numero-a-letras": "dev-master"
+        "arielcr/numero-a-letras": "dev-master",
+        "guzzlehttp/guzzle": "^6.2"
 
     },
     "require-dev": {

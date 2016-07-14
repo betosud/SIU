@@ -315,43 +315,21 @@ class SitController extends Controller
 
         $this->authorize('updatebarrio', $sit);
 
+
+        if($request['status']!=$sit->status){
+            $notificastatus=1;
+        }
+        else{
+            $notificastatus=0;
+        }
+
         $sit->fill($request->all());
         $sit->save();
 
-
-        if($sit->status==70){
-            $barrio=barrios::findorfail($sit->idbarrio);
-
-
-            Mail::send('emails.infosolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
-                $message->from($barrio->email,$barrio->nombreunidad);
-                $message->subject('Solicitud De gasto '.$sit->id);
-                $message->to($sit->mail,$sit->solicitante);
-            });
+        if($notificastatus==1){
+            $this->notificaciones($sit);
         }
 
-        if($sit->status==68){
-            $barrio=barrios::findorfail($sit->idbarrio);
-
-
-            Mail::send('emails.infosolicitudcobrado',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
-                $message->from($barrio->email,$barrio->nombreunidad);
-                $message->subject('Solicitud De gasto '.$sit->id);
-                $message->to($sit->mail,$sit->solicitante);
-            });
-        }
-
-
-        if($sit->status==64){
-            $barrio=barrios::findorfail($sit->idbarrio);
-
-
-            Mail::send('emails.infosolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
-                $message->from($barrio->email,$barrio->nombreunidad);
-                $message->subject('Solicitud De gasto '.$sit->id);
-                $message->to($sit->mail,$sit->solicitante);
-            });
-        }
 
 
         return response()->json(['mensaje'=>'Se Actualizo el sit num '.$sit->idsit]);
@@ -380,11 +358,63 @@ class SitController extends Controller
         
     }
     
-    
+    public function notificaciones($sit){
+        if($sit->status==70){
+            $barrio=barrios::findorfail($sit->idbarrio);
+
+
+            Mail::send('emails.infosolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
+                $message->from($barrio->email,$barrio->nombreunidad);
+                $message->subject('Solicitud De gasto '.$sit->id);
+                $message->to($sit->mail,$sit->solicitante);
+            });
+        }
+
+        if($sit->status==68){
+            $barrio=barrios::findorfail($sit->idbarrio);
+
+
+            Mail::send('emails.infosolicitudcobrado',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
+                $message->from($barrio->email,$barrio->nombreunidad);
+                $message->subject('Solicitud De gasto '.$sit->id);
+                $message->to($sit->mail,$sit->solicitante);
+            });
+        }
+
+        if($sit->status==71){
+            $barrio=barrios::findorfail($sit->idbarrio);
+
+
+            Mail::send('emails.infosolicitudcompleto',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
+                $message->from($barrio->email,$barrio->nombreunidad);
+                $message->subject('Solicitud De gasto '.$sit->id);
+                $message->to($sit->mail,$sit->solicitante);
+            });
+        }
+
+
+        if($sit->status==64){
+            $barrio=barrios::findorfail($sit->idbarrio);
+
+
+            Mail::send('emails.infosolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
+                $message->from($barrio->email,$barrio->nombreunidad);
+                $message->subject('Solicitud De gasto '.$sit->id);
+                $message->to($sit->mail,$sit->solicitante);
+            });
+        }
+    }
     public function updatesit(Request $request,$id){
 
         $sit=sit::findorfail($id);
         $this->authorize('updatebarrio', $sit);
+
+        if($request['status']!=$sit->status){
+            $notificastatus=1;
+        }
+        else{
+            $notificastatus=0;
+        }
 //dd($request->all());
         $rules=array('fechasit'=>'required',
             'solicitante'=>'required',
@@ -412,6 +442,9 @@ class SitController extends Controller
         $sit->fill($request->all());
 
         $sit->save();
+        if($notificastatus==1){
+            $this->notificaciones($sit);
+        }
 
         \Session::flash('message','Se actualizo Correctamente el SIT '.$sit->idsit);
         return \Redirect::route('editarsit',[$sit->id]);

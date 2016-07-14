@@ -141,11 +141,20 @@ Route::get('editarbautizmal/{id}/edit', ['uses' => 'BautizmalController@edit', '
 Route::put('actualizabautizmal/{id}', ['uses' => 'BautizmalController@update', 'as' => 'actualizabautizmal', 'middleware'=>'auth','middleware' => 'permission:edit.bautizmal']);
 Route::get('pdfbautizmal/{id}/{evento}', ['uses' => 'BautizmalController@pdf', 'as' => 'pdfbautizmal','middleware'=>'auth','middleware' => 'permission:print.bautizmal']);
 
+//Bautizmales
+Route::get('sacramentales', ['uses' => 'SacramentalController@index', 'as' => 'sacramentales','middleware'=>'auth','middleware' => 'permission:view.sacramentales|add.sacramentales']);
+Route::get('nuevosacramental', ['uses' => 'SacramentalController@add', 'as' => 'nuevosacramental','middleware'=>'auth','middleware' => 'permission:add.sacramentales']);
+Route::post('guardarsacramental',['uses'=>'SacramentalController@store','as'=>'guardarsacramental','middleware'=>'auth','middleware' => 'permission:add.sacramentales']);
 
 Route::get('download', function() {
     return Response::download(\Illuminate\Support\Facades\Input::get('path'));
 });
 Route::get('barriosbyestaca/{idestaca}',['uses'=>'SitController@barrios','as'=>'barriosbyestaca']);
+
+//recursos google
+Route::get('eventos/{calendario}/{total}', ['uses' => 'ApigoogleController@calendar', 'as' => 'eventos']);
+
+
 
 
 //enviar correo
