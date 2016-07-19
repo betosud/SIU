@@ -178,19 +178,36 @@ class SitController extends Controller
 //            'g-recaptcha-response' => 'required|captcha'
         );
 
+
+
+
         $this->validate($request,$rules);
-
-
-
 
 
         $sit =sit::findorfail($id);
 
+
+        if($request['status']!=$sit->status){
+            $notificastatus=1;
+        }
+        else{
+            $notificastatus=0;
+        }
+
         $this->authorize('updatebarrio', $sit);
+
+
+
+
+
 //        dd($solicitud);
         $sit->fill($request->all());
 //        dd($solicitud);
         $sit->save();
+
+        if($notificastatus==1){
+            $this->notificaciones($sit);
+        }
 
         \Session::flash('message','Se actualizo Correctamente la solicitud '.$sit->id);
         return \Redirect::route('solicitudes');
@@ -348,7 +365,7 @@ class SitController extends Controller
 
 
         $combos['obispado']=$this->listalideres('obispado');
-        $combos['lideres']=$this->listalideres('activos');
+        $combos['lideres']=$this->listalideres('todos');
         $combos['categoria']=catalogos::bycatalogo('categoria')->orderby('nombre')->lists('nombre','id');
         $combos['tipopago']=catalogos::bycatalogo('tipopago')->orderby('nombre')->lists('nombre','id');
         $combos['statussit']=catalogos::where('combo','statussolicitud')->lists('nombre','id');

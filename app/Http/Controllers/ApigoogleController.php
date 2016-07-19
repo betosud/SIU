@@ -45,6 +45,8 @@ class ApigoogleController extends Controller
                         $service = new \Google_Service_Calendar($client);
 
                         $fecha = Carbon::create()->now();
+
+
                         $optParams = array('singleEvents' => true, 'orderBy' => 'startTime', 'timeMin' => $fecha->toRfc3339String(), 'maxResults' => $totaleventos);
 
                         $results = $service->events->listEvents($barrio->nombrecalendario, $optParams);
@@ -53,25 +55,31 @@ class ApigoogleController extends Controller
 
                     }
                     finally{
+                        setlocale(LC_ALL, "es_ES");
+                        date_default_timezone_set("America/Mexico_City");
 
                         if (count($results->getItems()>0)) {
+
                             $respuesta = array();
                             foreach ($results->getItems() as $eventos) {
                                 $registro = "";
                                 if (isset($eventos->start->dateTime)) {
-
                                     $inicio = explode("T", $eventos->start->dateTime);
+                                    $startdate = strftime("%A %e de %B de %Y Hora %l:%M %P", strtotime($inicio[0]." ".$inicio[1]));
 
-//                    dd(explode(":",$inicio[1])[1]);
-                                    $startdate = Carbon::create(explode("-", $inicio[0])[0], explode("-", $inicio[0])[1], explode("-", $inicio[0])[2], explode(":", $inicio[1])[0], explode(":", $inicio[1])[1], "00", "America/Mexico_City");
+//                                    $startdate = Carbon::create(explode("-", $inicio[0])[0], explode("-", $inicio[0])[1], explode("-", $inicio[0])[2], explode(":", $inicio[1])[0], explode(":", $inicio[1])[1], "00", "America/Mexico_City");
                                     $registro = $eventos->summary;
-                                    $registro .= " Fecha " . $startdate->format("l d M Y");
-                                    $registro .= " Hora " . $startdate->format("h:m a");
+                                    $registro .= " Fecha " . $startdate;
+//                                    $registro .= " Hora " . $startdate->format("h:m a");
                                 } elseif (isset($eventos->start->date)) {
                                     $inicio = $eventos->start->date;
                                     $startdate = Carbon::createFromDate(explode("-", $inicio)[0], explode("-", $inicio)[1], explode("-", $inicio)[2]);
                                     $registro = $eventos->summary;
                                     $registro .= " Fecha " . $startdate->format("l d M Y");
+                                }
+
+                                if(isset($eventos->description)){
+                                    $registro.=" ".$eventos->description;
                                 }
 
                                 $respuesta[] = $registro;

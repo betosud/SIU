@@ -10,6 +10,9 @@ use SIU\Http\Requests;
 class SacramentalController extends Controller
 {
     public function add(Request $request){
+
+
+
         $url=url('eventos',[$request->user()->idbarrio,6]);
         //obtener eventos del calendario
         $client = new \GuzzleHttp\Client();
@@ -45,7 +48,7 @@ class SacramentalController extends Controller
                 $totaleventos++;
             }
         }
-        return view('sacramentales.nuevo',compact('anucnios_sacramental'));
+        return view('sacramentales.nuevo.nuevo',compact('anucnios_sacramental'));
 
     }
     public function store(Request $request){

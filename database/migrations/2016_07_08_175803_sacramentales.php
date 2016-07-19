@@ -27,7 +27,7 @@ class Sacramentales extends Migration
             $table->string('himno_sacramental');
             $table->string('bendice1');
             $table->string('bendice2');
-            $table->string('reparten');
+            $table->longText('reparten');
             $table->string('himno_intermedio');
             $table->string('himno_final');
             $table->string('oracion_final');
