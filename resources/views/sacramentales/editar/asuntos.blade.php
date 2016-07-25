@@ -1,7 +1,7 @@
 <div class="row margin">
     <div class="input-field col  m6 s12">
         <i class="material-icons prefix ">account_circle</i>
-        {!! Form::text('bendice1',"",['class'=>'validate input-field','id'=>'bendice1','placeholder'=>'Ingrese Nombre Completo'])  !!}
+        {!! Form::text('bendice1',$sacramental->dendice1,['class'=>'validate input-field','id'=>'bendice1','placeholder'=>'Ingrese Nombre Completo'])  !!}
         @if ($errors->has('bendice1'))
             <span class="help-block red-text">
                                 <strong>{{ $errors->first('bendice1') }}</strong>
@@ -14,7 +14,7 @@
 
     <div class="input-field col m6 s12">
         <i class="material-icons prefix">account_circle</i>
-        {!! Form::text('bendice2',"",['class'=>'validate input-field','id'=>'bendice2','placeholder'=>'Ingresa el Nombre completo'])  !!}
+        {!! Form::text('bendice2',$sacramental->dendice2,['class'=>'validate input-field','id'=>'bendice2','placeholder'=>'Ingresa el Nombre completo'])  !!}
         @if ($errors->has('bendice2'))
             <span class="help-block red-text">
                                 <strong>{{ $errors->first('bendice2') }}</strong>
@@ -30,7 +30,7 @@
 
     <div class="input-field col  m12 s12">
         <i class="material-icons prefix ">chrome_reader_mode</i>
-        {!! Form::text('himno_sacramental',"",['class'=>'validate input-field','id'=>'himno_sacramental','placeholder'=>'Ingrse Nombre y Numero'])  !!}
+        {!! Form::text('himno_sacramental',$sacramental->himno_sacramental,['class'=>'validate input-field','id'=>'himno_sacramental','placeholder'=>'Ingrse Nombre y Numero'])  !!}
         @if ($errors->has('himno_sacramental'))
             <span class="help-block red-text">
                                 <strong>{{ $errors->first('himno_sacramental') }}</strong>
@@ -45,7 +45,7 @@
 
     <div class="input-field col  m12 s12">
         <i class="material-icons prefix ">group</i>
-        <textarea name="reparten" id="reparten" class="materialize-textarea" placeholder="Nombres de Los que reparten"></textarea>
+        <textarea name="reparten" id="reparten" class="materialize-textarea" placeholder="Nombres de Los que reparten">{!! $sacramental->reparten !!}</textarea>
         @if ($errors->has('reparten'))
             <span class="help-block red-text">
                                 <strong>{{ $errors->first('reparten') }}</strong>
@@ -61,13 +61,19 @@
 
 
 <ul class="collection">
-
-
-        <div class="ref_asunto input-field col m12 s12" id="asuntosacramental1">
+    <?php
+    $total=1;
+    ?>
+@foreach($sacramental->asuntos as $asunto)
+        <div class="ref_asunto input-field col m12 s12" id="asuntosacramental{!! $total !!}">
             <i class="material-icons prefix">event</i>
-            {!! Form::text('tbxasunto1',"",['class'=>'validate input-field tbxasunto','id'=>'tbxasunto1','placeholder'=>'Descripcion del Asunto'])  !!}
-            <label name="lblanuncio1" id="lblanuncio1" data-error="dato no valido" data-success="Correcto" class="left-align lblasunto">Asunto 1</label>
+            {!! Form::text('tbxasunto'.$total,$asunto->descripcion,['class'=>'validate input-field tbxasunto','id'=>'tbxasunto'.$total,'placeholder'=>'Descripcion del Asunto'])  !!}
+            <label name="lblanuncio{!! $total !!}" id="lblanuncio{!! $total !!}" data-error="dato no valido" data-success="Correcto" class="left-align lblasunto">Asunto {!! $total !!}</label>
         </div>
+            <?php
+            $total++;
+            ?>
+@endforeach
 
 
 

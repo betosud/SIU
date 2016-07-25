@@ -80,7 +80,7 @@ class UserController extends Controller
         $usuario=User::withTrashed()->where('id', $id)->first();
 
 //dd($usuario);
-        $permisos=Permission::all()->sortBy('name');
+        $permisos=Permission::all()->sortBy('model');
 
 
         return view('auth.editar',compact('usuario','combos','permisos'));

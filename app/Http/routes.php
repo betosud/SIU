@@ -141,10 +141,13 @@ Route::get('editarbautizmal/{id}/edit', ['uses' => 'BautizmalController@edit', '
 Route::put('actualizabautizmal/{id}', ['uses' => 'BautizmalController@update', 'as' => 'actualizabautizmal', 'middleware'=>'auth','middleware' => 'permission:edit.bautizmal']);
 Route::get('pdfbautizmal/{id}/{evento}', ['uses' => 'BautizmalController@pdf', 'as' => 'pdfbautizmal','middleware'=>'auth','middleware' => 'permission:print.bautizmal']);
 
-//Bautizmales
+//sacramentales
 Route::get('sacramentales', ['uses' => 'SacramentalController@index', 'as' => 'sacramentales','middleware'=>'auth','middleware' => 'permission:view.sacramentales|add.sacramentales']);
 Route::get('nuevosacramental', ['uses' => 'SacramentalController@add', 'as' => 'nuevosacramental','middleware'=>'auth','middleware' => 'permission:add.sacramentales']);
 Route::post('guardarsacramental',['uses'=>'SacramentalController@store','as'=>'guardarsacramental','middleware'=>'auth','middleware' => 'permission:add.sacramentales']);
+Route::get('editarsacramental/{id}/edit', ['uses' => 'SacramentalController@edit', 'as' => 'editarsacramental','middleware'=>'auth','middleware' => 'permission:edit.sacramentales']);
+Route::put('actualizasacramental/{id}', ['uses' => 'SacramentalController@update', 'as' => 'actualizasacramental', 'middleware'=>'auth','middleware' => 'permission:edit.sacramentales']);
+Route::get('pdfsacramental/{id}', ['uses' => 'SacramentalController@pdf', 'as' => 'pdfsacramental','middleware'=>'auth','middleware' => 'permission:print.sacramentales']);
 
 Route::get('download', function() {
     return Response::download(\Illuminate\Support\Facades\Input::get('path'));

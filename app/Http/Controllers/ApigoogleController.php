@@ -20,7 +20,7 @@ class ApigoogleController extends Controller
         $accesoapi=null;
 
 
-            $accesoapi = AccesoApi::where('user', $user)->first();
+        $accesoapi = AccesoApi::where('user', $user)->first();
 //        dd($accesoapi->apikey);
 
         if($accesoapi==null){
@@ -31,6 +31,8 @@ class ApigoogleController extends Controller
 //                validar calendario y api de calendario
             
                 $barrio = barrios::where('id', $calendario)->first();
+
+
 
                 if($barrio){
 
@@ -50,6 +52,7 @@ class ApigoogleController extends Controller
                         $optParams = array('singleEvents' => true, 'orderBy' => 'startTime', 'timeMin' => $fecha->toRfc3339String(), 'maxResults' => $totaleventos);
 
                         $results = $service->events->listEvents($barrio->nombrecalendario, $optParams);
+
                     }
                     catch (Exception $e){
 
@@ -85,9 +88,7 @@ class ApigoogleController extends Controller
                                 $respuesta[] = $registro;
                             }
 
-                            return response()->json([
-                                'code'=>200,'datos'=>$respuesta,'mensaje'=>'Exito'
-                            ]);
+                            return response()->json(['code'=>200,'datos'=>$respuesta,'mensaje'=>'Exito']);
                         }
                     }
 

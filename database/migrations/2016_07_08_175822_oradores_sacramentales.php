@@ -17,6 +17,7 @@ class OradoresSacramentales extends Migration
             $table->integer('idprograma');
             $table->string('nombre');
             $table->string('tema');
+            $table->integer('grupo');
             $table->timestamps();
             $table->softDeletes();
         });

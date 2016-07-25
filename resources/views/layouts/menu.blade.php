@@ -144,6 +144,9 @@
                                         @permission('add.bautizmal|edit.bautizmales')
                                         <li><a class="black-text" href="{!!url('bautizmales') !!}">Bautismales<i class="material-icons right">accessibility</i></a></li>
                                         @endpermission
+                                        @permission('add.sacramentales|edit.sacramentales')
+                                        <li><a class="black-text" href="{!!url('sacramentales') !!}">Sacramentales<i class="material-icons right">accessibility</i></a></li>
+                                        @endpermission
                                         {{--@permission('add.sit|view.sit')--}}
                                         {{--<li><a class="black-text" href="{!!url('sits') !!}">Sit`s<i class="material-icons right">account_balance_wallet</i></a></li>--}}
                                         {{--@endpermission--}}
@@ -193,6 +196,10 @@
             <li>
                 @permission('add.bautizmal|view.bautizmal')
                 <a class="black-text"  href="{!!url('bautizmales') !!}">Bautizmales<i class="material-icons right">accessibility</i></a>
+                {{--<a class="black-text"  href="{!!url('solicitudes') !!}">Solicitudes<i class="material-icons right">card_membership</i></a>--}}
+                @endpermission
+                @permission('add.sacramentales|view.sacramentales')
+                <a class="black-text"  href="{!!url('sacramentales') !!}">Sacramentales<i class="material-icons right">accessibility</i></a>
                 {{--<a class="black-text"  href="{!!url('solicitudes') !!}">Solicitudes<i class="material-icons right">card_membership</i></a>--}}
                 @endpermission
 

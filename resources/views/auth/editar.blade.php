@@ -26,16 +26,17 @@
                     </div>
 
                     <div id="permisos" class="col s12">
-
+<?php $total=0 ?>
                         @foreach($permisos as $permiso)
+        <?php $total++ ?>
                             <div class="col s6">
                                 <p>
                                     @if($usuario->can($permiso->slug))
                                         <input onchange="comprobar(this)" checked type="checkbox" id="{!! $permiso->id !!}" value="{!! $usuario->id !!}" />
-                                        <label for="{!! $permiso->id !!}">{!! $permiso->name !!}</label>
+                                        <label for="{!! $permiso->id !!}">{!!$total." .-".$permiso->name !!}</label>
                                     @else
                                         <input onchange="comprobar(this)" type="checkbox" id="{!! $permiso->id !!}" value="{!! $usuario->id !!}" />
-                                        <label for="{!! $permiso->id !!}">{!! $permiso->name !!}</label>
+                                        <label for="{!! $permiso->id !!}">{!! $total." .-".$permiso->name !!}</label>
                                     @endif
 
 

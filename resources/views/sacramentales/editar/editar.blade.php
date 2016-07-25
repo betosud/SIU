@@ -6,7 +6,7 @@
             <div class="col s12 m12 z-depth-3 card-panel">
                 <div class="row">
                     <div class="input-field col s12 center">
-                        <h4 class="center login-form-text">Nuevo Sacramental</h4>
+                        <h4 class="center login-form-text">Editar Sacramental</h4>
 
                     </div>
                 </div>
@@ -22,8 +22,7 @@
 
 
                 <div class="container-fluid">
-                    {!! Form::open(array('url' => 'guardarsacramental', 'method' => 'post','class'=>'form-horizontal')) !!}
-
+                    {!! Form::model($sacramental,['route' => ['actualizasacramental',$sacramental->id], 'method' => 'PUT','class'=>'form-horizontal']) !!}
 
 
                     <div class="row">
@@ -37,19 +36,19 @@
                             </ul>
                         </div>
                         <div id="anuncios" class="col s12">
-                            @include('sacramentales.nuevo.anuncios')
+                            @include('sacramentales.editar.anuncios')
                         </div>
                         <div id="inicio" class="col s12">
-                            @include('sacramentales.nuevo.inicio')
+                            @include('sacramentales.editar.inicio')
                         </div>
                         <div id="asuntos" class="col s12">
-                            @include('sacramentales.nuevo.asuntos')
+                            @include('sacramentales.editar.asuntos')
                         </div>
                         <div id="discursantes" class="col s12">
-                            @include('sacramentales.nuevo.discursantes')
+                            @include('sacramentales.editar.discursantes')
                         </div>
                         <div id="final" class="col s12">
-                            @include('sacramentales.nuevo.final')
+                            @include('sacramentales.editar.final')
                         </div>
                     </div>
                     <div class="row">
