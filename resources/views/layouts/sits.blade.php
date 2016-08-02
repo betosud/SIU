@@ -29,13 +29,6 @@
             </td>
             <td>
                 <a href="{!! route('pdfsit',[$sit->id,'completo','descargar',$sit->token]) !!}" class="waves-effect waves-light btn-floating green tooltipped" data-position="top" data-tooltip="Imprimir"><i class="material-icons right">print</i></a>
-                {{--<a class="waves-effect waves-light btn-floating blue tooltipped" data-position="top" data-tooltip="Enviar"><i class="material-icons right">mail</i></a>--}}
-                {{--<a class="waves-effect waves-light btn-floating grey tooltipped" data-position="top" data-tooltip="Editar"><i class="material-icons right">edit</i></a>--}}
-
-
-                {{--@permission('add.sit')--}}
-                {{--<a href="{!! route('crearsit',$solicitud->id) !!}" class="btn btn-floating waves-effect waves-light blue tooltipped " data-position="top" data-tooltip="Crear Sit"><i class="material-icons ">payment</i></a>--}}
-                {{--@endpermission--}}
                 @permission('edit.sit')
                 <a href="{!! route('editarsit',$sit->id) !!}" class="btn btn-floating waves-effect waves-light blue tooltipped " data-position="top" data-tooltip="Editar Solicitud"><i class="material-icons ">edit</i></a>
                 @endpermission

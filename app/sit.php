@@ -23,6 +23,7 @@ class sit extends Model
         $query->where('idbarrio', $barrio);
     }
 
+
     public function scopeByestaca($query, $estaca){
         $query->where('idestaca', $estaca);
     }

@@ -12,7 +12,15 @@ class Cumples extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('cumples',function (Blueprint $table){
+            $table->increments('id');
+            $table->integer('idbarrio')->unasigned();
+            $table->foreign('idbarrio')->references('id')->on('barrios');
+            $table->string('nombre');
+            $table->date('fecha');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**

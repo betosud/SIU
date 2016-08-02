@@ -19,7 +19,7 @@ class Sacramentales extends Migration
             $table->date('fecha');
             $table->time('hora');
             $table->string('preside');
-            $table->string('direcicon_programa');
+            $table->string('direccion_programa');
             $table->string('direccion_himnos');
             $table->string('pianista');
             $table->string('himno_inicial');

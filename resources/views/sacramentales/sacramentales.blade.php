@@ -18,7 +18,7 @@
                 @permission('add.sacramentales')
                 <a href="{!! route('nuevosacramental') !!}" class="btn btn-floating waves-effect waves-light blue lighten-2 tooltipped " data-position="left" data-tooltip="Nueva Entrevista"><i class="material-icons ">add</i></a>
                 @endpermission
-                <div class="entrevistas">
+                <div class="sacramentales">
 
                     <table class="bordered responsive-table highlight">
                         <thead>
@@ -68,7 +68,7 @@
             </div>
         </div>
     </div>
-
+    @include('layouts.loading')
 @endsection
 @section('scripts')
 

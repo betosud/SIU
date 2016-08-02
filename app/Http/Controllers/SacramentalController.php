@@ -21,14 +21,14 @@ class SacramentalController extends Controller
     public function index(Request $request)
     {
         if(Auth::user()->is('admin|sec_barrio|obispado|sec_estaca|pcia_estaca')){
-            $sacramentales=sacramentales::bybarrio(auth()->user()->idbarrio)->orderBy('fecha','desc')->orderBy('hora','desc')->paginate(10);
+            $sacramentales=sacramentales::bybarrio(auth()->user()->idbarrio)->orderBy('fecha','desc')->orderBy('hora','desc')->paginate(20);
         }
         elseif(Auth::user()->is('lider_estaca|aux_lider')){
-            $sacramentales= sacramentales::byuser(auth()->user()->id)->orderBy('fecha','desc')->orderBy('hora','desc')->paginate(10);
+            $sacramentales= sacramentales::byuser(auth()->user()->id)->orderBy('fecha','desc')->orderBy('hora','desc')->paginate(20);
         }
 //        dd($entrevistas);
         if($request->ajax()){
-            return response()->json(view('layouts.entrevista',compact('entrevistas'))->render());
+            return response()->json(view('layouts.sacramental',compact('sacramentales'))->render());
         }
         else {
             return view('sacramentales.sacramentales', compact('sacramentales'));
@@ -40,7 +40,6 @@ class SacramentalController extends Controller
 
 
         if($request->user()->datos->idestaca!=$request->user()->idbarrio) {
-
             $url = url('eventos', [$request->user()->datos->idestaca, 6]);
             //obtener eventos del calendario
             $client1 = new \GuzzleHttp\Client();
@@ -63,15 +62,15 @@ class SacramentalController extends Controller
         $anucnios_sacramental=array();
         $totaleventos=0;
 
-        dd($dataestaca);
+
         if(isset($dataestaca)){
-            foreach ($dataestaca->datos as $evento){
+            foreach ($dataestaca['datos'] as $evento){
                 $anucnios_sacramental[$totaleventos]=$evento;
                 $totaleventos++;
             }
         }
         if(isset($databarrio)){
-            foreach ($databarrio->datos as $evento){
+            foreach ($databarrio['datos'] as $evento){
                 $anucnios_sacramental[$totaleventos]=$evento;
                 $totaleventos++;
             }
@@ -362,7 +361,7 @@ class SacramentalController extends Controller
         $pdf->Cell(95, 5, utf8_decode("Preside"), 0, 0, "L");
         $pdf->Cell(5, 5, utf8_decode(""), 0, 0, "L");
         $pdf->Cell(100, 5, utf8_decode("Direccion del Programa"), 0, 1, "L");
-        $pdf->SetFont("helvetica", "B", 1);
+        $pdf->SetFont("helvetica", "B", 11);
         $pdf->Cell(95, 5, utf8_decode($sacramental->preside), "B", 0, "L");
         $pdf->Cell(5, 5, utf8_decode(""), 0, 0, "L");
         $pdf->Cell(100, 5, utf8_decode($sacramental->direccion_programa), "B", 1, "L");

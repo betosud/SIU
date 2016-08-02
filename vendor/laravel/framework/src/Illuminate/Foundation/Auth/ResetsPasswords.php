@@ -130,7 +130,7 @@ trait ResetsPasswords
      */
     protected function getEmailSubject()
     {
-        return property_exists($this, 'subject') ? $this->subject : 'Establecer Contraseña';
+        return property_exists($this, 'subject') ? $this->subject : 'Your Password Reset Link';
     }
 
     /**
@@ -296,7 +296,7 @@ trait ResetsPasswords
     protected function resetPassword($user, $password)
     {
         $user->forceFill([
-            'password' => ($password),
+            'password' => bcrypt($password),
             'remember_token' => Str::random(60),
         ])->save();
 

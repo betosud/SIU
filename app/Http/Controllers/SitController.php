@@ -289,30 +289,16 @@ class SitController extends Controller
     }
     public function sits(Request $request){
 
-        $combos['statussit']=catalogos::where('combo','statussolicitud')->lists('nombre','id');
-        if(isset($_GET['parametros'])){
+            $year=htmlspecialchars(Input::get("year"));
+//            dd($year);
+//        else {
+            $yearactual=Carbon::now();
+            $sits = sit::bybarrio(auth()->user()->idbarrio)->whereRaw('YEAR(fechasit)=?',[$yearactual->year])->where('status', '<>', '63')->orderBy('fechasit', 'desc')->orderby('id', 'DESC')->paginate(10);
+//        }
 
 
-            $parametros=htmlspecialchars(Input::get("parametros"));
-
-            $sits=sit::bybarrio(auth()->user()->idbarrio)
-                ->where('pagable','like','%'.$parametros.'%')
-                ->orwhere('solicitante','like','%'.$parametros.'%')
-                ->orwhere('idsit','like','%'.$parametros)
-                ->orderby('fechasit','desc')
-                ->limit(20)
-                ->paginate(20);
-
-            return view('sit.sits',compact('sits','combos'));
-
-        }
-        else {
-//        dd($combos['statussit']);
-
-            $sits = sit::bybarrio(auth()->user()->idbarrio)->where('status', '<>', '63')->orderBy('fechasit', 'desc')->orderby('id', 'DESC')->paginate(10);
-        }
         if(count($sits)>0){
-
+            $combos['statussit']=catalogos::where('combo','statussolicitud')->lists('nombre','id');
             if($request->ajax()){
                 return response()->json(view('layouts.sits',compact('sits','combos'))->render());
             }
@@ -684,7 +670,7 @@ class SitController extends Controller
             $rules=array('idsit'=>'required',
                 'nombrearchivo'=>'required',
 //                'descripcionarchivo'=>'required',
-                'montoarchivo'=>'numeric',
+//                'montoarchivo'=>'numeric',
                 'archivo'=>'required');
             $validate=$this->validate($request,$rules);
 
@@ -774,8 +760,8 @@ class SitController extends Controller
 
         $rules=array('idsit'=>'required',
             'nombrearchivo'=>'required',
-            'descripcionarchivo'=>'required',
-            'montoarchivo'=>'numeric',
+//            'descripcionarchivo'=>'required',
+//            'montoarchivo'=>'numeric',
             'archivo'=>'required');
         $validate=$this->validate($request,$rules);
 
@@ -871,7 +857,38 @@ class SitController extends Controller
         $archivosit->save();
         return response()->json(['mensaje'=>'Se Actualizo el Archivo ID => '.$archivosit->id]);
     }
+    public function mostrarsits()
+    {
+        $year=Carbon::now();
+        $years=array();
+        $year=$year->year;
+        for ($i=0;$i<4;$i++){
+            $years[$year-$i]=$year-$i;
+        }
+        return view('sit.sits',compact('year','years'));
+    }
+
+    public function search($datosbuscar,$year)
+    {
+        if($datosbuscar=='vacio'){
+            $sits = sit::bybarrio(auth()->user()->idbarrio)->whereRaw('YEAR(fechasit)=?',[$year])->where('status', '<>', '63')->orderBy('fechasit', 'desc')->orderby('id', 'DESC')->paginate(10);
+        }
+        else{
+            $sits = sit::bybarrio(auth()->user()->idbarrio)
+                ->whereRaw("(pagable like '%$datosbuscar%' or  solicitante like '%$datosbuscar%' or idsit like '%$datosbuscar%')and (YEAR(fechasit)=$year)")
+                ->paginate(10);
+//        $sits = sit::bybarrio(auth()->user()->idbarrio)
+//            ->whereRaw('YEAR(fechasit)=?',[$year])
+//            ->  where('pagable', 'like', '%' . $datosbuscar . '%')
+//            ->orwhere('solicitante', 'like', '%' . $datosbuscar . '%')
+//            ->orwhere('idsit', 'like', '%' .$datosbuscar)
+//            ->orderby('fechasit', 'desc')->paginate(10);
+
+            }
+        $combos['statussit']=catalogos::where('combo','statussolicitud')->lists('nombre','id');
 
 
-
+//        return response()->json(view('layouts.sits',compact('sits','combos'))->render());
+        return response()->view('layouts.sits',compact('sits','combos'));
+        }
 }

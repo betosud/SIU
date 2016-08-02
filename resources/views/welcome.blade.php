@@ -40,6 +40,7 @@
                             <li class="collection-header blue-text"><h4>Notificaciones</h4></li>
                             <li href="{!! route('solicitudes') !!}" class="collection-item"><div>Solicitudes De Gasto<a href="{!! route('solicitudes') !!}"  class="secondary-content"> <span class="new badge">{!! $totalsolicitudes !!}</span> </a></div></li>
 
+
                         </ul>
 
                     </div>

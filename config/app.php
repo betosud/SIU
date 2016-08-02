@@ -124,9 +124,11 @@ return [
     */
 
     'providers' => [
-
+        'Maatwebsite\Excel\ExcelServiceProvider',
         /*
          * Laravel Framework Service Providers...
+         *
+         *
          */
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
@@ -162,7 +164,8 @@ return [
 
         Bican\Roles\RolesServiceProvider::class,
         Buzz\LaravelGoogleCaptcha\CaptchaServiceProvider::class,
-        
+
+        Collective\Bus\BusServiceProvider::class,
 
 
     ],
@@ -179,6 +182,7 @@ return [
     */
 
     'aliases' => [
+        'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
@@ -214,7 +218,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
 
-    
+
 
     ],
 

@@ -90,6 +90,7 @@
                                     <ul>
                                         <li>
                                         <li><a class="black-text" href="{!!url('lideres') !!}">Lideres<i class="material-icons right">supervisor_account</i></a></li>
+                                        <li><a class="black-text" href="{!!url('cumples') !!}">Cumpleaños<i class="material-icons right">event</i></a></li>
                                         </li>
                                     </ul>
                                 </div>
@@ -145,7 +146,7 @@
                                         <li><a class="black-text" href="{!!url('bautizmales') !!}">Bautismales<i class="material-icons right">accessibility</i></a></li>
                                         @endpermission
                                         @permission('add.sacramentales|edit.sacramentales')
-                                        <li><a class="black-text" href="{!!url('sacramentales') !!}">Sacramentales<i class="material-icons right">accessibility</i></a></li>
+                                        <li><a class="black-text" href="{!!url('sacramentales') !!}">Sacramentales<i class="material-icons right">chrome_reader_mode</i></a></li>
                                         @endpermission
                                         {{--@permission('add.sit|view.sit')--}}
                                         {{--<li><a class="black-text" href="{!!url('sits') !!}">Sit`s<i class="material-icons right">account_balance_wallet</i></a></li>--}}
@@ -178,6 +179,9 @@
             <li>
                 <a class="black-text" data-activates="listadolideres" href="{!!url('lideres') !!}">Lideres<i class="material-icons right">supervisor_account</i></a>
             </li>
+            <li>
+                <a class="black-text" data-activates="cumples" href="{!!url('cumples') !!}">Cuempleaños<i class="material-icons right">event</i></a>
+            </li>
         </ul>
 
         <ul id="gastos" class="dropdown-content">
@@ -199,7 +203,7 @@
                 {{--<a class="black-text"  href="{!!url('solicitudes') !!}">Solicitudes<i class="material-icons right">card_membership</i></a>--}}
                 @endpermission
                 @permission('add.sacramentales|view.sacramentales')
-                <a class="black-text"  href="{!!url('sacramentales') !!}">Sacramentales<i class="material-icons right">accessibility</i></a>
+                <a class="black-text"  href="{!!url('sacramentales') !!}">Sacramentales<i class="material-icons right">chrome_reader_mode</i></a>
                 {{--<a class="black-text"  href="{!!url('solicitudes') !!}">Solicitudes<i class="material-icons right">card_membership</i></a>--}}
                 @endpermission
 

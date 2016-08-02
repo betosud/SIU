@@ -85,7 +85,7 @@ class ApigoogleController extends Controller
                                     $registro.=" ".$eventos->description;
                                 }
 
-                                $respuesta[] = $registro;
+                                $respuesta[] =utf8_decode($registro);
                             }
 
                             return response()->json(['code'=>200,'datos'=>$respuesta,'mensaje'=>'Exito']);

@@ -38,19 +38,17 @@ class DiscursosController extends Controller
      */
     public function index(Request $request)
     {
-        if(Auth::user()->is('admin|sec_barrio|obispado|sec_estaca|pcia_estaca')){
-            $discursos=discursos::bybarrio(auth()->user()->idbarrio)->orderBy('fecha','desc')->orderBy('hora','desc')->paginate(10);
-        }
-        elseif(Auth::user()->is('lider_estaca|aux_lider')){
-            $discursos= discursos::byuser(auth()->user()->id)->orderBy('fecha','desc')->orderBy('hora','desc')->paginate(10);
-        }
+        $year=Carbon::now();
 
-        if($request->ajax()){
-            return response()->json(view('layouts.discurso',compact('discursos'))->render());
+        $years=array();
+        $year=$year->year;
+
+        for ($i=0;$i<4;$i++){
+
+            $years[$year-$i]=$year-$i;
+
         }
-        else {
-            return view('discursos.discursos', compact('discursos'));
-        }
+        return view('discursos.discursos',compact('year','years'));
     }
 
     /**
@@ -305,5 +303,24 @@ class DiscursosController extends Controller
             $reporte = $pdf->Output($discurso->nombrearchivo . ".pdf", "S");
             return $reporte;
         }
+    }
+
+
+
+    public function search($datosbuscar,$year)
+    {
+        if($datosbuscar=='vacio'){
+            $discursos = discursos::bybarrio(auth()->user()->idbarrio)->whereRaw('YEAR(fecha)=?',[$year])->orderBy('fecha', 'desc')->orderby('id')->paginate(10);
+        }
+        else{
+            $discursos = discursos::bybarrio(auth()->user()->idbarrio)
+                ->whereRaw("(nombre like '%$datosbuscar%')and (YEAR(fecha)=$year)")
+                ->paginate(10);
+        }
+
+
+
+//        return response()->json(view('layouts.sits',compact('sits','combos'))->render());
+        return response()->view('layouts.discurso',compact('discursos'));
     }
 }

@@ -101,7 +101,7 @@ Route::put('actualizarentrevistastatus/{id}', ['uses' => 'EntrevistasController@
 Route::put('actualizarentrevista/{id}', ['uses' => 'EntrevistasController@update', 'as' => 'actualizarentrevista', 'middleware'=>'auth','middleware' => 'permission:edit.entrevista']);
 Route::get('pdfentrevista/{id}/{evento}/{token}', ['uses' => 'EntrevistasController@pdf', 'as' => 'pdfentrevista']);
 
-
+//discursos
 Route::get('discursos', ['uses' => 'DiscursosController@index', 'as' => 'discursos','middleware'=>'auth','middleware' => 'permission:view.discurso|add.discurso']);
 Route::get('nuevodiscurso', ['uses' => 'DiscursosController@create', 'as' => 'nuevodiscurso','middleware'=>'auth','middleware' => 'permission:add.discurso']);
 Route::post('guardardiscurso',['uses'=>'DiscursosController@store','as'=>'guardardiscurso','middleware'=>'auth','middleware' => 'permission:add.discurso']);
@@ -110,7 +110,7 @@ Route::get('discurso/{id}/show', ['uses' => 'DiscursosController@show', 'as' => 
 Route::put('actualizardiscursostatus/{id}', ['uses' => 'DiscursosController@updatestatus', 'as' => 'actualizardiscursostatus', 'middleware'=>'auth']);
 Route::put('actualizardiscurso/{id}', ['uses' => 'DiscursosController@update', 'as' => 'actualizardiscurso', 'middleware'=>'auth','middleware' => 'permission:edit.discurso']);
 Route::get('pdfdiscurso/{id}/{evento}/{token}', ['uses' => 'DiscursosController@pdf', 'as' => 'pdfdiscurso']);
-
+Route::get('buscardiscursos/{datosbuscar}/{year}',['uses'=>'DiscursosController@search','as'=>'buscardiscursos','middleware' => 'permission:view.discurso|add.discurso']);
 
 //sit
 Route::get('solicitudgasto',['uses'=>'SitController@nuevasolicitud','as'=>'solicitudgasto']);
@@ -123,7 +123,7 @@ Route::delete('eliminarsolicitud/{id}',['uses'=>'SitController@eliminarsolicitud
 Route::put('actualizarsit/{id}', ['uses' => 'SitController@updatesit', 'as' => 'actualizarsit', 'middleware'=>'auth','middleware' => 'permission:edit.sit']);
 Route::get('crearsit/{id}',['uses'=>'SitController@crearsit','as'=>'crearsit','middleware'=>'auth','middleware' => 'permission:add.sit']);
 Route::put('guardarsit/{id}',['uses'=>'SitController@guardarsit','as'=>'guardarsit','middleware'=>'auth','middleware' => 'permission:add.sit|edit:sit']);
-Route::get('sits',['uses'=>'SitController@sits','as'=>'sits','middleware'=>'auth','middleware' => 'permission:view.sit|edit.sit']);
+Route::get('sits',['uses'=>'SitController@mostrarsits','as'=>'sits','middleware'=>'auth','middleware' => 'permission:view.sit|edit.sit']);
 Route::put('actualizastatussit/{id}', ['uses' => 'SitController@updatestatus', 'as' => 'actualizastatussit', 'middleware'=>'auth']);
 Route::get('pdfsit/{id}/{tipo}/{modo}/{token}', ['uses' => 'SitController@pdf', 'as' => 'pdfsit']);
 Route::get('editarsit/{id}',['uses'=>'SitController@editarsit','as'=>'editarsit','middleware'=>'auth','middleware' => 'permission:edit.sit']);
@@ -132,6 +132,7 @@ Route::post('guardararchivoexterno/{token}',['uses'=>'SitController@uploadfileex
 Route::get('eliminararchivosit/{id}',['uses'=>'SitController@destroyfile','as'=>'eliminararchivosit','middleware'=>'auth','middleware' => 'permission:delete.filesit']);
 Route::put('actualizavalidadocomporbante/{id}', ['uses' => 'SitController@updatevalidadopor', 'as' => 'actualizavalidadocomporbante', 'middleware'=>'auth']);
 
+Route::get('buscarsits/{datosbuscar}/{year}',['uses'=>'SitController@search','as'=>'buscarsits','middleware' => 'permission:view.sit|edit.sit']);
 
 //Bautizmales
 Route::get('bautizmales', ['uses' => 'BautizmalController@index', 'as' => 'bautizmales','middleware'=>'auth','middleware' => 'permission:view.bautizmal']);
@@ -157,6 +158,20 @@ Route::get('barriosbyestaca/{idestaca}',['uses'=>'SitController@barrios','as'=>'
 //recursos google
 Route::get('eventos/{calendario}/{total}', ['uses' => 'ApigoogleController@calendar', 'as' => 'eventos']);
 
+//cumples
+Route::get('cumples', ['uses' => 'CumplesController@index', 'as' => 'cumples','middleware'=>'auth','middleware' => 'permission:view.cumples|add.cumples']);
+Route::get('listarcumples', ['uses' => 'CumplesController@listar', 'as' => 'listarcumples','middleware'=>'auth','middleware' => 'permission:view.cumples|add.cumples']);
+Route::get('nuevocumple', ['uses' => 'CumplesController@add', 'as' => 'nuevocumple','middleware'=>'auth','middleware' => 'permission:add.cumples']);
+Route::get('edicarcumple/{id}/edit', ['uses' => 'CumplesController@edit', 'as' => 'edicarcumple','middleware'=>'auth','middleware' => 'permission:edit.cumples']);
+Route::post('guardarcumple',['uses'=>'CumplesController@store','as'=>'guardarcumple','middleware'=>'auth','middleware' => 'permission:add.cumples']);
+Route::get('cargamasiva', ['uses' => 'CumplesController@addmasiva', 'as' => 'cargamasiva','middleware'=>'auth','middleware' => 'permission:add.cumples']);
+
+Route::post('cargararchivo',['uses'=>'CumplesController@uploadfile','as'=>'cargararchivo','middleware'=>'auth','middleware' => 'permission:add.cumples']);
+
+Route::get('editarcumple/{id}', ['uses' => 'CumplesController@edit', 'as' => 'editarcumple','middleware'=>'auth','middleware' => 'permission:edit.cumples']);
+Route::get('cumpleshow/{id}/show', ['uses' => 'CumplesController@show', 'as' => 'cumpleshow','middleware'=>'auth']);
+Route::put('actualizacumple/{id}', ['uses' => 'CumplesController@update', 'as' => 'actualizacumple', 'middleware'=>'auth','middleware' => 'permission:edit.cumples']);
+Route::delete('eliminarcumple/{id}',['uses'=>'CumplesController@Destroy','as'=>'eliminarcumple','middleware'=>'auth','middleware' => 'permission:edit.cumples']);
 
 
 

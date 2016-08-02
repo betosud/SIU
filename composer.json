@@ -13,7 +13,9 @@
         "itbz/fpdf": "^1.7",
         "buzz/laravel-google-captcha": "1.*",
         "arielcr/numero-a-letras": "dev-master",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "maatwebsite/excel": "~2.1.0",
+        "laravelcollective/bus": "^5.2"
 
     },
     "require-dev": {
