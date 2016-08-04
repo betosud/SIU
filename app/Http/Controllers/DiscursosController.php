@@ -5,6 +5,7 @@ namespace SIU\Http\Controllers;
 use Carbon\Carbon;
 use fpdf\FPDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use SIU\discursos;
@@ -39,15 +40,14 @@ class DiscursosController extends Controller
     public function index(Request $request)
     {
         $year=Carbon::now();
-
         $years=array();
-        $year=$year->year;
-
-        for ($i=0;$i<4;$i++){
-
-            $years[$year-$i]=$year-$i;
-
+        $years[$year->year]=$year->year;
+        $idbarrio=$request->user()->idbarrio;
+        $resultado=DB::select("select YEAR(fecha) as year from discursos where idbarrio={$idbarrio} group by YEAR(fecha) desc") ;
+        foreach ($resultado as $val){
+            $years[$val->year]=$val->year;
         }
+        $year=$year->year;
         return view('discursos.discursos',compact('year','years'));
     }
 
@@ -317,10 +317,6 @@ class DiscursosController extends Controller
                 ->whereRaw("(nombre like '%$datosbuscar%')and (YEAR(fecha)=$year)")
                 ->paginate(10);
         }
-
-
-
-//        return response()->json(view('layouts.sits',compact('sits','combos'))->render());
         return response()->view('layouts.discurso',compact('discursos'));
     }
 }

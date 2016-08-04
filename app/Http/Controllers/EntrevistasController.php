@@ -7,6 +7,7 @@ use fpdf\FPDF;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use SIU\entrevistas;
 use SIU\Http\Requests;
@@ -41,19 +42,28 @@ class EntrevistasController extends Controller
      */
     public function index(Request $request)
     {
-        if(Auth::user()->is('admin|sec_barrio|obispado|sec_estaca|pcia_estaca')){
-            $entrevistas=entrevistas::bybarrio(auth()->user()->idbarrio)->orderBy('fecha','desc')->orderBy('hora','desc')->paginate(10);
+        $year=Carbon::now();
+        $years=array();
+        $years[$year->year]=$year->year;
+        $idbarrio=$request->user()->idbarrio;
+        $resultado=DB::select("select YEAR(fecha) as year from entrevistas where idbarrio={$idbarrio} group by YEAR(fecha) desc") ;
+        foreach ($resultado as $val){
+            $years[$val->year]=$val->year;
         }
-        elseif(Auth::user()->is('lider_estaca|aux_lider')){
-            $entrevistas= entrevistas::byuser(auth()->user()->id)->orderBy('fecha','desc')->orderBy('hora','desc')->paginate(10);
+        $year=$year->year;
+        return view('entrevistas.entrevistas',compact('year','years'));
+    }
+    public function search($datosbuscar,$year)
+    {
+        if($datosbuscar=='vacio'){
+            $entrevistas =entrevistas::bybarrio(auth()->user()->idbarrio)->whereRaw('YEAR(fecha)=?',[$year])->orderBy('fecha', 'desc')->orderby('id')->paginate(10);
         }
-//        dd($entrevistas);
-        if($request->ajax()){
-            return response()->json(view('layouts.entrevista',compact('entrevistas'))->render());
+        else{
+            $entrevistas = entrevistas::bybarrio(auth()->user()->idbarrio)
+                ->whereRaw("(nombre like '%$datosbuscar%')and (YEAR(fecha)=$year)")
+                ->paginate(10);
         }
-        else {
-            return view('entrevistas.entrevistas', compact('entrevistas'));
-        }
+        return response()->view('layouts.entrevista',compact('entrevistas'));
     }
 
     /**

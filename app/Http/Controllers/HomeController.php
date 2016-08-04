@@ -39,7 +39,7 @@ class HomeController extends Controller
             $service = new \Google_Service_Calendar($client);
 
             $fecha = Carbon::create()->now();
-            $optParams = array('singleEvents' => true, 'orderBy' => 'startTime', 'timeMin' => $fecha->toRfc3339String(), 'maxResults' => 7);
+            $optParams = array('singleEvents' => true, 'orderBy' => 'startTime', 'timeMin' => $fecha->toRfc3339String(), 'maxResults' => 8);
 
             $results = $service->events->listEvents('bt9imag1pljia49foievrvntq0@group.calendar.google.com', $optParams);
         }

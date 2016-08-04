@@ -31,9 +31,6 @@
 
     </div>
 
-
-
-
     @include('layouts.loading')
     @include('cumples.nuevo')
     @include('cumples.editar')

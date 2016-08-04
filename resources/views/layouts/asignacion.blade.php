@@ -2,10 +2,10 @@
     <thead>
     <tr>
         <th data-field="id">Nobre</th>
-        <th data-field="name">Fecha</th>
-        <th data-field="price">Hora</th>
-        <th data-field="price">Realizado</th>
-        <th data-field="price">Acciones</th>
+        <th data-field="fecha">Fecha</th>
+        <th data-field="hora">Hora</th>
+        <th data-field="realizado">Realizado</th>
+        <th data-field="acciones">Acciones</th>
     </tr>
     </thead>
 

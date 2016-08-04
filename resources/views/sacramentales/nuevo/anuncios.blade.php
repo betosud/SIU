@@ -6,8 +6,8 @@
 
             <div class="ref_anuncio input-field col m12 s12" id="anunciosacramental{!! $total !!}">
                 <i class="material-icons prefix">event</i>
-                {!! Form::text('tbxanuncio'.$total,$anuncio,['class'=>'validate input-field tbxanuncio','id'=>'tbxanuncio'.$total,'placeholder'=>'Descripcion del Anuncio'])  !!}
                 <label name="lblanuncio{!! $total !!}" id="lblanuncio{!! $total !!}" data-error="dato no valido" data-success="Correcto" class="left-align lblanuncio">Anuncio {!! $total !!}</label>
+                {!! Form::text('tbxanuncio'.$total,$anuncio,['class'=>'validate input-field tbxanuncio','id'=>'tbxanuncio'.$total,'placeholder'=>'Descripcion del Anuncio'])  !!}
             </div>
 
             <?php

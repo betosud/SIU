@@ -3,7 +3,7 @@
 @section('content')
 
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col s12 m12 z-depth-3 card-panel">
                 <div class="row">
@@ -48,13 +48,14 @@
                 <div class="row margin">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
+                        <label for="name" data-error="dato no valido" data-success="Correcto" class="left-align">Nombre Del Usuario</label>
                         {!! Form::text('name','',['class'=>'validate input-field','id'=>'name','placeholder'=>'Ingresa el Nombre completo'])  !!}
                         @if ($errors->has('name'))
                             <span class="help-block red-text">
                                 <strong>{{ $errors->first('name') }}</strong>
                             </span>
                         @endif
-                        <label for="name" data-error="dato no valido" data-success="Correcto" class="left-align">Nombre Del Usuario</label>
+
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                         </div>
                     </div>
@@ -64,13 +65,13 @@
                 <div class="row margin">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">mail</i>
+                        <label for="email" data-error="dato no valido" data-success="Correcto" class="left-align">Correo Electronico</label>
                         {!! Form::email('email','',['class'=>'validate input-field','id'=>'email','placeholder'=>'nombre@dominio.com'])  !!}
                         @if ($errors->has('email'))
                             <span class="help-block red-text">
                                 <strong>{{ $errors->first('email') }}</strong>
                             </span>
                         @endif
-                        <label for="email" data-error="dato no valido" data-success="Correcto" class="left-align">Correo Electronico</label>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                         </div>
                     </div>
@@ -80,13 +81,13 @@
 
                     <div class="input-field col s12">
                         <i class="material-icons prefix">lock</i>
+                        <label for="password" data-error="dato no valido" data-success="Correcto" class="left-align">Password</label>
                         {!! Form::password('password','',['class'=>'awesome','id'=>'password','placeholder'=>'Min 6 caracteres'])  !!}
                         @if ($errors->has('password'))
                             <span class="help-block red-text">
                                 <strong>{{ $errors->first('password') }}</strong>
                             </span>
                         @endif
-                        <label for="password" data-error="dato no valido" data-success="Correcto" class="left-align">Password</label>
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 
                         </div>

@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 @permission('add.sacramentales')
-                <a href="{!! route('nuevosacramental') !!}" class="btn btn-floating waves-effect waves-light blue lighten-2 tooltipped " data-position="left" data-tooltip="Nueva Entrevista"><i class="material-icons ">add</i></a>
+                <a href="{!! route('nuevosacramental') !!}" class="btn btn-floating waves-effect waves-light blue lighten-2 tooltipped " data-position="left" data-tooltip="Nuevo Sacramental"><i class="material-icons ">add</i></a>
                 @endpermission
                 <div class="sacramentales">
 

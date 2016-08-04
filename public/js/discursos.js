@@ -42,6 +42,13 @@ var buscarproductos = function (datobuscar,year) {
 
 };
 
+$("#year").change(function(){
+    var datobuscar=$("#datosbuscar" ).val();
+    var year=$("#year" ).val();
+
+    listarproductos(datobuscar,year);
+});
+
 var listarproductos = function (datobuscar,year) {
     $('#loading').openModal({
         opacity: .3,
@@ -61,5 +68,4 @@ var listarproductos = function (datobuscar,year) {
             $('#loading').closeModal();
         }
     });
-    $('#loading').closeModal();
-}
+};

@@ -2,7 +2,7 @@
     <thead>
     <tr>
         <th data-field="nombre">Nombre</th>
-        <th data-field="fecha">Fecha Cumpleaños</th>
+        <th data-field="fecha">Cumpleaños</th>
         <th data-field="edad">Edad</th>
         <th data-field="acciones">acciones</th>
     </tr>

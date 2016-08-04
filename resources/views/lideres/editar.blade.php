@@ -19,13 +19,13 @@
                     <div class="row margin">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">account_circle</i>
+                            <label for="nombre" data-error="dato no valido" data-success="Correcto" class="left-align">Nombre Del Lider</label>
                             {!! Form::text('nombre',$lider->nombre,['class'=>'validate input-field','id'=>'name','placeholder'=>'Ingresa el Nombre completo'])  !!}
                             @if ($errors->has('nombre'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('nombre') }}</strong>
                             </span>
                             @endif
-                            <label for="nombre" data-error="dato no valido" data-success="Correcto" class="left-align">Nombre Del Lider</label>
                             <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
                             </div>
                         </div>
@@ -34,13 +34,13 @@
                     <div class="row margin">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">mail</i>
+                            <label for="email" data-error="dato no valido" data-success="Correcto" class="left-align">Correo Electronico</label>
                             {!! Form::email('email',$lider->email,['class'=>'validate input-field','id'=>'email','placeholder'=>'nombre@dominio.com'])  !!}
                             @if ($errors->has('email'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('email') }}</strong>
                             </span>
                             @endif
-                            <label for="email" data-error="dato no valido" data-success="Correcto" class="left-align">Correo Electronico</label>
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             </div>
                         </div>
@@ -50,13 +50,13 @@
                     <div class="row margin">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">call</i>
+                            <label for="phone" data-error="dato no valido" data-success="Correcto" class="left-align">Numero de Contacto</label>
                             {!! Form::text('phone',$lider->phone,['class'=>'validate input-field','id'=>'name','placeholder'=>'Numero de contacto'])  !!}
                             @if ($errors->has('phone'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('phone') }}</strong>
                             </span>
                             @endif
-                            <label for="phone" data-error="dato no valido" data-success="Correcto" class="left-align">Numero de Contacto</label>
                             <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                             </div>
                         </div>
@@ -66,13 +66,13 @@
                     <div class="row margin">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">assessment</i>
+                            <label for="llamamiento" data-error="dato no valido" data-success="Correcto" class="left-align">Llamamiento SUD</label>
                             {!!  Form::select('llamamiento', $combos['llamamientos'],null,['class'=>'validate input-field','id'=>'llamamiento','placeholder'=>'Selecciona Llamamiento']) !!}
                             @if ($errors->has('llamamiento'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('llamamiento') }}</strong>
                             </span>
                             @endif
-                            <label for="llamamiento" data-error="dato no valido" data-success="Correcto" class="left-align">Llamamiento SUD</label>
                             <div class="form-group{{ $errors->has('llamamiento') ? ' has-error' : '' }}">
                             </div>
                         </div>

@@ -2,10 +2,10 @@
     <thead>
     <tr>
         <th data-field="id">Nobre</th>
-        <th data-field="name">Fecha</th>
-        <th data-field="price">Hora</th>
-        <th data-field="price">Realizado</th>
-        <th data-field="price">Acciones</th>
+        <th data-field="fecha">Fecha</th>
+        <th data-field="hora">Hora</th>
+        <th data-field="realizado">Realizado</th>
+        <th data-field="acciones">Acciones</th>
     </tr>
     </thead>
 
@@ -20,9 +20,9 @@
                 {!!  Form::select('status', ['0'=>'No','1'=>'Si'],$entrevista->realizado,['class'=>'status browser-default input-field','id'=>'status'.$entrevista->id]) !!}
             </td>
             <td>
-                <a href="{!! route('pdfasignacion',[$entrevista->id,'descargar',$entrevista->token]) !!}" class="btn btn-floating waves-effect waves-light black tooltipped " data-position="top" data-tooltip="Imprimir"><i class="material-icons ">print</i></a>
+                <a href="{!! route('pdfentrevista',[$entrevista->id,'descargar',$entrevista->token]) !!}" class="btn btn-floating waves-effect waves-light black tooltipped " data-position="top" data-tooltip="Imprimir"><i class="material-icons ">print</i></a>
                 @permission('edit.asignacion')
-                <a href="{!! route('editarasignacion',$entrevista->id) !!}" class="btn btn-floating waves-effect waves-light green tooltipped " data-position="top" data-tooltip="Editar"><i class="material-icons ">edit</i></a>
+                <a href="{!! route('editarentrevista',$entrevista->id) !!}" class="btn btn-floating waves-effect waves-light green tooltipped " data-position="top" data-tooltip="Editar"><i class="material-icons ">edit</i></a>
                 @endpermission
                 @permission('send.asignacion')
                 <a OnClick='mostrar(this)' id="{!! $entrevista->id !!}" href="#enviar" class="btn btn-floating waves-effect waves-light blue tooltipped modal-trigger" data-position="top" data-tooltip="Enviar"><i class="material-icons ">mail_outline</i></a>

@@ -2,14 +2,15 @@
     <nav>
         <div class="nav-wrapper grey darken-4 ">
 
-            @if(Auth::guest())
+{{--            @if(Auth::guest())--}}
                 <a href="/home" class="brand-logo"><img style="max-width:55px; margin-top: -2px;" src="{!! asset('imagenes/logotransparente.png') !!}" border="0"></a>
-            @else
+            {{--@else--}}
                 {{--<a href="/" class="navbar-brand">Test</a>--}}
-                <a href="/home" class="brand-logo"><img style="max-width:55px; margin-top: -2px;" src="{!! asset('imagenes/logotransparente.png') !!}" border="0">{!! Auth::user()->barrionombre !!}</a>
+{{--                <a href="/home" class="brand-logo"><img style="max-width:55px; margin-top: -2px;"  border="0">{!! Auth::user()->barrionombre !!}</a>--}}
+{{--                <a href="/home" class="brand-logo"><img style="max-width:55px; margin-top: -2px;" src="{!! asset('imagenes/logotransparente.png') !!}" border="0">{!! Auth::user()->barrionombre !!}</a>--}}
                 {{--<a class="brand-logo">{!! Auth::user()->barrionombre !!}</a>--}}
 
-            @endif
+            {{--@endif--}}
 
 
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -31,7 +32,7 @@
 
 
                     @role('admin|pcia_estaca|sec_estaca|obispado|sec_barrio')
-                    <li><a class="dropdown-button" href="#!" data-activates="barrio">Herramientas Barrio<i class="material-icons right">home</i></a></li>
+                    <li><a class="dropdown-button" href="#!" data-activates="barrio">{!! Auth::user()->barrionombre !!}<i class="material-icons right">home</i></a></li>
                     @endrole
 
 
@@ -85,12 +86,12 @@
 
                             @role('admin|pcia_estaca|sec_estaca|obispado|sec_barrio')
                             <li>
-                                <a class="collapsible-header">Barrio<i class="material-icons">home</i></a>
+                                <a class="collapsible-header">{!! Auth::user()->barrionombre !!}<i class="material-icons">home</i></a>
                                 <div class="collapsible-body">
                                     <ul>
                                         <li>
                                         <li><a class="black-text" href="{!!url('lideres') !!}">Lideres<i class="material-icons right">supervisor_account</i></a></li>
-                                        <li><a class="black-text" href="{!!url('cumples') !!}">Cumpleaños<i class="material-icons right">event</i></a></li>
+                                        <li><a class="black-text" href="{!!url('cumples') !!}">Cumples<i class="material-icons right">event</i></a></li>
                                         </li>
                                     </ul>
                                 </div>
@@ -180,7 +181,7 @@
                 <a class="black-text" data-activates="listadolideres" href="{!!url('lideres') !!}">Lideres<i class="material-icons right">supervisor_account</i></a>
             </li>
             <li>
-                <a class="black-text" data-activates="cumples" href="{!!url('cumples') !!}">Cuempleaños<i class="material-icons right">event</i></a>
+                <a class="black-text" data-activates="cumples" href="{!!url('cumples') !!}">Cuemples<i class="material-icons right">event</i></a>
             </li>
         </ul>
 

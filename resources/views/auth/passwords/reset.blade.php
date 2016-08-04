@@ -3,9 +3,9 @@
 @section('content')
 
 
-    <div class="container">
+    <div class="container-fluid">
         <div id="login-page" class="row">
-            <div class="col s12 m6 offset-m3 z-depth-1 card-panel">
+            <div class="col s12 m5 offset-m4 z-depth-1 card-panel">
 
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
                     {{ csrf_field() }}
@@ -29,16 +29,14 @@
                     <div class="row margin">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">account_circle</i>
+
                             {!! Form::email('email','',['class'=>'validate','id'=>'email','placeholder'=>'Ingresa tu usuario'])  !!}
-
-
                             <input type="hidden" name="token" value="{{ $token }}">
                             @if ($errors->has('email'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('email') }}</strong>
                             </span>
                             @endif
-                            <label for="email" data-error="dato no valido" data-success="Correcto" class="left-align">{!! trans('validation.attributes.email') !!}</label>
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 
                             </div>
@@ -51,13 +49,13 @@
 
                         <div class="input-field col s12">
                             <i class="material-icons prefix">lock</i>
+                            <label for="password" data-error="dato no valido" data-success="Correcto" class="left-align">{!! trans('validation.attributes.password') !!}</label>
                             {!! Form::password('password','',['class'=>'awesome','id'=>'password','placeholder'=>'ingresa tu contraseña'])  !!}
                             @if ($errors->has('password'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('password') }}</strong>
                             </span>
                             @endif
-                            <label for="password" data-error="dato no valido" data-success="Correcto" class="left-align">{!! trans('validation.attributes.password') !!}</label>
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 
                             </div>
@@ -69,13 +67,13 @@
 
                         <div class="input-field col s12">
                             <i class="material-icons prefix">lock</i>
+                            <label for="password_confirmation" data-error="dato no valido" data-success="Correcto" class="left-align">{!! trans('validation.attributes.repassword') !!}</label>
                             {!! Form::password('password_confirmation','',['class'=>'awesome','id'=>'password_confirmation','placeholder'=>'ingresa tu contraseña'])  !!}
                             @if ($errors->has('password_confirmation'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('password_confirmation') }}</strong>
                             </span>
                             @endif
-                            <label for="password_confirmation" data-error="dato no valido" data-success="Correcto" class="left-align">{!! trans('validation.attributes.repassword') !!}</label>
                             <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
 
                             </div>

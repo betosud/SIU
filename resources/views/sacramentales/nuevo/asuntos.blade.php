@@ -1,26 +1,26 @@
 <div class="row margin">
     <div class="input-field col  m6 s12">
         <i class="material-icons prefix ">account_circle</i>
+        <label for="bendice1" data-error="dato no valido" data-success="Correcto" class="left-align">Bendice</label>
         {!! Form::text('bendice1',"",['class'=>'validate input-field','id'=>'bendice1','placeholder'=>'Ingrese Nombre Completo'])  !!}
         @if ($errors->has('bendice1'))
             <span class="help-block red-text">
                                 <strong>{{ $errors->first('bendice1') }}</strong>
                                 </span>
         @endif
-        <label for="bendice1" data-error="dato no valido" data-success="Correcto" class="left-align">Bendice</label>
         <div class="form-group{{ $errors->has('bendice1') ? ' has-error' : '' }}">
         </div>
     </div>
 
     <div class="input-field col m6 s12">
         <i class="material-icons prefix">account_circle</i>
+        <label for="bendice2" data-error="dato no valido" data-success="Correcto" class="left-align">Bendice</label>
         {!! Form::text('bendice2',"",['class'=>'validate input-field','id'=>'bendice2','placeholder'=>'Ingresa el Nombre completo'])  !!}
         @if ($errors->has('bendice2'))
             <span class="help-block red-text">
                                 <strong>{{ $errors->first('bendice2') }}</strong>
                             </span>
         @endif
-        <label for="bendice2" data-error="dato no valido" data-success="Correcto" class="left-align">Bendice</label>
         <div class="form-group{{ $errors->has('bendice2') ? ' has-error' : '' }}">
         </div>
     </div>
@@ -30,13 +30,13 @@
 
     <div class="input-field col  m12 s12">
         <i class="material-icons prefix ">chrome_reader_mode</i>
+        <label for="himno_sacramental" data-error="dato no valido" data-success="Correcto" class="left-align">Himno Sacramental</label>
         {!! Form::text('himno_sacramental',"",['class'=>'validate input-field','id'=>'himno_sacramental','placeholder'=>'Ingrse Nombre y Numero'])  !!}
         @if ($errors->has('himno_sacramental'))
             <span class="help-block red-text">
                                 <strong>{{ $errors->first('himno_sacramental') }}</strong>
                                 </span>
         @endif
-        <label for="himno_sacramental" data-error="dato no valido" data-success="Correcto" class="left-align">Himno Sacramental</label>
         <div class="form-group{{ $errors->has('himno_sacramental') ? ' has-error' : '' }}">
         </div>
     </div>
@@ -45,13 +45,13 @@
 
     <div class="input-field col  m12 s12">
         <i class="material-icons prefix ">group</i>
+        <label for="reparten" data-error="dato no valido" data-success="Correcto" class="left-align">Nombres de los que reparten</label>
         <textarea name="reparten" id="reparten" class="materialize-textarea" placeholder="Nombres de Los que reparten"></textarea>
         @if ($errors->has('reparten'))
             <span class="help-block red-text">
                                 <strong>{{ $errors->first('reparten') }}</strong>
                                 </span>
         @endif
-        <label for="reparten" data-error="dato no valido" data-success="Correcto" class="left-align">Nombres de los que reparten</label>
         <div class="form-group{{ $errors->has('reparten') ? ' has-error' : '' }}">
         </div>
     </div>
@@ -65,8 +65,8 @@
 
         <div class="ref_asunto input-field col m12 s12" id="asuntosacramental1">
             <i class="material-icons prefix">event</i>
-            {!! Form::text('tbxasunto1',"",['class'=>'validate input-field tbxasunto','id'=>'tbxasunto1','placeholder'=>'Descripcion del Asunto'])  !!}
             <label name="lblanuncio1" id="lblanuncio1" data-error="dato no valido" data-success="Correcto" class="left-align lblasunto">Asunto 1</label>
+            {!! Form::text('tbxasunto1',"",['class'=>'validate input-field tbxasunto','id'=>'tbxasunto1','placeholder'=>'Descripcion del Asunto'])  !!}
         </div>
 
 

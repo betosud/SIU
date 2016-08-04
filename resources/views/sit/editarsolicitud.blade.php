@@ -70,26 +70,26 @@
                 <div class="row margin">
                     <div class="input-field col  m6 s12">
                         <i class="material-icons prefix ">event</i>
+                        <label for="fecha" data-error="dato no valido" data-success="Correcto" class="left-align">Fecha</label>
                         {!! Form::text('fecha',$sit->fecha,['class'=>'validate input-field datepicker','id'=>'datepicker','placeholder'=>'Seleeciona Fecha'])  !!}
                         @if ($errors->has('fecha'))
                             <span class="help-block red-text">
                                 <strong>{{ $errors->first('fecha') }}</strong>
                             </span>
                         @endif
-                        <label for="fecha" data-error="dato no valido" data-success="Correcto" class="left-align">Fecha</label>
                         <div class="form-group{{ $errors->has('fecha') ? ' has-error' : '' }}">
                         </div>
                     </div>
 
                     <div class="input-field col m6 s12">
                         <i class="material-icons prefix">account_circle</i>
+                        <label for="solicitante" data-error="dato no valido" data-success="Correcto" class="left-align">Solicitante</label>
                         {!! Form::text('solicitante',$sit->solicitante,['class'=>'validate input-field','id'=>'solicitante','placeholder'=>'Ingresa el Nombre completo'])  !!}
                         @if ($errors->has('nombre'))
                             <span class="help-block red-text">
                                 <strong>{{ $errors->first('solicitante') }}</strong>
                             </span>
                         @endif
-                        <label for="solicitante" data-error="dato no valido" data-success="Correcto" class="left-align">Solicitante</label>
                         <div class="form-group{{ $errors->has('solicitante') ? ' has-error' : '' }}">
                         </div>
                     </div>
@@ -99,13 +99,13 @@
                 <div class="row margin">
                     <div class="input-field col m6 s12">
                         <i class="material-icons prefix">mail</i>
+                        <label for="mail" data-error="dato no valido" data-success="Correcto" class="left-align">Correo Electronico</label>
                         {!! Form::email('mail',$sit->mail,['class'=>'validate input-field','id'=>'mail','placeholder'=>'nombre@dominio.com'])  !!}
                         @if ($errors->has('mail'))
                             <span class="help-block red-text">
                                 <strong>{{ $errors->first('mail') }}</strong>
                             </span>
                         @endif
-                        <label for="mail" data-error="dato no valido" data-success="Correcto" class="left-align">Correo Electronico</label>
                         <div class="form-group{{ $errors->has('mail') ? ' has-error' : '' }}">
                         </div>
                     </div>
@@ -114,13 +114,13 @@
                     {{--<div class="row margin">--}}
                     <div class="input-field col m6 s12">
                         <i class="material-icons prefix">account_circle</i>
+                        <label for="pagable" data-error="dato no valido" data-success="Correcto" class="left-align">Pagable</label>
                         {!! Form::text('pagable',$sit->pagable,['class'=>'validate input-field','id'=>'pagable','placeholder'=>'Nombre Completo'])  !!}
                         @if ($errors->has('pagable'))
                             <span class="help-block red-text">
                                 <strong>{{ $errors->first('pagable') }}</strong>
                             </span>
                         @endif
-                        <label for="pagable" data-error="dato no valido" data-success="Correcto" class="left-align">Pagable</label>
                         <div class="form-group{{ $errors->has('pagable') ? ' has-error' : '' }}">
                         </div>
                     </div>
@@ -129,13 +129,13 @@
                 <div class="row margin">
                     <div class="input-field col m6 s12">
                         <i class="material-icons prefix">credit_card</i>
+                        <label for="ife" data-error="dato no valido" data-success="Correcto" class="left-align">Numero de IFE</label>
                         {!! Form::text('ife',$sit->ife,['class'=>'validate input-field','id'=>'ife','placeholder'=>'13 digitos'])  !!}
                         @if ($errors->has('ife'))
                             <span class="help-block red-text">
                                 <strong>{{ $errors->first('ife') }}</strong>
                             </span>
                         @endif
-                        <label for="ife" data-error="dato no valido" data-success="Correcto" class="left-align">Numero de IFE</label>
                         <div class="form-group{{ $errors->has('ife') ? ' has-error' : '' }}">
                         </div>
                     </div>
@@ -144,13 +144,13 @@
                     {{--<div class="row margin">--}}
                     <div class="input-field col m6 s12">
                         <i class="material-icons prefix">attach_money</i>
+                        <label for="cantidad" data-error="dato no valido" data-success="Correcto" class="left-align">Cantidad</label>
                         {!! Form::text('cantidad',$sit->cantidad,['class'=>'validate input-field','id'=>'cantidad','placeholder'=>'Cantidad'])  !!}
                         @if ($errors->has('cantidad'))
                             <span class="help-block red-text">
                                 <strong>{{ $errors->first('cantidad') }}</strong>
                             </span>
                         @endif
-                        <label for="cantidad" data-error="dato no valido" data-success="Correcto" class="left-align">Cantidad</label>
                         <div class="form-group{{ $errors->has('cantidad') ? ' has-error' : '' }}">
                         </div>
                     </div>
@@ -159,13 +159,13 @@
                 <div class="row margin">
                     <div class="input-field col m12 s12">
                         <i class="material-icons prefix">description</i>
+                        <label for="descripcion" data-error="dato no valido" data-success="Correcto" class="left-align">Descripcion del Gasto</label>
                         {!! Form::text('descripcion',$sit->descripcion,['class'=>'validate input-field','id'=>'descripcion','placeholder'=>'Descripcion de la Actividad'])  !!}
                         @if ($errors->has('descripcion'))
                             <span class="help-block red-text">
                                 <strong>{{ $errors->first('descripcion') }}</strong>
                             </span>
                         @endif
-                        <label for="descripcion" data-error="dato no valido" data-success="Correcto" class="left-align">Descripcion del Gasto</label>
                         <div class="form-group{{ $errors->has('descripcion') ? ' has-error' : '' }}">
                         </div>
                     </div>
@@ -175,7 +175,7 @@
                 <div class="row margin">
 
                     <div class="input-field col m6 s12">
-                        {{--<i class="material-icons prefix">person</i>--}}
+                        <i class="material-icons prefix">group</i>
                         {!!  Form::select('organizaciongasto', $combo['organizacion'],null,['placeholder'=>'Selecciona Organizacion','class'=>'validate input-field organizaciongasto','id'=>'organizaciongasto']) !!}
                         @if ($errors->has('organizaciongasto'))
                             <span class="help-block red-text">
@@ -189,7 +189,7 @@
 
 
                     <div class="input-field col m6 s12">
-                        {{--<i class="material-icons prefix">person</i>--}}
+                        <i class="material-icons prefix">person</i>
                         {!!  Form::select('tipopago', $combo['tipopago'],null,['placeholder'=>'Selecciona Tipo de pago','class'=>'validate input-field lider2','id'=>'tipopago']) !!}
                         @if ($errors->has('tipopago'))
                             <span class="help-block red-text">
@@ -220,9 +220,6 @@
                         <a href="#cancelarsolicitud"  class="btn waves-effect waves-light col s6 red lighten-2 tooltipped modal-trigger" data-position="top" data-tooltip="Cancelar Solicitud"><i class="material-icons">delete</i>Eliminar</a>
                     </div>
                     {{--</div>--}}
-
-
-
 
                 </div>
                     {!! Form::close() !!}
@@ -268,12 +265,6 @@
                         </div>
                     </div>
                 </div>
-
-
-                {{--<button class="btn waves-effect waves-light red lighten-2" onclick="return confirm('Seguro que deseas Eliminar al Usuario')" type="submit" name="action">Borrar--}}
-                {{--<i class="material-icons right">delete</i>--}}
-
-
             </div>
             <div class="modal-footer">
                 <div class="row">

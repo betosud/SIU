@@ -18,7 +18,7 @@ $(document).on('click','.pagination li a',function(e){
         type:'get',
         url:page,
         success: function (data) {
-            $('#sits').empty().html(data);
+            $('#asignaciones').empty().html(data);
             $('#loading').closeModal();
 
         }
@@ -28,15 +28,19 @@ $(document).on('click','.pagination li a',function(e){
 $(document).ready(function() {
     var datobuscar=$("#datosbuscar" ).val();
     var year=$("#year" ).val();
+
     listarproductos(datobuscar,year)
+
 });
 var buscarproductos = function (datobuscar,year) {
+
     var datobuscar=$("#datosbuscar" ).val();
     var year=$("#year" ).val();
 
     listarproductos(datobuscar,year)
-};
 
+
+};
 
 $("#year").change(function(){
     var datobuscar=$("#datosbuscar" ).val();
@@ -44,6 +48,7 @@ $("#year").change(function(){
 
     listarproductos(datobuscar,year);
 });
+
 
 var listarproductos = function (datobuscar,year) {
     $('#loading').openModal({
@@ -53,15 +58,15 @@ var listarproductos = function (datobuscar,year) {
     if(datobuscar==''){
         datobuscar='vacio'
     }
-    var url = 'buscarsits/'+datobuscar+'/'+year;
+    var url = 'buscarasignaciones/'+datobuscar+'/'+year;
     $.ajax({
         type: 'get',
         url: url,
 //                datatype: 'json',
         success: function (data) {
-            $('#sits').empty().html(data);
+            $('#asignaciones').empty().html(data);
 //                    $('sits').html(data);
             $('#loading').closeModal();
         }
     });
-};
+}

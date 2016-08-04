@@ -82,10 +82,12 @@ Route::get('consultalideres/{organizacion}/{modo}', ['uses' => 'LideresControlle
 
 //asignaciones
 Route::get('asignaciones', ['uses' => 'AsignacionesController@index', 'as' => 'asignaciones','middleware'=>'auth','middleware' => 'permission:view.asignacion|add.asignacion']);
+Route::get('buscarasignaciones/{datosbuscar}/{year}',['uses'=>'AsignacionesController@search','as'=>'buscarasignaciones','middleware' => 'permission:view.asignacion|add.asignacion']);
+
 Route::get('nuevaasignacion', ['uses' => 'AsignacionesController@create', 'as' => 'nuevaasignacion','middleware'=>'auth','middleware' => 'permission:add.asignacion']);
 Route::post('guardarasignacion',['uses'=>'AsignacionesController@store','as'=>'guardarasignacion','middleware'=>'auth','middleware' => 'permission:add.asignacion']);
 Route::get('editarasignacion/{id}/edit', ['uses' => 'AsignacionesController@edit', 'as' => 'editarasignacion','middleware'=>'auth','middleware' => 'permission:edit.asignacion']);
-Route::get('asignacion/{id}/show', ['uses' => 'AsignacionesController@show', 'as' => 'asignacion','middleware'=>'auth']);
+Route::get('asignacion/{id}/show', ['uses' => 'AsignacionesController@show', 'as' => 'asignacion','middleware' =>'auth']);
 Route::put('actualizarasignacionstatus/{id}', ['uses' => 'AsignacionesController@updatestatus', 'as' => 'actualizarasignacionstatus', 'middleware'=>'auth']);
 Route::put('actualizarasignacion/{id}', ['uses' => 'AsignacionesController@update', 'as' => 'actualizarasignacion', 'middleware'=>'auth','middleware' => 'permission:edit.asignacion']);
 Route::get('pdfasignacion/{id}/{evento}/{token}', ['uses' => 'AsignacionesController@pdf', 'as' => 'pdfasignacion']);
@@ -93,6 +95,7 @@ Route::get('pdfasignacion/{id}/{evento}/{token}', ['uses' => 'AsignacionesContro
 
 //entrevistas
 Route::get('entrevistas', ['uses' => 'EntrevistasController@index', 'as' => 'entrevistas','middleware'=>'auth','middleware' => 'permission:view.entrevista|add.entrevista']);
+Route::get('buscarentrevistas/{datosbuscar}/{year}',['uses'=>'EntrevistasController@search','as'=>'buscarentrevistas','middleware' => 'permission:view.asignacion|add.asignacion']);
 Route::get('nuevaentrevista', ['uses' => 'EntrevistasController@create', 'as' => 'nuevaentrevista','middleware'=>'auth','middleware' => 'permission:add.entrevista']);
 Route::post('guardarentrevista',['uses'=>'EntrevistasController@store','as'=>'guardarentrevista','middleware'=>'auth','middleware' => 'permission:add.entrevista']);
 Route::get('editarentrevista/{id}/edit', ['uses' => 'EntrevistasController@edit', 'as' => 'editarentrevista','middleware'=>'auth','middleware' => 'permission:edit.entrevista']);
@@ -110,7 +113,7 @@ Route::get('discurso/{id}/show', ['uses' => 'DiscursosController@show', 'as' => 
 Route::put('actualizardiscursostatus/{id}', ['uses' => 'DiscursosController@updatestatus', 'as' => 'actualizardiscursostatus', 'middleware'=>'auth']);
 Route::put('actualizardiscurso/{id}', ['uses' => 'DiscursosController@update', 'as' => 'actualizardiscurso', 'middleware'=>'auth','middleware' => 'permission:edit.discurso']);
 Route::get('pdfdiscurso/{id}/{evento}/{token}', ['uses' => 'DiscursosController@pdf', 'as' => 'pdfdiscurso']);
-Route::get('buscardiscursos/{datosbuscar}/{year}',['uses'=>'DiscursosController@search','as'=>'buscardiscursos','middleware' => 'permission:view.discurso|add.discurso']);
+Route::get('buscardiscursos/{datosbuscar}/{year}',['uses'=>'DiscursosController@search','as'=>'buscardiscursos','middleware'=>'auth','middleware' => 'permission:view.discurso|add.discurso']);
 
 //sit
 Route::get('solicitudgasto',['uses'=>'SitController@nuevasolicitud','as'=>'solicitudgasto']);
@@ -179,4 +182,4 @@ Route::delete('eliminarcumple/{id}',['uses'=>'CumplesController@Destroy','as'=>'
 Route::put('enviarcorreo/{id}/{modulo}',['uses'=>'EnviarCorreoController@enviarcorreo','as'=>'enviarcorreo','middleware'=>'auth']);
 
 //himnos
-Route::get('himnos/{valor}',['uses'=>'HimnosController@getautocompletarhimnos', 'as'=>'himnos']);
+Route::get('himnos/{valor}',['uses'=>'HimnosController@getautocompletarhimnos', 'as'=>'himnos','middleware'=>'auth']);

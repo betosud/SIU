@@ -32,39 +32,39 @@
                     <div class="row margin">
                         <div class="input-field col  m4 s12">
                             <i class="material-icons">credit_card</i>
+                            <label for="ife" data-error="dato no valido" data-success="Correcto" class="left-align">IFE Solicitante</label>
                             {!! Form::text('ife',$sit->ife,['class'=>'validate input-field','disabled'=>'','id'=>'ife','placeholder'=>'ife'])  !!}
                             @if ($errors->has('ife'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('ife') }}</strong>
                                 </span>
                             @endif
-                            <label for="ife" data-error="dato no valido" data-success="Correcto" class="left-align">IFE Solicitante</label>
                             <div class="form-group{{ $errors->has('ife') ? ' has-error' : '' }}">
                             </div>
                         </div>
 
                         <div class="input-field col  m4 s12">
                             <i class="material-icons">account_circle</i>
+                            <label for="pagable" data-error="dato no valido" data-success="Correcto" class="left-align">Pagable</label>
                             {!! Form::text('pagable',$sit->pagable,['class'=>'validate input-field ','disabled'=>'','id'=>'pagable','placeholder'=>'Nombre del Beneficiario'])  !!}
                             @if ($errors->has('pagable'))
                                 <span class="help-block red-text">
                         <strong>{{ $errors->first('pagable') }}</strong>
                         </span>
                             @endif
-                            <label for="pagable" data-error="dato no valido" data-success="Correcto" class="left-align">Pagable</label>
                             <div class="form-group{{ $errors->has('pagable') ? ' has-error' : '' }}">
                             </div>
                         </div>
 
                         <div class="input-field col  m4 s12">
                             <i class="material-icons prefix ">payment</i>
+                            <label for="organizaciongasto" data-error="dato no valido" data-success="Correcto" class="left-align">Organizacion</label>
                             {!! Form::text('organizaciongasto',$sit->organizacionnombre,['class'=>'validate input-field ','disabled'=>'','id'=>'organizaciongasto','placeholder'=>'Nombre Organizacion'])  !!}
                             @if ($errors->has('organizaciongasto'))
                                 <span class="help-block red-text">
                         <strong>{{ $errors->first('organizaciongasto') }}</strong>
                         </span>
                             @endif
-                            <label for="organizaciongasto" data-error="dato no valido" data-success="Correcto" class="left-align">Organizacion</label>
                             <div class="form-group{{ $errors->has('organizaciongasto') ? ' has-error' : '' }}">
                             </div>
                         </div>
@@ -74,26 +74,26 @@
                     <div class="row margin">
                         <div class="input-field col  m4 s12">
                             <i class="material-icons prefix ">event</i>
+                            <label for="fechasit" data-error="dato no valido" data-success="Correcto" class="left-align">Fecha</label>
                             {!! Form::text('fechasit','',['class'=>'validate input-field datepicker','id'=>'datepicker','placeholder'=>'Seleeciona Fecha'])  !!}
                             @if ($errors->has('fechasit'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('fechasit') }}</strong>
                                 </span>
                             @endif
-                                <label for="fechasit" data-error="dato no valido" data-success="Correcto" class="left-align">Fecha</label>
                                 <div class="form-group{{ $errors->has('fechasit') ? ' has-error' : '' }}">
                             </div>
                         </div>
 
                         <div class="input-field col  m4 s12">
                             <i class="material-icons prefix ">payment</i>
+                            <label for="idsit" data-error="dato no valido" data-success="Correcto" class="left-align">Referencia</label>
                             {!! Form::text('idsit','',['class'=>'validate input-field ','id'=>'idsit','placeholder'=>'ingresa el numero de referencia del MLS'])  !!}
                             @if ($errors->has('idsit'))
                                 <span class="help-block red-text">
                         <strong>{{ $errors->first('idsit') }}</strong>
                         </span>
                             @endif
-                            <label for="idsit" data-error="dato no valido" data-success="Correcto" class="left-align">Referencia</label>
                             <div class="form-group{{ $errors->has('idsit') ? ' has-error' : '' }}">
                             </div>
                         </div>
@@ -202,49 +202,12 @@
             {!! Form::close() !!}
 
     </div>
+        </div>
 
 
 @endsection
 @section('scripts')
     <script>
-
-        $("#addlidersave").click(function () {
-                var nombre=$('#nombre').val();
-                var idbarrio=$('#idbarrio').val();
-                var email=$('#email').val();
-                var organizacion=$('#organizacion').val();
-                var phone=$('#phone').val();
-                var llamamiento=$('#llamamiento').val();
-                var token=$('#token').val();
-                var route='/guardarlider';
-            $.ajax({
-                url:route,
-                headers:{'X-CSRF-TOKEN':token},
-                type:'post',
-                datatype:'json',
-                data:{idbarrio:idbarrio,nombre: nombre,email:email,organizacion:organizacion,phone:phone,llamamiento:llamamiento},
-                success:function(lider){
-
-                    Materialize.toast('Lider Agregado',3000,'rounded');
-                    $('#addlider').closeModal();
-                    actualizacomboslideres();
-                },
-
-                error:function(msj){
-                    $('#addlider').openModal({
-                        dismissible: false,
-                    });
-                    var result =msj.responseJSON;
-                    $.each(result, function(i, item) {
-                        Materialize.toast(item,3000,'rounded');
-                    });
-
-                }
-
-            });
-
-        });
-
         function actualizacomboslideres() {
             var route= '/consultalideres/todos/activos';
             $.get(route, function (res) {
@@ -292,4 +255,5 @@
 
 
     </script>
+    {!! Html::script('js/nuevolider.js') !!}
 @endsection

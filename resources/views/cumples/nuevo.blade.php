@@ -9,13 +9,13 @@
             <div class="row margin">
                 <div class="input-field col s12 m12">
                     <i class="material-icons prefix">account_circle</i>
+                    <label for="email" data-error="dato no valido" data-success="Correcto" class="left-align">Nombre</label>
                     {!! Form::text('nombre','',['class'=>'validate input-field','id'=>'nombre','placeholder'=>'Nombre'])  !!}
                     @if ($errors->has('nombre'))
                         <span class="help-block red-text">
                                 <strong>{{ $errors->first('nombre') }}</strong>
                             </span>
                     @endif
-                    <label for="email" data-error="dato no valido" data-success="Correcto" class="left-align">Nombre</label>
                     <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
                     </div>
                 </div>
@@ -24,13 +24,13 @@
             <div class="row margin">
                 <div class="input-field col s12 m12">
                     <i class="material-icons prefix">event</i>
+                    <label for="fecha" data-error="dato no valido" data-success="Correcto" class="left-align">Fecha Nacimiento</label>
                     {!! Form::text('fecha','',['class'=>'validate input-field datepicker','id'=>'datepicker','placeholder'=>'Fecha Nacimiento'])  !!}
                     @if ($errors->has('fecha'))
                         <span class="help-block red-text">
                                 <strong>{{ $errors->first('fecha') }}</strong>
                             </span>
                     @endif
-                    <label for="fecha" data-error="dato no valido" data-success="Correcto" class="left-align">Fecha Nacimiento</label>
                     <div class="form-group{{ $errors->has('fecha') ? ' has-error' : '' }}">
                     </div>
                 </div>

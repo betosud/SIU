@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-
+    @include('layouts.loading')
     <div class="container">
         <div class="row">
+
             <div class="col s12 m12 z-depth-3 card-panel">
 
 
@@ -61,13 +62,16 @@
             </div>
 
 
+</div>
+        </div>
 
-@include('sit.modaluploadfile')
+
             {!! Form::open(['route'=>['actualizavalidadocomporbante',':ID'],'method'=>'PUT','id'=>'form-update-comprobante','class'=>'hide']) !!}
             {!! Form::text('validadopor',':VALOR' ,['class'=>'validadopor ']) !!}
             {!! Form::close() !!}
-@include('layouts.loading')
+            @include('sit.modaluploadfile')
 @endsection
+
 @section('scripts')
                 @if (count($errors) > 0)
                     @foreach ($errors->all() as $error)

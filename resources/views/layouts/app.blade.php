@@ -23,15 +23,18 @@
     <style>
         body {
             font-family: 'Roboto';
-        }
 
+        }
+        main {
+            flex: 1 1 auto;
+        }
         .fa-btn {
             margin-right: 4px;
         }
     </style>
 
 
-    <script src='https://www.google.com/recaptcha/api.js'></script>
+
 
 </head>
 <body id="app-layout">
@@ -54,10 +57,7 @@
 <script src="{{asset('datepicker/js/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('datePicker/locales/bootstrap-datepicker.es.min.js')}}"></script>
 
-
-
 @include('layouts.menu')
-
 @yield('content')
 
 
@@ -66,5 +66,9 @@
 
 {!! Html::script('js/utiles.js') !!}
 @yield('scripts')
+
+
+
 </body>
+@include('layouts.footer')
 </html>

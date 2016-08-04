@@ -7,8 +7,10 @@ use fpdf\FPDF;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use SIU\asignaciones;
+use SIU\catalogos;
 use SIU\Http\Requests;
 use SIU\Http\Controllers\Controller;
 use SIU\lideres;
@@ -27,6 +29,7 @@ class AsignacionesController extends Controller
         foreach($lista as $lider){
             $lideres[$lider->id]=$lider->conllamamiento;
         }
+        $lideres[-1]="Agregar Nuevo";
         return $lideres;
     }
     /**
@@ -36,19 +39,28 @@ class AsignacionesController extends Controller
      */
     public function index(Request $request)
     {
-        if(Auth::user()->is('admin|sec_barrio|obispado|sec_estaca|pcia_estaca')){
-            $asignaciones= asignaciones::bybarrio(auth()->user()->idbarrio)->orderBy('fecha','desc')->orderBy('hora','desc')->paginate(10);
+        $year=Carbon::now();
+        $years=array();
+        $years[$year->year]=$year->year;
+        $idbarrio=$request->user()->idbarrio;
+        $resultado=DB::select("select YEAR(fecha) as year from asignaciones where idbarrio={$idbarrio} group by YEAR(fecha) desc") ;
+        foreach ($resultado as $val){
+        $years[$val->year]=$val->year;
         }
-        elseif(Auth::user()->is('lider_estaca|aux_lider')){
-            $asignaciones= asignaciones::byuser(auth()->user()->id)->orderBy('fecha','desc')->orderBy('hora','desc')->paginate(10);
+        $year=$year->year;
+        return view('asignaciones.asignaciones',compact('year','years'));
+    }
+    public function search($datosbuscar,$year)
+    {
+        if($datosbuscar=='vacio'){
+            $asignaciones = asignaciones::bybarrio(auth()->user()->idbarrio)->whereRaw('YEAR(fecha)=?',[$year])->orderBy('fecha', 'desc')->orderby('id')->paginate(10);
         }
-//        dd($asignaciones);
-        if($request->ajax()){
-            return response()->json(view('layouts.asignacion',compact('asignaciones'))->render());
+        else{
+            $asignaciones = asignaciones::bybarrio(auth()->user()->idbarrio)
+                ->whereRaw("(nombre like '%$datosbuscar%')and (YEAR(fecha)=$year)")
+                ->paginate(10);
         }
-        else {
-            return view('asignaciones.asignaciones', compact('asignaciones'));
-        }
+        return response()->view('layouts.asignacion',compact('asignaciones'));
     }
 
     /**
@@ -58,8 +70,10 @@ class AsignacionesController extends Controller
      */
     public function create()
     {
+        $combos['llamamientos']= catalogos::bycatalogo('llamamiento')->orderby('nombre')->lists('nombre','id');
+        $combos['organizacion']=catalogos::bycatalogo('organizacion')->orderby('nombre')->lists('nombre','id');
         $lideres=$this->listalideres('activos');
-        return view('asignaciones.nueva',compact('lideres'));
+        return view('asignaciones.nueva',compact('lideres','combos'));
     }
 
     /**
@@ -125,8 +139,9 @@ class AsignacionesController extends Controller
         if(Auth::user()->is('lider_estaca|aux_lider')){
             $this->authorize('updateuser', $asignacion);
         }
-
-        return view('asignaciones.editar',compact('asignacion','lideres'));
+        $combos['llamamientos']= catalogos::bycatalogo('llamamiento')->orderby('nombre')->lists('nombre','id');
+        $combos['organizacion']=catalogos::bycatalogo('organizacion')->orderby('nombre')->lists('nombre','id');
+        return view('asignaciones.editar',compact('asignacion','lideres','combos'));
     }
 
     /**

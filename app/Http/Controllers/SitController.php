@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -61,9 +62,6 @@ class SitController extends Controller
         $combo['llamamientos']=catalogos::bycatalogo('llamamiento')->orderby('nombre')->lists('nombre','id');
         $combo['organizacion']=catalogos::bycatalogo('organizacion')->orderby('nombre')->lists('nombre','id');
         $combo['tipopago']=catalogos::bycatalogo('tipopago')->orderby('nombre')->lists('nombre','id');
-
-
-
         return view('sit.solicitagasto',compact('combo'));
     }
 
@@ -857,14 +855,17 @@ class SitController extends Controller
         $archivosit->save();
         return response()->json(['mensaje'=>'Se Actualizo el Archivo ID => '.$archivosit->id]);
     }
-    public function mostrarsits()
+    public function mostrarsits(Request $request)
     {
         $year=Carbon::now();
         $years=array();
-        $year=$year->year;
-        for ($i=0;$i<4;$i++){
-            $years[$year-$i]=$year-$i;
+        $years[$year->year]=$year->year;
+        $idbarrio=$request->user()->idbarrio;
+        $resultado=DB::select("select YEAR(fecha) as year from discursos where idbarrio={$idbarrio} group by YEAR(fecha) desc") ;
+        foreach ($resultado as $val){
+            $years[$val->year]=$val->year;
         }
+        $year=$year->year;
         return view('sit.sits',compact('year','years'));
     }
 
@@ -877,13 +878,6 @@ class SitController extends Controller
             $sits = sit::bybarrio(auth()->user()->idbarrio)
                 ->whereRaw("(pagable like '%$datosbuscar%' or  solicitante like '%$datosbuscar%' or idsit like '%$datosbuscar%')and (YEAR(fechasit)=$year)")
                 ->paginate(10);
-//        $sits = sit::bybarrio(auth()->user()->idbarrio)
-//            ->whereRaw('YEAR(fechasit)=?',[$year])
-//            ->  where('pagable', 'like', '%' . $datosbuscar . '%')
-//            ->orwhere('solicitante', 'like', '%' . $datosbuscar . '%')
-//            ->orwhere('idsit', 'like', '%' .$datosbuscar)
-//            ->orderby('fechasit', 'desc')->paginate(10);
-
             }
         $combos['statussit']=catalogos::where('combo','statussolicitud')->lists('nombre','id');
 

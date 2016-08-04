@@ -15,56 +15,37 @@
                         <h4 class="center login-form-text">Asignaciones</h4>
                     </div>
                 </div>
-                    @permission('add.asignacion')
-                <a href="{!! route('nuevaasignacion') !!}" class="btn btn-floating waves-effect waves-light blue lighten-2 tooltipped " data-position="left" data-tooltip="Nueva asignacion"><i class="material-icons ">add</i></a>
-                    @endpermission
-                <div class="asignaciones">
+                    @include('layouts.loading')
 
-                    <table class="bordered responsive-table highlight">
-                        <thead>
-                        <tr>
-                            <th data-field="id">Nombre</th>
-                            <th data-field="name">Fecha</th>
-                            <th data-field="price">Hora</th>
-                            <th data-field="price">Realizado</th>
-                            <th data-field="price">Acciones</th>
-                        </tr>
-                        </thead>
 
-                        <tbody>
-
-                        @foreach($asignaciones as $asignacion)
-                            <tr data-id={!! $asignacion->id !!}>
-                                <td>{!!$asignacion->nombre !!}</td>
-                                <td>{!!$asignacion->fechadma !!}</td>
-                                <td>{!!$asignacion->horahm !!}</td>
-                                <td>
-                                    {!!  Form::select('status', ['0'=>'No','1'=>'Si'],$asignacion->realizado,['class'=>'status browser-default input-field','id'=>'status'.$asignacion->id]) !!}
-                                </td>
-                                <td>
-                                    <a href="{!! route('pdfasignacion',[$asignacion->id,'descargar',$asignacion->token]) !!}" class="btn btn-floating waves-effect waves-light black tooltipped " data-position="top" data-tooltip="Imprimir"><i class="material-icons ">print</i></a>
-                                    @permission('edit.asignacion')
-                                    <a href="{!! route('editarasignacion',$asignacion->id) !!}" class="btn btn-floating waves-effect waves-light green tooltipped " data-position="top" data-tooltip="Editar"><i class="material-icons ">edit</i></a>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                {!! Form::text('token',csrf_token(),['class'=>'hide','id'=>'token']) !!}
+                                <div class="input-field col  m6 s12">
+                                    {!!  Form::select('year', $years,$year,['id'=>'year', 'placeholder'=>'Selecciona Año','class'=>'form-control']) !!}
+                                    <label for="year" data-error="dato no valido" data-success="Correcto" class="left-align">Selecciona Año</label>
+                                </div>
+                                <div class="input-field col s12 m6">
+                                    {{--<i class="material-icons prefix">search</i>--}}
+                                    <input id="datosbuscar" type="text" class="validate buscar" placeholder="Buscar por Nombre (vacio muestra todos)">
+                                    <label for="icon_prefix">Buscar</label>
+                                </div>
+                                <div class="input-field col  m6 s12">
+                                    @permission('add.entrevista')
+                                    <a href="{!! route('nuevaasignacion') !!}" class="btn btn-flat waves-effect waves-light green lighten-2 tooltipped " data-position="left" data-tooltip="Nueva Asignacion"><i class="material-icons ">add</i>Nueva Asignacion</a>
                                     @endpermission
-                                    @permission('send.asignacion')
-                                    <a OnClick='mostrar(this)' id="{!! $asignacion->id !!}" href="#enviar" class="btn btn-floating waves-effect waves-light blue tooltipped modal-trigger" data-position="top" data-tooltip="Enviar"><i class="material-icons ">mail_outline</i></a>
-                                    @endpermission
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-
-                    <div class="pagination">
-
-                        {!! $asignaciones->render() !!}
-
+                                </div>
+                                <div class="input-field col  m6 s12">
+                                    <a OnClick='buscarproductos()' class="btn-flat btn-small waves-effect waves-light blue lighten-2 btn-primary"><i class="material-icons">search</i>Buscar</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
-                    @include('layouts.enviar')
-                    {!! Html::script('js/enviarasignacion.js') !!}
-                    {!! Html::script('js/actualizastatusasignacion.js') !!}
-                    {!! Html::script('js/utiles.js') !!}
+                <div id="asignaciones" class="asignaciones">
+
+
                 </div>
 
 
@@ -75,10 +56,9 @@
     {!! Form::open(['route'=>['actualizarasignacionstatus',':ID'],'method'=>'PUT','id'=>'form-update','class'=>'hide']) !!}
     {!! Form::text('realizado',':VALOR' ,['class'=>'realizado ']) !!}
     {!! Form::close() !!}
-    @include('layouts.loading')
 
 @endsection
 @section('scripts')
 
-    {!! Html::script('js/paginacion.js') !!}
+    {!! Html::script('js/asignaciones.js') !!}
 @endsection

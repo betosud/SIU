@@ -8,6 +8,7 @@
             //            Materialize.toast('test', 3000, 'rounded');
         </script>
     @endif
+    <div class="container-fluid">
     <div class="row">
         <div class="col s12 m6">
             <div class="card">
@@ -63,7 +64,5 @@
         {{--@endif--}}
     </div>
 
-
-
-
+    </div>
 @endsection

@@ -1,8 +1,7 @@
 <div id="loading" class="modal">
-    <div class="modal-content">
-
+    <div class="modal-content transparent">
         <div class="progress">
-            <div class="indeterminate"></div>
+            <div class="indeterminate blue"></div>
         </div>
     </div>
 

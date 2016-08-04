@@ -3,10 +3,10 @@
     <tr>
 
         <th data-field="name">Fecha</th>
-        <th data-field="price">Hora</th>
-        <th data-field="price">Preside</th>
-        <th data-field="price">Direccion</th>
-        <th data-field="price">Acciones</th>
+        <th data-field="hora">Hora</th>
+        <th data-field="preside">Preside</th>
+        <th data-field="direccion">Direccion</th>
+        <th data-field="acciones">Acciones</th>
     </tr>
     </thead>
 

@@ -2,17 +2,7 @@
 
 @section('content')
 
-    <div class="container">
-        <div class="row">
-            <div class="col s12 m12 z-depth-3 card-panel">
-
-                {{--@if (count($errors) > 0)--}}
-                    {{--@foreach ($errors->all() as $error)--}}
-                       {{--<script>--}}
-                           {{--Materialize.toast('{!! $error !!}', 3000, 'rounded');--}}
-                       {{--</script>--}}
-                    {{--@endforeach--}}
-                {{--@endif--}}
+    <div class="container-fluid">
                 @if(Session::has('message'))
                     <script>
                         Materialize.toast('{!! Session::get('message') !!}', 3000, 'rounded');
@@ -62,8 +52,6 @@
                             <div class="form-group{{ $errors->has('idbarrio') ? ' has-error' : '' }}">
                             </div>
                         </div>
-
-
                     </div>
 
 
@@ -83,26 +71,25 @@
 
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">account_circle</i>
-                            {!! Form::text('solicitante','',['class'=>'validate input-field','id'=>'solicitante','placeholder'=>'Ingresa el Nombre completo'])  !!}
+                            <label for="solicitante" data-error="dato no valido" data-success="Correcto" class="left-align">Solicitante</label>
+                            {!! Form::text('solicitante','',['class'=>'validate','id'=>'solicitante','placeholder'=>'Ingresa el Nombre completo'])  !!}
                             @if ($errors->has('nombre'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('solicitante') }}</strong>
                             </span>
                             @endif
-                            <label for="solicitante" data-error="dato no valido" data-success="Correcto" class="left-align">Solicitante</label>
-                            <div class="form-group{{ $errors->has('solicitante') ? ' has-error' : '' }}">
-                            </div>
+                            <div class="form-group{{ $errors->has('solicitante') ? ' has-error' : '' }}"></div>
                         </div>
 
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">mail</i>
-                            {!! Form::email('mail','',['class'=>'validate input-field','id'=>'mail','placeholder'=>'nombre@dominio.com'])  !!}
+                            <label for="mail" data-error="dato no valido" data-success="Correcto" class="left-align">Correo Electronico</label>
+                            {!! Form::email('mail','',['class'=>'validate','id'=>'mail','placeholder'=>'nombre@dominio.com'])  !!}
                             @if ($errors->has('mail'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('mail') }}</strong>
                             </span>
                             @endif
-                            <label for="mail" data-error="dato no valido" data-success="Correcto" class="left-align">Correo Electronico</label>
                             <div class="form-group{{ $errors->has('mail') ? ' has-error' : '' }}">
                             </div>
                         </div>
@@ -112,26 +99,26 @@
                     <div class="row margin">
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">account_circle</i>
+                            <label for="pagable" data-error="dato no valido" data-success="Correcto" class="left-align">Pagable</label>
                             {!! Form::text('pagable','',['class'=>'validate input-field','id'=>'pagable','placeholder'=>'Nombre Completo'])  !!}
                             @if ($errors->has('pagable'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('pagable') }}</strong>
                             </span>
                             @endif
-                            <label for="pagable" data-error="dato no valido" data-success="Correcto" class="left-align">Pagable</label>
                             <div class="form-group{{ $errors->has('pagable') ? ' has-error' : '' }}">
                             </div>
                         </div>
 
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">credit_card</i>
+                            <label for="ife" data-error="dato no valido" data-success="Correcto" class="left-align">Numero de IFE</label>
                             {!! Form::text('ife','',['class'=>'validate input-field','id'=>'ife','placeholder'=>'13 digitos'])  !!}
                             @if ($errors->has('ife'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('ife') }}</strong>
                             </span>
                             @endif
-                            <label for="ife" data-error="dato no valido" data-success="Correcto" class="left-align">Numero de IFE</label>
                             <div class="form-group{{ $errors->has('ife') ? ' has-error' : '' }}">
                             </div>
                         </div>
@@ -139,45 +126,38 @@
                     </div>
 
                     <div class="row margin">
-
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">attach_money</i>
+                            <label for="cantidad" data-error="dato no valido" data-success="Correcto" class="left-align">Cantidad</label>
                             {!! Form::text('cantidad','',['class'=>'validate input-field','id'=>'cantidad','placeholder'=>'Cantidad'])  !!}
                             @if ($errors->has('cantidad'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('cantidad') }}</strong>
                             </span>
                             @endif
-                            <label for="cantidad" data-error="dato no valido" data-success="Correcto" class="left-align">Cantidad</label>
                             <div class="form-group{{ $errors->has('cantidad') ? ' has-error' : '' }}">
                             </div>
                         </div>
 
-
-
                         <div class="input-field col m6 s12">
                             <i class="material-icons prefix">description</i>
-                            {!! Form::text('descripcion','',['class'=>'validate input-field','id'=>'descripcion','placeholder'=>'Descripcion de la Actividad'])  !!}
+                            <label for="descripcion" data-error="dato no valido" data-success="descripcion" class="left-align">Descripcion</label>
+                            {!! Form::text('descripcion','',['class'=>'validate input-field','id'=>'descripcion','placeholder'=>'Descripcion'])  !!}
                             @if ($errors->has('descripcion'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('descripcion') }}</strong>
                             </span>
                             @endif
-                            <label for="descripcion" data-error="dato no valido" data-success="Correcto" class="left-align">Descripcion del Gasto</label>
                             <div class="form-group{{ $errors->has('descripcion') ? ' has-error' : '' }}">
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row margin">
-
                     </div>
 
 
                     <div class="row margin">
 
                         <div class="input-field col m6 s12">
-                            {{--<i class="material-icons prefix">person</i>--}}
+                            <i class="material-icons prefix">person</i>
                             {!!  Form::select('organizaciongasto', $combo['organizacion'],null,['placeholder'=>'Selecciona Organizacion','class'=>'validate input-field organizaciongasto','id'=>'organizaciongasto']) !!}
                             @if ($errors->has('organizaciongasto'))
                                 <span class="help-block red-text">
@@ -191,7 +171,7 @@
 
 
                         <div class="input-field col m6 s12">
-                            {{--<i class="material-icons prefix">person</i>--}}
+                            <i class="material-icons prefix">person</i>
                             {!!  Form::select('tipopago', $combo['tipopago'],null,['placeholder'=>'Selecciona Tipo de pago','class'=>'validate input-field lider2','id'=>'tipopago']) !!}
                             @if ($errors->has('tipopago'))
                                 <span class="help-block red-text">
@@ -202,9 +182,7 @@
                             <div class="form-group{{ $errors->has('tipopago') ? ' has-error' : '' }}">
                             </div>
                         </div>
-                        {{--</div>--}}
 
-                        {{--<div class="row margin">--}}
                     </div>
 
                     <div class="row margin">
@@ -217,18 +195,17 @@
                                 <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
                             </span>
                                 @endif
-
+                            </div>
                         </div>
-
                     </div>
 
                     <div class="row margin">
-                        <div class="input-field col m6 s12 left">
+                        <div class="input-field col m6 s12">
                             <button type="submit" class="btn waves-effect waves-light col s6 grey darken-1 tooltipped" data-position="top" data-tooltip="Guardar Registro"> <i class="material-icons">save</i>Guardar</button>
                         </div>
                         {{--</div>--}}
                         {{--<div class="row">--}}
-                        <div class="input-field col m6 s12 left">
+                        <div class="input-field col m6 s12">
                             <a href="#salir"  class="btn waves-effect waves-light col s6 red lighten-2 tooltipped modal-trigger" data-position="top" data-tooltip="Salir del Modulo"><i class="material-icons">cancel</i>Cancelar</a>
                         </div>
                     </div>
@@ -236,10 +213,7 @@
 
                     {!! Form::close() !!}
 
-            </div>
-        </div>
     </div>
-
         <!-- Modal Structure -->
         <div id="salir" class="modal">
             <div class="modal-content">
@@ -256,10 +230,10 @@
 @endsection
 @section('scripts')
 
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <script>
         $('#idestaca').on('change',function (e) {
-
-
             var idestaca=e.target.value;
             var route= '/barriosbyestaca/'+idestaca;
 
