@@ -137,6 +137,10 @@ Route::put('actualizavalidadocomporbante/{id}', ['uses' => 'SitController@update
 
 Route::get('buscarsits/{datosbuscar}/{year}',['uses'=>'SitController@search','as'=>'buscarsits','middleware' => 'permission:view.sit|edit.sit']);
 
+Route::get('mostrarinfosit/{id}/show', ['uses' => 'SitController@show', 'as' => 'mostrarinfosit','middleware'=>'auth']);
+Route::put('enviarcomprobantes/{id}', ['uses' => 'SitController@enviarcomprobantes', 'as' => 'enviarcomprobantes','middleware'=>'auth']);
+
+
 //Bautizmales
 Route::get('bautizmales', ['uses' => 'BautizmalController@index', 'as' => 'bautizmales','middleware'=>'auth','middleware' => 'permission:view.bautizmal']);
 Route::get('nuevobautizmal', ['uses' => 'BautizmalController@create', 'as' => 'nuevobautizmal','middleware'=>'auth','middleware' => 'permission:add.bautizmal']);

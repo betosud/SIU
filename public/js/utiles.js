@@ -20,7 +20,7 @@ $( document ).ready(function() {
     // });
 
     $('.datepicker').datepicker({
-        format: "yyyy/mm/dd",
+        format: "yyyy-mm-dd",
         clearBtn: true,
         language: "es",
         autoclose: true,

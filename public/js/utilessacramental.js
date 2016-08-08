@@ -36,7 +36,7 @@ $(document).on('click', '.agregar_asunto', function () {
 $('#eliminar_asunto').click(function () {
     // confirmation
     var anuncio = $('.ref_asunto').length;
-    if (anuncio > 1) {
+    if (anuncio > 0) {
         $('#asuntosacramental' + anuncio).slideUp('slow', function () {
             $(this).remove();
         });
@@ -44,7 +44,7 @@ $('#eliminar_asunto').click(function () {
         return false;
     }
     else{
-        Materialize.toast('Debe haber al menos un Asunto', 4000,'rounded')
+        Materialize.toast('No hay Anuncios que borrar', 4000,'rounded')
     }
 });
 

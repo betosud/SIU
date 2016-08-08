@@ -97,6 +97,7 @@ class AsignacionesController extends Controller
         $this->validate($request,$rules);
 
         $fecha= Carbon::createFromFormat('Y-m-d',$request['fecha']);
+
         $request['fecha']=$fecha->format('Y-m-d');
         $request['nombre']=Str::title($request['nombre']);
         $request['asignacion']=Str::title($request['asignacion']);

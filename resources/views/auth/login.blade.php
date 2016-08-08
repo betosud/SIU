@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div id="login-page" class="row">
-            <div class="col s12 m7 offset-m2 z-depth-1 card-panel">
+            <div class="col s12 m6 offset-m3 z-depth-1 card-panel">
 
                 <form class="form-horizontal login-form" role="form" method="POST" action="{{ url('/login') }}">
                     {{ csrf_field() }}

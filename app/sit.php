@@ -31,6 +31,10 @@ class sit extends Model
         $query->where('idestaca', $organizacion);
     }
 
+    public function comprobantes(){
+        return $this->hasMany('SIU\archivossit','idsit','id');
+
+    }
     public function datosbarrio(){
         return $this->hasOne('SIU\barrios', 'id', 'idbarrio');
 

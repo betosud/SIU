@@ -868,7 +868,65 @@ class SitController extends Controller
         $year=$year->year;
         return view('sit.sits',compact('year','years'));
     }
+public function show($id){
+    $sit=sit::findorfail($id);
 
+
+    return response()->json($sit->toArray()
+    );
+}
+
+
+    public function enviarcomprobantes(Request $request,$id){
+        $rules=array('nombre'=>'required',
+            'email'=>'required');
+        $validacion=$this->validate($request,$rules);
+
+        $sit=sit::findorfail($id);
+
+//        dd($sit->comprobantes);
+        if(count($sit->comprobantes)>0) {
+
+            Mail::send('emails.comprobantes', ['sit' => $sit], function ($message) use ($request, $sit) {
+                $destinationPath = public_path('archivossit'); // upload path
+                $message->from($sit->datosbarrio->email, $sit->datosbarrio->nombreunidad);
+                $message->subject('Gasto ' . $sit->idsit);
+                $message->to($request->email, $request->nombre);
+                $pdf=0;
+                $xml=0;
+                $i='';
+                foreach ($sit->comprobantes as $comprobante) {
+                    $tipo=Str::title($comprobante->tipoarchivo);
+                    if($comprobante->tipoarchivo =='PDF' || $comprobante->tipoarchivo=='pdf'){
+                        $pdf++;
+                        $i='Factura'.$pdf.'.pdf';
+                    }
+                    if($comprobante->tipoarchivo =='xml' || $comprobante->tipoarchivo=='XML'){
+                        $xml++;
+                        $i='Factura'.$xml.'.xml';
+                    }
+                    $message->attach($destinationPath . '/' . $comprobante->rutaarchivo,array('as' => $i));
+
+
+                }
+//            $message->attachData($pdffile, $nombre,$options = array('as' => $nombre,'mime' => 'application/pdf'));
+
+            });
+
+
+            $sit['enviado']=1;
+            $sit->save();
+            $salida='Correo Enviado';
+        }
+        else{
+            $salida='No hay Comprobantes';
+        }
+
+//        dd($sit);
+        return response()->json([
+            'error'=>$validacion,'salida'=>$salida
+        ]);
+    }
     public function search($datosbuscar,$year)
     {
         if($datosbuscar=='vacio'){

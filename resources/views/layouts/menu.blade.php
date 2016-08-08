@@ -91,7 +91,7 @@
                                     <ul>
                                         <li>
                                         <li><a class="black-text" href="{!!url('lideres') !!}">Lideres<i class="material-icons right">supervisor_account</i></a></li>
-                                        <li><a class="black-text" href="{!!url('cumples') !!}">Cumples<i class="material-icons right">event</i></a></li>
+                                        <li><a class="black-text" href="{!!url('cumples') !!}">Cumples<i class="material-icons right">cake</i></a></li>
                                         </li>
                                     </ul>
                                 </div>
@@ -181,7 +181,7 @@
                 <a class="black-text" data-activates="listadolideres" href="{!!url('lideres') !!}">Lideres<i class="material-icons right">supervisor_account</i></a>
             </li>
             <li>
-                <a class="black-text" data-activates="cumples" href="{!!url('cumples') !!}">Cuemples<i class="material-icons right">event</i></a>
+                <a class="black-text" data-activates="cumples" href="{!!url('cumples') !!}">Cuemples<i class="material-icons right">cake</i></a>
             </li>
         </ul>
 

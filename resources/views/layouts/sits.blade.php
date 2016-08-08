@@ -32,6 +32,10 @@
                 @permission('edit.sit')
                 <a href="{!! route('editarsit',$sit->id) !!}" class="btn btn-floating waves-effect waves-light blue tooltipped " data-position="top" data-tooltip="Editar Solicitud"><i class="material-icons ">edit</i></a>
                 @endpermission
+
+                @permission('send.sit')
+                <a href="{!! route('editarsit',$sit->id) !!}" class="btn btn-floating waves-effect waves-light grey tooltipped " data-position="top" data-tooltip="Enviar a Oficinas"><i class="material-icons ">email</i></a>
+                @endpermission
             </td>
         </tr>
     @endforeach

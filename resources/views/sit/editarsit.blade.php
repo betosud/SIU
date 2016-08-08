@@ -43,6 +43,7 @@
                         </div>
 
                         <div id="comprobantes" class="col s12">
+
                             @include('sit.sitcomprobantes')
                         </div>
                     </div>
@@ -70,6 +71,7 @@
             {!! Form::text('validadopor',':VALOR' ,['class'=>'validadopor ']) !!}
             {!! Form::close() !!}
             @include('sit.modaluploadfile')
+            @include('layouts.enviarcomprobantes')
 @endsection
 
 @section('scripts')
@@ -90,5 +92,5 @@
                 @endif
 
     {!! Html::script('js/actualizacomprobante.js') !!}
-
+                {!! Html::script('js/enviarcomprobantes.js') !!}
 @endsection

@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use SIU\anuncios_sacramentales;
+use SIU\asignaciones;
 use SIU\asuntos_sacramentales;
+use SIU\cumples;
+use SIU\discursos;
 use SIU\Http\Requests;
 use SIU\Http\Controllers\Controller;
 use SIU\oradores_sacramentales;
@@ -329,6 +332,34 @@ class SacramentalController extends Controller
         $this->authorize('updatebarrio', $sacramental);
         $fechaserv = strftime("%A %e de %B de %Y", strtotime($sacramental->fecha));
         $horaserv = $sacramental->horahm;
+        $fechasacramental=$sacramental->fecha;
+        $fechasacramental=Carbon::createFromDate(substr($fechasacramental,0,4),substr($fechasacramental,5,2),substr($fechasacramental,8,2));
+        $fechadfin=Carbon::createFromDate(substr($fechasacramental,0,4),substr($fechasacramental,5,2),substr($fechasacramental,8,2));
+
+
+        $fechadfin->addDay(7);
+
+        $cumples=cumples::bybarrio($sacramental->idbarrio)->whereraw("(MONTH(fecha)={$fechasacramental->month} 
+                                                                        and DAY(fecha)>={$fechasacramental->day}) 
+                                                                        and (MONTH(fecha)={$fechadfin->month} and DAY(fecha)<={$fechadfin->day})")->get();
+
+        $asignacionessemana=array();
+        $discursos=discursos::bybarrio($sacramental->idbarrio)->whereBetween('fecha',array($fechasacramental->format('Y-m-d'),$fechadfin->format('Y-m-d')))->get();
+        $asignaciones=asignaciones::bybarrio($sacramental->idbarrio)->whereBetween('fecha',array($fechasacramental->format('Y-m-d'),$fechadfin->format('Y-m-d')))->get();
+        if(count($discursos)>0){
+            foreach ($discursos as $discurso){
+                $asignacionessemana[]="Discurso ".$discurso->nombre." Tema ".$discurso->tema;
+            }
+        }
+        if(count($asignaciones)>0){
+            foreach ($asignaciones as $asignacion){
+                $asignacionessemana[]="Asignacion ".$asignacion->nombre." Descripcion ".$asignacion->asignacion;
+            }
+        }
+
+
+
+
         $pdf=new FPDF();
         $pdf->AddPage("P", "letter");
         $pdf->SetFont("helvetica", "B", 20);
@@ -355,6 +386,19 @@ class SacramentalController extends Controller
             $total++;
         }
 
+        if(count($cumples)>0) {
+            $pdf->ln(5);
+            $pdf->SetFont("helvetica", "B", 12);
+            $pdf->Cell(200, 5, utf8_decode("Cumpleaños de la semana"), 0, 1, "C");
+            $pdf->SetFont("helvetica", "", 11);
+            $total=1;
+            foreach ($cumples as $cumple){
+                $pdf->MultiCell(200,5,utf8_decode($total.".- ".$cumple->nombre." el ".$cumple->fechacumple),'B','J');
+                $total++;
+            }
+
+
+        }
 
         $pdf->ln(5);
         $pdf->SetFont("helvetica", "", 11);
@@ -395,17 +439,20 @@ class SacramentalController extends Controller
         $pdf->Cell(200, 5, utf8_decode($sacramental->himno_sacramental), "B", 1, "L");
 
 
-        $pdf->ln(5);
-        $pdf->SetFont("helvetica", "B", 12);
-        $pdf->Cell(200, 5, utf8_decode("Asuntos Barrio"), 0, 1, "C");
-        //ingresar anuncios
-        $pdf->SetFont("helvetica", "", 11);
-        $total=1;
-        foreach ($sacramental->asuntos as $asunto){
-            $pdf->MultiCell(200,5,utf8_decode($total.".- ".$asunto->descripcion),'B','J');
-            $total++;
-        }
 
+
+        if(count($sacramental->asuntos)>0) {
+            $pdf->ln(5);
+            $pdf->SetFont("helvetica", "B", 12);
+            $pdf->Cell(200, 5, utf8_decode("Asuntos Barrio"), 0, 1, "C");
+            //ingresar anuncios
+            $pdf->SetFont("helvetica", "", 11);
+            $total = 1;
+            foreach ($sacramental->asuntos as $asunto) {
+                $pdf->MultiCell(200, 5, utf8_decode($total . ".- " . $asunto->descripcion), 'B', 'J');
+                $total++;
+            }
+        }
 
         $pdf->ln(5);
         $pdf->SetFont("helvetica", "", 11);
@@ -424,6 +471,9 @@ class SacramentalController extends Controller
         $pdf->MultiCell(200,5,utf8_decode($sacramental->reparten),"B",'J');
 
         $pdf->ln(5);
+        if($pdf->gety()>206){
+            $pdf->AddPage("P", "letter");
+        }
         $pdf->SetFont("helvetica", "B", 12);
         $pdf->Cell(200, 5, utf8_decode("Discursantes"), 0, 1, "C");
         $total=1;
@@ -439,6 +489,9 @@ class SacramentalController extends Controller
                 $pdf->Cell(95, 5, utf8_decode($orador->tema), "B", 1, "L");
                 $total++;
                 $pdf->ln(5);
+                if($pdf->gety()>206){
+                    $pdf->AddPage("P", "letter");
+                }
             }
         }
 
@@ -446,12 +499,17 @@ class SacramentalController extends Controller
 
         $pdf->ln(5);
         $pdf->SetFont("helvetica", "", 11);
-
+        if($pdf->gety()>206){
+            $pdf->AddPage("P", "letter");
+        }
         $pdf->Cell(200, 5, utf8_decode("Himno Intermedio"), 0, 1, "L");
         $pdf->SetFont("helvetica", "B", 11);
         $pdf->Cell(200, 5, utf8_decode($sacramental->himno_intermedio), "B", 1, "L");
 
         $pdf->ln(5);
+        if($pdf->gety()>206){
+            $pdf->AddPage("P", "letter");
+        }
         $pdf->SetFont("helvetica", "B", 12);
         $pdf->Cell(200, 5, utf8_decode("Discursantes"), 0, 1, "C");
         $total=1;
@@ -492,8 +550,26 @@ class SacramentalController extends Controller
         $pdf->Cell(40, 5, utf8_decode("Asistencia"), 0, 1, "L");
         $pdf->SetFont("helvetica", "B", 11);
         $pdf->Cell(40, 5, utf8_decode($sacramental->asistencia), "B", 1, "L");
+$pdf->ln(5);
+        if(count($asignacionessemana)>0){
 
-
+            $pdf->SetFont("helvetica", "B", 12);
+            if($pdf->gety()>206){
+                $pdf->AddPage("P", "letter");
+            }
+            $pdf->Cell(200, 5, utf8_decode("Asignaciones proxima semana"), 0, 1, "C");
+            $total=1;
+            $pdf->ln(5);
+            $pdf->SetFont("helvetica", "", 11);
+            foreach ($asignacionessemana as $asignacion){
+                if($pdf->gety()>206){
+                    $pdf->AddPage("P", "letter");
+                }
+                $pdf->MultiCell(200,5,utf8_decode($total.".- ".$asignacion),"B",'J');
+                $total++;
+//                $pdf->ln(5);
+            }
+        }
 
         $pdf->Output($sacramental->nombrearchivo . ".pdf", "D");
 

@@ -1,8 +1,17 @@
+@permission('add.archivosit')
+{{--<div class="col m6 s6">--}}
+{{--<a href="#uploadfile"  class="btn btn-flat waves-effect waves-light blue tooltipped modal-trigger" data-position="top" data-tooltip="Agregar Archivo"><i class="material-icons">backup</i>Agregar</a>--}}
+{{--</div>--}}
+{{--<div class="col m6 s6">--}}
+{{--<a  OnClick='mostrar(this)' id="{!! $sit->id !!}" href="#enviarcomprobantes" class="btn btn-flat waves-effect waves-light green lighten-2 tooltipped modal-trigger" data-position="top" data-tooltip="Enviar Oficinas"><i class="material-icons ">mail_outline</i>Enviar</a>--}}
+{{--</div>--}}
+@endpermission
 <div class="comprobantes">
     @permission('add.archivosit')
-    <a href="#uploadfile"  class="btn-floating waves-effect waves-light blue lighten-2 tooltipped modal-trigger" data-position="top" data-tooltip="Agregar Archivo"><i class="material-icons">attachment</i></a>
+        <a href="#uploadfile"  class="btn btn-floating waves-effect waves-light blue tooltipped modal-trigger" data-position="top" data-tooltip="Agregar Archivo"><i class="material-icons">backup</i>Agregar</a>
+        <a  OnClick='mostrar(this)' id="{!! $sit->id !!}" href="#enviarcomprobantes" class="btn btn-floating waves-effect waves-light green lighten-2 tooltipped modal-trigger" data-position="top" data-tooltip="Enviar Oficinas"><i class="material-icons ">mail_outline</i>Enviar</a>
     @endpermission
-    <table class="bordered responsive-table highlight striped">
+    <table class="bordered highlight striped responsive-table">
         <thead>
         <tr>
             <th data-field="referencia">ID</th>
@@ -27,7 +36,6 @@
                 <td>{!!$archivo->montoarchivo !!}</td>
                 <td>{!!$archivo->subidonombre !!}</td>
                 <td>
-                    {{--{!!  $archivo->validadonombre !!}--}}
                 @if($archivo->validadopor==0)
                     {!!  Form::select('validado', ['0'=>'No Validado','1'=>'Validado'],$archivo->validadonombre,['class'=>'validado browser-default input-field','id'=>'validado'.$archivo->id]) !!}
                 @else
@@ -41,14 +49,6 @@
                     @permission('delete.filesit')
                     <a href="#eliminarfile{!! $archivo->id !!}" class="btn-floating red modal-trigger waves-effect waves-ligh"><i class="material-icons">delete</i></a>
                     @endpermission
-                    {{--<span data-toggle="tooltip" data-placement="top" title="Descargar Archivo">--}}
-                                            {{--<a  class="btn btn-info glyphicon glyphicon-cloud-download" role="button" href={!! url('download?path='.public_path('archivos')."/".$archivo->rutaarchivo)!!}></a>--}}
-                                                {{--</span>--}}
-                    {{--@permission('delete.filesit')--}}
-                    {{--<span data-toggle="tooltip" data-placement="top" title="Eliminar Archivo">--}}
-                                            {{--<a  class="btn btn-danger glyphicon glyphicon-trash" role="button" data-toggle="modal" data-target="#eliminarfile{!! $archivo->id !!}"></a>--}}
-                                                {{--</span>--}}
-                    {{--@endpermission--}}
                 </td>
             </tr>
         @endforeach
@@ -66,7 +66,7 @@
     <div id="eliminarfile{!! $archivo->id !!}" class="modal">
         <div class="modal-content">
             <h5 class="center-align">Eliminar Archivo</h5>
-            <p>Esta Seguro de Borrar el Archivo?
+            <p>Esta Seguro de Borrar el Archivo?</p>
             <br>
             <ul class="collection">
                 <li class="collection-item">Nombre: <strong>{!! $archivo->nombrearchivo !!}</strong></li>
@@ -80,7 +80,7 @@
 
 
 
-            </p>
+
         </div>
         <div class="modal-footer">
             <a href="{!! route('eliminararchivosit',$archivo->id ) !!}" class="waves-effect waves-green btn-flat green lighten-2">Borrar</a>
