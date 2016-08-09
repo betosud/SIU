@@ -165,6 +165,13 @@ Route::get('barriosbyestaca/{idestaca}',['uses'=>'SitController@barrios','as'=>'
 //recursos google
 Route::get('eventos/{calendario}/{total}', ['uses' => 'ApigoogleController@calendar', 'as' => 'eventos']);
 
+
+Route::get('calendario/{idbarrio}', ['uses' => 'ApigoogleController@fullcalendar', 'as' => 'calendario','middleware'=>'auth']);
+
+
+
+
+
 //cumples
 Route::get('cumples', ['uses' => 'CumplesController@index', 'as' => 'cumples','middleware'=>'auth','middleware' => 'permission:view.cumples|add.cumples']);
 Route::get('listarcumples/{mes}', ['uses' => 'CumplesController@listar', 'as' => 'listarcumples','middleware'=>'auth','middleware' => 'permission:view.cumples|add.cumples']);

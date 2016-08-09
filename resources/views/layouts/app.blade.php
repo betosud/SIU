@@ -20,6 +20,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     {!! Html::style('css/inputs.css') !!}
     <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"/>
+
+
+
+
+
+
+
     <style>
         body {
             font-family: 'Roboto';
@@ -54,8 +61,18 @@
 {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>--}}
 <link rel="stylesheet" href="{{asset('datepicker/css/bootstrap-datepicker3.css')}}">
 <link rel="stylesheet" href="{{asset('datepicker/css/bootstrap-datepicker.standalone.css')}}">
-<script src="{{asset('datepicker/js/bootstrap-datepicker.js')}}"></script>
-<script src="{{asset('datePicker/locales/bootstrap-datepicker.es.min.js')}}"></script>
+<script src="{!! asset('datepicker/js/bootstrap-datepicker.js') !!}"></script>
+{{--<script src="{!! asset('datePicker/locales/bootstrap-datepicker.es.min.js') !!}"></script>--}}
+
+
+
+
+<link rel='stylesheet' href='{!! asset('fullcalendar/fullcalendar.css') !!}' />
+{{--    <script src='{!! asset('fullcalendar/lib/jquery.min.js') !!}'></script>--}}
+<script src='{!! asset('fullcalendar/lib/moment.min.js') !!}'></script>
+<script src='{!! asset('fullcalendar/fullcalendar.js') !!}'></script>
+<script src='{!! asset('fullcalendar/lang/es.js') !!}'></script>
+<script type='text/javascript' src='{!! asset('fullcalendar/gcal.js') !!}'></script>
 
 @include('layouts.menu')
 @yield('content')
@@ -70,5 +87,5 @@
 
 
 </body>
-@include('layouts.footer')
+{{--@include('layouts.footer')--}}
 </html>

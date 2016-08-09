@@ -4,6 +4,7 @@ namespace SIU\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
 use SIU\AccesoApi;
 use SIU\barrios;
 use SIU\Http\Requests;
@@ -87,7 +88,6 @@ class ApigoogleController extends Controller
 
                                 $respuesta[] =utf8_decode($registro);
                             }
-
                             return response()->json(['code'=>200,'datos'=>$respuesta,'mensaje'=>'Exito']);
                         }
                     }
@@ -162,7 +162,6 @@ dd($results);
 
                         $respuesta[] = $registro;
                     }
-                dd($respuesta);
 
                     return response()->json(
                         [
@@ -185,5 +184,20 @@ dd($results);
         }//finaly
     }
 
+    public function fullcalendar ($id){
 
+        if($id!=Auth::user()->idbarrio){
+            abort(403);
+        }
+        else {
+
+            $barrio = barrios::findorfail($id);
+
+            return view('calendario',compact('barrio'));
+
+        }
+
+
+
+    }
 }

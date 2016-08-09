@@ -43,6 +43,18 @@ class HomeController extends Controller
             $optParams = array('singleEvents' => true, 'orderBy' => 'startTime', 'timeMin' => $fecha->toRfc3339String(), 'maxResults' => 8);
 
             $results = $service->events->listEvents('bt9imag1pljia49foievrvntq0@group.calendar.google.com', $optParams);
+
+            if(!Auth::guest()){
+                $url=url('eventos',[Auth::user()->idbarrio,6]);
+                //obtener eventos del calendario
+                $client2 = new \GuzzleHttp\Client();
+                $responsebarrio = $client2->request('GET', $url, [
+                    'headers' => ['user' => env('USERAPISIU'),'apikey'=>env('APIKEYSIU')]
+                ]);
+                $databarrio=json_decode($responsebarrio->getBody()->getContents(),true);
+            }
+//            dd($databarrio);
+
         }
         catch (Exception $e){
         
@@ -82,7 +94,11 @@ class HomeController extends Controller
             }
             else
                 $totalsolicitudes=0;
-        return view('welcome',compact('respuesta','solicitudes','sits'));
+
+
+//dd(count($databarrio['datos']));
+
+        return view('welcome',compact('respuesta','solicitudes','sits','databarrio'));
 
 
         }

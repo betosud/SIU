@@ -39,6 +39,7 @@ $( document ).ready(function() {
         dismissible: false,
     });
     $('select').material_select();
+    
 
     $('.tooltipped').tooltip({delay: 50});
     $('.dropdown-button').dropdown({
