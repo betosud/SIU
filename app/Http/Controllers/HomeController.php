@@ -5,6 +5,7 @@ namespace SIU\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Mockery\CountValidator\Exception;
+use SIU\archivossit;
 use SIU\Http\Requests;
 use Illuminate\Http\Request;
 use SIU\sit;
@@ -75,11 +76,13 @@ class HomeController extends Controller
             if(!Auth::guest()) {
                 $solicitudes = sit::bybarrio(auth()->user()->idbarrio)->where('status', '63')->orderBy('fecha', 'desc')->orderby('id', 'DESC')->get();
 
-                $totalsolicitudes = count($solicitudes);
+//                $totalsolicitudes = count($solicitudes);
+                $sits=sit::bybarrio(auth()->user()->idbarrio)->wherein('status',array(65,66,68,70))->get();
+//                dd($solicitudes);
             }
             else
                 $totalsolicitudes=0;
-        return view('welcome',compact('respuesta','totalsolicitudes'));
+        return view('welcome',compact('respuesta','solicitudes','sits'));
 
 
         }

@@ -39,10 +39,74 @@
 
                         <ul class="collection with-header">
                             <li class="collection-header blue-text"><h4>Notificaciones</h4></li>
-                            <li href="{!! route('solicitudes') !!}" class="collection-item"><div>Solicitudes De Gasto<a href="{!! route('solicitudes') !!}"  class="secondary-content"> <span class="new badge">{!! $totalsolicitudes !!}</span> </a></div></li>
+
+                            <ul class="collapsible" data-collapsible="accordion">
+
+                                @if(count($solicitudes)>0)
+                                    <li>
+                                        <div class="collapsible-header"><span class="new badge">{!! count($solicitudes) !!}</span><i class="material-icons">card_membership</i>Solicitudes De Gasto</div>
+                                        <div class="collapsible-body">
+
+                                                <div class="collection">
+                                                @foreach($solicitudes as $solicitud)
+                                                <a class="collection-item black-text">
+                                                        {!! $solicitud->id !!} {!! $solicitud->solicitante !!}
+                                                </a>
+                                                @endforeach
+                                                </div>
+
+                                        </div>
+                                    </li>
+                                @endif
+                                    @if(count($sits)>0)
+                                        <li>
+                                            <div class="collapsible-header"><span class="new badge">{!! count($sits) !!}</span><i class="material-icons">payment</i>Gastos Incompletos</div>
+                                            <div class="collapsible-body">
+                                                <div class="collection">
+                                                    @foreach($sits as $sit)
+                                                        <a href="{!! route('editarsit',$sit->id) !!}" class="collection-item black-text">
+                                                            id:<strong>{!! $sit->idsit !!}</strong> Fecha: <strong>{!! $sit->fechasit !!}</strong> Status: <strong>{!! $sit->statusnombre !!}</strong>
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endif
+
+
+
+
+                            </ul>
+
+
+
+
 
 
                         </ul>
+                        {{--<ul class="collapsible" data-collapsible="accordion">--}}
+                            {{--@if(count($solicitudes)>0)--}}
+                            {{--<li>--}}
+                                {{--<div class="collapsible-header"><span class="new badge">1</span><i class="material-icons">filter_drama</i>Solicitudes De Gasto</div>--}}
+                                {{--<div class="collapsible-body">--}}
+                                    {{--<p>--}}
+                                    {{--<ul class="collection with-header">--}}
+
+
+                                    {{--</ul>--}}
+                                    {{--</p>--}}
+                                {{--</div>--}}
+                            {{--</li>--}}
+                            {{--@endif--}}
+                            {{--<li>--}}
+                                {{--<div class="collapsible-header"><i class="material-icons">place</i>Second</div>--}}
+                                {{--<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>--}}
+                                {{--<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
 
                     </div>
                 </div>

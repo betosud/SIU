@@ -167,7 +167,7 @@ Route::get('eventos/{calendario}/{total}', ['uses' => 'ApigoogleController@calen
 
 //cumples
 Route::get('cumples', ['uses' => 'CumplesController@index', 'as' => 'cumples','middleware'=>'auth','middleware' => 'permission:view.cumples|add.cumples']);
-Route::get('listarcumples', ['uses' => 'CumplesController@listar', 'as' => 'listarcumples','middleware'=>'auth','middleware' => 'permission:view.cumples|add.cumples']);
+Route::get('listarcumples/{mes}', ['uses' => 'CumplesController@listar', 'as' => 'listarcumples','middleware'=>'auth','middleware' => 'permission:view.cumples|add.cumples']);
 Route::get('nuevocumple', ['uses' => 'CumplesController@add', 'as' => 'nuevocumple','middleware'=>'auth','middleware' => 'permission:add.cumples']);
 Route::get('edicarcumple/{id}/edit', ['uses' => 'CumplesController@edit', 'as' => 'edicarcumple','middleware'=>'auth','middleware' => 'permission:edit.cumples']);
 Route::post('guardarcumple',['uses'=>'CumplesController@store','as'=>'guardarcumple','middleware'=>'auth','middleware' => 'permission:add.cumples']);

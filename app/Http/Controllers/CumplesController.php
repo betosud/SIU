@@ -3,6 +3,8 @@
 namespace SIU\Http\Controllers;
 
 use Carbon\Carbon;
+
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,13 +21,31 @@ class CumplesController extends Controller
 {
     public function index(Request $request){
 
+        $mesactual=Carbon::now();
+        $mes=$mesactual->month;
+//        $meses=array();
+//        dd($mesactual->month);
+        $meses=array('0'=>'Todos');
+
+        for($i=1;$i<13;$i++){
+            $aux=$mesactual->month;
+            $meses[$aux]=$mesactual->format('F');
+            $mesactual->addMonth(1);
+        }
 
 
-        return view('cumples.cumples');
+
+        return view('cumples.cumples',compact('meses','mes'));
 
     }
-    public function listar(Request $request){
-        $cumples=cumples::bybarrio(Auth::user()->idbarrio)->raw('order by MONTH(fecha)')->Paginate(30);
+    public function listar(Request $request,$mes){
+        if($mes==0) {
+                $cumples = cumples::bybarrio(Auth::user()->idbarrio)->raw('order by month(fecha) asc')->paginate(15);
+        }
+        else{
+            $cumples = cumples::bybarrio(Auth::user()->idbarrio)->whereraw("MONTH(fecha)={$mes}")->raw('order by day(fecha) asc')->paginate(15);
+
+        }
         return view('cumples.listacumples',compact('cumples'));
     }
 
@@ -39,8 +59,6 @@ class CumplesController extends Controller
         $request['nombre']=Str::title($request['nombre']);
         $cumple=new cumples($request->all());
         $cumple->save();
-//        dd($cumple);
-
         \Session::flash('message','Registro Guardado Correctamente');
         return \Redirect::route('cumples');
     }

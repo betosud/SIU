@@ -16,6 +16,17 @@
                 </div>
 
 
+                    <div class="container-fluid">
+                            <div class="row">
+                                {!! Form::text('token',csrf_token(),['class'=>'hide','id'=>'token']) !!}
+                                <div class="input-field col  m6 s12">
+                                    {!!  Form::select('mes', $meses,0,['id'=>'mes', 'placeholder'=>'Selecciona mes','class'=>'form-control']) !!}
+                                    <label for="mes" data-error="dato no valido" data-success="Correcto" class="left-align">Selecciona Mes</label>
+                                </div>
+                            </div>
+                    </div>
+
+
                 @permission('add.cumples')
                 {{--<a href="{!! route('nuevocumple') !!}" class="btn btn-floating waves-effect waves-light blue lighten-2 tooltipped " data-position="left" data-tooltip="Nuevo Registro"><i class="material-icons ">add</i></a>--}}
                     <a href="#nuevo" class="btn btn-floating waves-effect waves-light blue tooltipped modal-trigger" data-position="top" data-tooltip="Nuevo"><i class="material-icons ">add</i></a>
@@ -49,7 +60,5 @@
 
 
 @section('scripts')
-
-    {!! Html::script('js/paginacion.js') !!}
     {!! Html::script('js/cumples.js') !!}
 @endsection

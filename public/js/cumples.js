@@ -10,7 +10,7 @@ $(document).on('click','.pagination li a',function(e){
     });
 
     var page=$(this).attr('href');
-
+console.log(page)
     var route=page.split('?')[0];
     var pageid=page.split('=')[1];
     var clase='.'+route;
@@ -25,15 +25,25 @@ $(document).on('click','.pagination li a',function(e){
     });
 });
 $(document).ready(function() {
-    $('#loading').openModal({
-        opacity: .3,
-        dismissible: false,
-    });
+
     listarcumples()
 });
 
 var listarcumples = function () {
-    var url = 'listarcumples';
+
+    var mes=$("#mes" ).val();
+
+    var url = 'listarcumples/'+mes;
+
+    consultar(url)
+
+};
+
+function consultar(url) {
+    $('#loading').openModal({
+        opacity: .3,
+        dismissible: false,
+    });
     $.ajax({
         type: 'get',
         url: url,
@@ -41,10 +51,20 @@ var listarcumples = function () {
         success: function (data) {
             $('#cumples').empty().html(data);
 //                    $('sits').html(data);
+            $('#loading').closeModal();
         }
     });
-    $('#loading').closeModal();
-};
+
+}
+
+
+$("#mes").change(function(){
+
+    var mes=$("#mes" ).val();
+
+    var url = 'listarcumples/'+mes;
+    consultar(url)
+});
 
 function mostrar(btn) {
     var id=btn.id;
