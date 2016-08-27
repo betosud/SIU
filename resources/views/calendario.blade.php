@@ -20,9 +20,6 @@
 @section('scripts')
 <script type='text/javascript'>
     $(document).ready(function() {
-
-
-
         $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next today myCustomButton',
@@ -31,15 +28,12 @@
                 lang:'es',
 
             },
-
             weekNumbers:true,
             googleCalendarApiKey: '{{env('APIKEYGOOGLE')}}',
             events: {
                 googleCalendarId: '{{$barrio->nombrecalendario}}'
             }
-
         });
-
     });
 
 </script>

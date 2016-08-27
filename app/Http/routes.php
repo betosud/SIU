@@ -1,38 +1,4 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-//Route::post('registrosolicitud', function () {
-//    $rules =  array('validar' => ['required', 'validar']);
-//
-//
-//    $validator = Validator::make([ 'validar' =>\Illuminate\Support\Facades\Input::get('validar') ],
-//        $rules, [ 'validar' => 'El captcha ingresado es incorrecto.' ]);
-//    if ($validator->passes()) {
-//        $request = Request::create('guardarsolicitud', 'POST', $_REQUEST);
-//        return Route::dispatch($request)->getContent();
-//    }
-//    else {
-//        return redirect()->back()->withInput($_REQUEST)->withErrors($validator);
-//
-//    }
-//});
-
-
-
-
-
-
-
 Route::get('/home', 'HomeController@index');
 Route::get('/', 'HomeController@index');
 
@@ -103,6 +69,7 @@ Route::get('entrevista/{id}/show', ['uses' => 'EntrevistasController@show', 'as'
 Route::put('actualizarentrevistastatus/{id}', ['uses' => 'EntrevistasController@updatestatus', 'as' => 'actualizarentrevistastatus', 'middleware'=>'auth']);
 Route::put('actualizarentrevista/{id}', ['uses' => 'EntrevistasController@update', 'as' => 'actualizarentrevista', 'middleware'=>'auth','middleware' => 'permission:edit.entrevista']);
 Route::get('pdfentrevista/{id}/{evento}/{token}', ['uses' => 'EntrevistasController@pdf', 'as' => 'pdfentrevista']);
+Route::get('entrevistaview/{id}/{evento}/{token}', ['uses' => 'EntrevistasController@viewpdf', 'as' => 'pdfentrevista']);
 
 //discursos
 Route::get('discursos', ['uses' => 'DiscursosController@index', 'as' => 'discursos','middleware'=>'auth','middleware' => 'permission:view.discurso|add.discurso']);

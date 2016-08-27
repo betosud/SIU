@@ -219,6 +219,13 @@ class EntrevistasController extends Controller
         //
     }
 
+
+    public function viewpdf($id,$evento,$token){
+
+        $ruta=url('pdfentrevista',[$id,$evento,$token]);
+//        dd($ruta);
+        return view('entrevistas.view',compact('ruta'));
+    }
     public function pdf($id,$evento,$token)
     {
         setlocale(LC_ALL, "es_ES");

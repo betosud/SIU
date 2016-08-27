@@ -84,7 +84,7 @@ class SitController extends Controller
 
 
         $this->validate($request,$rules);
-        $request['token']=str_random(40);
+        $request['token']=str_random(60);
         $request['solicitante']= Str::title($request['solicitante']);
         $request['pagable']=Str::title($request['pagable']);
         $request['descripcion']= Str::title($request['descripcion']);
@@ -700,7 +700,7 @@ class SitController extends Controller
             //indicamos que queremos guardar un nuevo archivo en el disco local
             $upload_success = $file->move($destino, $fileName);
 
-            if($extension=='xml'){
+            if($extension=='xml' || $extension=='XML'){
 //                dd($destino.'/'.$archivosit->rutaarchivo);
 
                 $xml = simplexml_load_file($destino.'/'.$fileName);

@@ -42,7 +42,7 @@ class EnviarCorreoController extends Controller
         if ($modulo=='entrevista'){
             $data = entrevistas::findorfail($id);
             $nombrearchivo=$data->nombrearchivo.".pdf";
-            $pdf= route('pdfentrevista',[$data->id,'cadena',$data->token]);
+            $pdf= url('entrevistaview',[$data->id,'cadena',$data->token]);
             $descripcion="Cita Para Entrevista";
             $nombre=$request->nombre;
         }

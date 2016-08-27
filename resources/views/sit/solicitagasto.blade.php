@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container-fluid">
+    <div class="container">
                 @if(Session::has('message'))
                     <script>
                         Materialize.toast('{!! Session::get('message') !!}', 3000, 'rounded');
