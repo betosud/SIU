@@ -339,9 +339,11 @@ class SacramentalController extends Controller
 
         $fechadfin->addDay(7);
 
+//        dd($fechadfin);
+
         $cumples=cumples::bybarrio($sacramental->idbarrio)->whereraw("(MONTH(fecha)={$fechasacramental->month} 
                                                                         and DAY(fecha)>={$fechasacramental->day}) 
-                                                                        and (MONTH(fecha)={$fechadfin->month} and DAY(fecha)<={$fechadfin->day})")->get();
+                                                                        OR (MONTH(fecha)={$fechadfin->month} and DAY(fecha)<={$fechadfin->day})")->get();
 
         $asignacionessemana=array();
         $fechasacramental->addDay(1);
