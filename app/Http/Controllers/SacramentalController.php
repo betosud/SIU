@@ -344,8 +344,9 @@ class SacramentalController extends Controller
                                                                         and (MONTH(fecha)={$fechadfin->month} and DAY(fecha)<={$fechadfin->day})")->get();
 
         $asignacionessemana=array();
-        $discursos=discursos::bybarrio($sacramental->idbarrio)->whereBetween('fecha',array($fechasacramental->format('Y-m-d'),$fechadfin->format('Y-m-d')))->get();
-        $asignaciones=asignaciones::bybarrio($sacramental->idbarrio)->whereBetween('fecha',array($fechasacramental->format('Y-m-d'),$fechadfin->format('Y-m-d')))->get();
+        $fechasacramental->addDay(1);
+        $discursos=discursos::bybarrio($sacramental->idbarrio)->where('realizado',0)->whereBetween('fecha',array($fechasacramental->format('Y-m-d'),$fechadfin->format('Y-m-d')))->get();
+        $asignaciones=asignaciones::bybarrio($sacramental->idbarrio)->where('realizado',0)->whereBetween('fecha',array($fechasacramental->format('Y-m-d'),$fechadfin->format('Y-m-d')))->get();
         if(count($discursos)>0){
             foreach ($discursos as $discurso){
                 $asignacionessemana[]="Discurso ".$discurso->nombre." Tema ".$discurso->tema;

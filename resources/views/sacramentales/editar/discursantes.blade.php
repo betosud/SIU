@@ -4,7 +4,7 @@
     ?>
 @foreach($sacramental->oradores as $orador)
     @if($orador->grupo==1)
-<div class="ref_discursantegrupo{!! $total !!}" id="discursantegrupo1num{!! $total !!}">
+<div class="ref_discursantegrupo1" id="discursantegrupo1num{!! $total !!}">
     <div class="input-field col m6 s12">
         <i class="material-icons prefix">account_circle</i>
         <label name="lbldiscursantegrupo1num{!! $total !!}" id="lbldiscursantegrupo1num{!! $total !!}" data-error="dato no valido" data-success="Correcto" class="left-align lbldiscursante">Nombre Discursante</label>
@@ -56,7 +56,7 @@
         @if($orador->grupo==2)
 
 
-    <div class="ref_discursantegrupo{!! $total !!}" id="discursantegrupo2num{!! $total !!}">
+    <div class="ref_discursantegrupo2" id="discursantegrupo2num{!! $total !!}">
         <div class="input-field col m6 s12">
             <i class="material-icons prefix">account_circle</i>
             {!! Form::text('tbxdiscursantegrupo2num'.$total,$orador->nombre,['class'=>'validate input-field tbxdiscursante','id'=>'tbxdiscursantegrupo2num'.$total,'placeholder'=>'Nombre completo del Discursante'])  !!}
