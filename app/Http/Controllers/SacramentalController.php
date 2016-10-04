@@ -337,7 +337,7 @@ class SacramentalController extends Controller
         $fechadfin=Carbon::createFromDate(substr($fechasacramental,0,4),substr($fechasacramental,5,2),substr($fechasacramental,8,2));
 
 
-        $fechadfin->addDay(7);
+        $fechadfin->addDay(6);
 
 //        dd($fechadfin);
 

@@ -368,6 +368,7 @@ class SitController extends Controller
                 $message->from($barrio->email,$barrio->nombreunidad);
                 $message->subject('Solicitud De gasto '.$sit->id);
                 $message->to($sit->mail,$sit->solicitante);
+                $message->cc($barrio->email,$barrio->nombreunidad);
             });
         }
 
@@ -379,6 +380,7 @@ class SitController extends Controller
                 $message->from($barrio->email,$barrio->nombreunidad);
                 $message->subject('Solicitud De gasto '.$sit->id);
                 $message->to($sit->mail,$sit->solicitante);
+                $message->cc($barrio->email,$barrio->nombreunidad);
             });
         }
 
@@ -390,6 +392,7 @@ class SitController extends Controller
                 $message->from($barrio->email,$barrio->nombreunidad);
                 $message->subject('Solicitud De gasto '.$sit->id);
                 $message->to($sit->mail,$sit->solicitante);
+                $message->cc($barrio->email,$barrio->nombreunidad);
             });
         }
 
@@ -402,6 +405,7 @@ class SitController extends Controller
                 $message->from($barrio->email,$barrio->nombreunidad);
                 $message->subject('Solicitud De gasto '.$sit->id);
                 $message->to($sit->mail,$sit->solicitante);
+                $message->cc($barrio->email,$barrio->nombreunidad);
             });
         }
     }

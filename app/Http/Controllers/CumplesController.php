@@ -40,7 +40,7 @@ class CumplesController extends Controller
     }
     public function listar(Request $request,$mes){
         if($mes==0) {
-                $cumples = cumples::bybarrio(Auth::user()->idbarrio)->raw('order by month(fecha) asc')->paginate(15);
+                $cumples = cumples::bybarrio(Auth::user()->idbarrio)->raw('order by day(fecha), month(fecha) asc')->paginate(15);
         }
         else{
             $cumples = cumples::bybarrio(Auth::user()->idbarrio)->whereraw("MONTH(fecha)={$mes}")->raw('order by day(fecha) asc')->paginate(15);

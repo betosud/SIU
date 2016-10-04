@@ -26,9 +26,12 @@
                 <div class="card-content black-text">
                     <h6 class="card-title blue-text">Eventos Estaca</h6>
                     <ul class="collection with-header">
+                        @if(isset($eventosestaca))
+
                     @foreach($eventosestaca['datos'] as $evento)
                             <li class="collection-item"><div>{!! $evento !!}<a  class="secondary-content black-text"><i class="material-icons">event</i></a></div></li>
                         @endforeach
+                            @endif
                     </ul>
                 </div>
                 <div class="card-action">
@@ -97,6 +100,7 @@
                         </div>
 
 </div>
+    @if(isset($eventosbarrio['datos']))
     <div class="row">
             <div class="col s12 m6">
                 <div class="card">
@@ -115,6 +119,7 @@
                 </div>
             </div>
     </div>
+        @endif
         @endif
 @endif
 

@@ -34,7 +34,7 @@ class HomeController extends Controller
         try {
 
             if(!Auth::guest()){
-
+                $eventosbarrio='';
                 $url=url('eventos',[528633,4]);
                 //obtener eventos del calendario
                 $client2 = new \GuzzleHttp\Client();
