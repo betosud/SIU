@@ -154,26 +154,30 @@ class AsignacionesController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($request->all());
         $rules=array('fecha'=>'required',
             'hora'=>'required',
             'nombre'=>'required',
             'asignacion'=>'required',
-            'realizado'=>'required',
+
             'lugar'=>'required',
             'lider1'=>'required',
             'lider2'=>'required',
-            'lider3'=>'required',
-            'user_id'=>'required');
+            'lider3'=>'required');
         $this->validate($request,$rules);
-        $fecha=Carbon::createFromFormat('l d F Y',$request['fecha']);
-        $request['fecha']=$fecha->format('Y-m-d');
+
+
+//        $fecha=Carbon::createFromFormat('l d F Y',$request['fecha']);
+        $request['fecha']=$request->fecha;
         $request['nombre']=Str::title($request['nombre']);
         $request['asignacion']=Str::title($request['asignacion']);
         $request['lugar']=Str::title($request['lugar']);
-        
+        $request['user_id']=Auth::user()->id;
+
         $asignacion=asignaciones::findorfail($id);
 
         $this->authorize('updatebarrio', $asignacion);
+
 
 
         if(Auth::user()->is('lider_estaca|aux_lider')){

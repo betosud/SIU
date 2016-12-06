@@ -272,10 +272,10 @@ class DiscursosController extends Controller
         $pdf->Cell(10, 5, utf8_decode(""), 0, 0, "C");
         $pdf->Cell(80, 5, utf8_decode($discurso->lider2datos->organizacionnombre), "T", 0, "C");
         $pdf->Cell(20, 5, utf8_decode(""), 0, 0, "C");
-        $pdf->Cell(80, 5, utf8_decode($discurso->lider2datos->organizacionnombre), "T", 1, "C");
+        $pdf->Cell(80, 5, utf8_decode($discurso->lider3datos->organizacionnombre), "T", 1, "C");
 
         $pdf->Cell(10, 5, utf8_decode(""), 0, 0, "C");
-        $pdf->Cell(80, 5, utf8_decode($discurso->lider3datos->llamamientonombre), "", 0, "C");
+        $pdf->Cell(80, 5, utf8_decode($discurso->lider2datos->llamamientonombre), "", 0, "C");
         $pdf->Cell(20, 5, utf8_decode(""), 0, 0, "C");
         $pdf->Cell(80, 5, utf8_decode($discurso->lider3datos->llamamientonombre), "", 1, "C");
 

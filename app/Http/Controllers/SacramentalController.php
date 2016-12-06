@@ -43,7 +43,8 @@ class SacramentalController extends Controller
 
 
         if($request->user()->datos->idestaca!=$request->user()->idbarrio) {
-            $url = url('eventos', [$request->user()->datos->idestaca, 6]);
+
+            $url = url('eventos', [$request->user()->datos->idestaca, 20]);
             //obtener eventos del calendario
             $client1 = new \GuzzleHttp\Client();
 
@@ -53,7 +54,7 @@ class SacramentalController extends Controller
         }
 
 
-        $url=url('eventos',[$request->user()->idbarrio,6]);
+        $url=url('eventos',[$request->user()->idbarrio,20]);
         //obtener eventos del calendario
         $client2 = new \GuzzleHttp\Client();
         $responsebarrio = $client2->request('GET', $url, [
@@ -61,7 +62,9 @@ class SacramentalController extends Controller
         ]);
 
         $databarrio=json_decode($responsebarrio->getBody()->getContents(),true);
-        $dataestaca=json_decode($responseestaca->getBody()->getContents(),true);
+        if(isset($responseestaca)) {
+            $dataestaca = json_decode($responseestaca->getBody()->getContents(), true);
+        }
         $anucnios_sacramental=array();
         $totaleventos=0;
 
@@ -78,6 +81,8 @@ class SacramentalController extends Controller
                 $totaleventos++;
             }
         }
+
+//        dd($anucnios_sacramental);
         return view('sacramentales.nuevo.nuevo',compact('anucnios_sacramental'));
 
     }
@@ -339,11 +344,37 @@ class SacramentalController extends Controller
 
         $fechadfin->addDay(6);
 
-//        dd($fechadfin);
 
-        $cumples=cumples::bybarrio($sacramental->idbarrio)->whereraw("(MONTH(fecha)={$fechasacramental->month} 
+
+
+        $cumples=array();
+        if($fechasacramental->month==$fechadfin->month){
+            $cumples=cumples::bybarrio($sacramental->idbarrio)->whereraw("(MONTH(fecha)={$fechasacramental->month} 
                                                                         and DAY(fecha)>={$fechasacramental->day}) 
-                                                                        OR (MONTH(fecha)={$fechadfin->month} and DAY(fecha)<={$fechadfin->day})")->get();
+                                                                        and (MONTH(fecha)={$fechadfin->month} and DAY(fecha)<={$fechadfin->day})")->get();
+        }
+        else{
+            $auxfechainicio=$fechasacramental;
+            $auxfechafin=Carbon::createFromDate(substr($fechasacramental,0,4),substr($fechasacramental,5,2)+1,1);
+            $auxfechafin->addDay(-1);
+
+            $cumples=cumples::bybarrio($sacramental->idbarrio)->whereraw("(MONTH(fecha)={$auxfechainicio->month} 
+                                                                        and DAY(fecha)>={$auxfechainicio->day}) 
+                                                                        and (MONTH(fecha)={$auxfechafin->month} and DAY(fecha)<={$auxfechafin->day})")->get();
+
+
+            $auxfechainicio=$auxfechafin->addDay(1);
+
+            $cumples=cumples::bybarrio($sacramental->idbarrio)->whereraw("(MONTH(fecha)={$auxfechainicio->month} 
+                                                                        and DAY(fecha)>={$auxfechainicio->day}) 
+                                                                        and (MONTH(fecha)={$fechadfin->month} and DAY(fecha)<={$fechadfin->day})")->get();
+
+
+
+
+
+        }
+        
 
         $asignacionessemana=array();
         $fechasacramental->addDay(1);

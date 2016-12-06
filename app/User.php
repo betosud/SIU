@@ -29,7 +29,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+    
 
     public function datos(){
         return $this->hasOne('SIU\barrios','id','idbarrio');
@@ -69,5 +69,9 @@ class User extends Authenticatable
 
         }
         return $status;
+    }
+
+    public function scopeByBarrio($query, $ward){
+        $query->where('idbarrio', $ward);
     }
 }

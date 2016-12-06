@@ -39,7 +39,8 @@
                                     <h5>La Solicitud de Gasto ID: <strong>{!! $sit->id !!}</strong> ha sido Cancelada, si tienen alguna duda con esta solicitud contacte a los lideres de la unidad
                                         solicitado el <strong>{!! $sit->fechadma !!}</strong>
                                         <br>
-                                        {!! $sit->observaciones !!}
+                                        <br>
+                                        Razon de Cancelacion :<strong> {!! $sit->observaciones !!}</strong>
                                     </h5>
                                 </li>
                                 <li class="center-align">

@@ -54,6 +54,7 @@ class ApigoogleController extends Controller
 
                         $results = $service->events->listEvents($barrio->nombrecalendario, $optParams);
 
+
                     }
                     catch (Exception $e){
 
@@ -65,29 +66,51 @@ class ApigoogleController extends Controller
                         if (count($results->getItems()>0)) {
 
                             $respuesta = array();
+                            $fecha = Carbon::today();
+                            $domingo = Carbon::today();
+                            $domingo->next(0);
+                            $prox2sem=$domingo;
+                            $prox2sem->addDay(14);
+
                             foreach ($results->getItems() as $eventos) {
                                 $registro = "";
-                                if (isset($eventos->start->dateTime)) {
-                                    $inicio = explode("T", $eventos->start->dateTime);
-                                    $startdate = strftime("%A %e de %B de %Y Hora %l:%M %P", strtotime($inicio[0]." ".$inicio[1]));
+                                if (isset($eventos->start->dateTime))
+                                {
+
+                                    if($eventos->start->dateTime<$prox2sem) {
+                                        $inicio = explode("T", $eventos->start->dateTime);
+                                        $startdate = strftime("%A %e de %B de %Y Hora %l:%M %P", strtotime($inicio[0] . " " . $inicio[1]));
 
 //                                    $startdate = Carbon::create(explode("-", $inicio[0])[0], explode("-", $inicio[0])[1], explode("-", $inicio[0])[2], explode(":", $inicio[1])[0], explode(":", $inicio[1])[1], "00", "America/Mexico_City");
-                                    $registro = $eventos->summary;
-                                    $registro .= " Fecha " . $startdate;
+                                        $registro = $eventos->summary;
+                                        $registro .= " Fecha " . $startdate;
 //                                    $registro .= " Hora " . $startdate->format("h:m a");
-                                } elseif (isset($eventos->start->date)) {
-                                    $inicio = $eventos->start->date;
-                                    $startdate = Carbon::createFromDate(explode("-", $inicio)[0], explode("-", $inicio)[1], explode("-", $inicio)[2]);
-                                    $registro = $eventos->summary;
-                                    $registro .= " Fecha " . $startdate->format("l d M Y");
+                                        if(isset($eventos->description))
+                                        {
+                                            $registro.=" ".$eventos->description;
+                                        }
+                                        $respuesta[] =($registro);
+                                    }
+                                }
+                                elseif (isset($eventos->start->date))
+                                {
+                                    if($eventos->start->date<$prox2sem)
+                                    {
+                                        $inicio = $eventos->start->date;
+                                        $startdate = Carbon::createFromDate(explode("-", $inicio)[0], explode("-", $inicio)[1], explode("-", $inicio)[2]);
+                                        $registro = $eventos->summary;
+                                        $registro .= " Fecha " . $startdate->format("l d M Y");
+                                        if(isset($eventos->description))
+                                        {
+                                            $registro.=" ".$eventos->description;
+                                        }
+                                        $respuesta[] =($registro);
+                                    }
                                 }
 
-                                if(isset($eventos->description)){
-                                    $registro.=" ".$eventos->description;
-                                }
 
-                                $respuesta[] =utf8_decode($registro);
                             }
+//                            dd($respuesta);
                             return response()->json(['code'=>200,'datos'=>$respuesta,'mensaje'=>'Exito']);
                         }
                     }

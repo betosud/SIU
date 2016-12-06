@@ -33,6 +33,10 @@
 
                                     </div>
                                     <div class="input-field col  m6 s12">
+                                        {!!  Form::select('status', $status,0,['id'=>'status','class'=>'form-control']) !!}
+                                        <label for="year" data-error="dato no valido" data-success="Correcto" class="left-align">Status</label>
+                                    </div>
+                                    <div class="input-field col  m6 s12">
                                         <a OnClick='buscarproductos()' class="btn-flat btn-small waves-effect waves-light blue lighten-2 btn-primary"><i class="material-icons">search</i>Buscar</a>
                                     </div>
                                 </div>

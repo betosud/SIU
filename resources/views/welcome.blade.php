@@ -28,7 +28,7 @@
                     <ul class="collection with-header">
                         @if(isset($eventosestaca))
 
-                    @foreach($eventosestaca['datos'] as $evento)
+                        @foreach($eventosestaca['datos'] as $evento)
                             <li class="collection-item"><div>{!! $evento !!}<a  class="secondary-content black-text"><i class="material-icons">event</i></a></div></li>
                         @endforeach
                             @endif
@@ -73,7 +73,7 @@
                                                 <ul class="collection">
                                                     {{--<li class="collection-item">Alvin</li>--}}
                                                     @foreach($sinvalidar as $sit)
-                                                        <li> <a href="{!! url('editarsit',[$sit->id]) !!}" class="collection-item black-text">Sit: <strong>{!! $sit->idsit !!}</strong> Fecha:<strong>{!! $sit->fechasit !!}</strong></a></li>
+                                                        <li> <a href="{!! url('editarsit',[$sit->id]) !!}" class="collection-item black-text">Sit: <strong>{!! $sit->idsit !!}</strong> Fecha:<strong>{!! $sit->fechasit !!}</strong> Pagable: <strong>{!! $sit->pagable !!}</strong> Monto:$ <strong>{!! $sit->cantidad !!}</strong> </a></li>
                                                     @endforeach
                                                 </ul>
                                             </div>

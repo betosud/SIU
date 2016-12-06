@@ -28,24 +28,34 @@ $(document).on('click','.pagination li a',function(e){
 $(document).ready(function() {
     var datobuscar=$("#datosbuscar" ).val();
     var year=$("#year" ).val();
-    listarproductos(datobuscar,year)
+    var status=$("#status" ).val();
+
+    listarproductos(datobuscar,year,status)
 });
 var buscarproductos = function (datobuscar,year) {
     var datobuscar=$("#datosbuscar" ).val();
     var year=$("#year" ).val();
-
-    listarproductos(datobuscar,year)
+    var status=$("#status" ).val();
+    listarproductos(datobuscar,year,status)
 };
 
 
 $("#year").change(function(){
     var datobuscar=$("#datosbuscar" ).val();
     var year=$("#year" ).val();
-
-    listarproductos(datobuscar,year);
+    var status=$("#status" ).val();
+    listarproductos(datobuscar,year,status);
 });
 
-var listarproductos = function (datobuscar,year) {
+
+$("#status").change(function(){
+    var datobuscar=$("#datosbuscar" ).val();
+    var year=$("#year" ).val();
+    var status=$("#status" ).val();
+    listarproductos(datobuscar,year,status);
+});
+
+var listarproductos = function (datobuscar,year,status) {
     $('#loading').openModal({
         opacity: .4,
         dismissible: false,
@@ -53,7 +63,9 @@ var listarproductos = function (datobuscar,year) {
     if(datobuscar==''){
         datobuscar='vacio'
     }
-    var url = 'buscarsits/'+datobuscar+'/'+year;
+
+    var url = 'buscarsits/'+datobuscar+'/'+year+"/"+status;
+    console.log(url);
     $.ajax({
         type: 'get',
         url: url,

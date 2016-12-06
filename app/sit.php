@@ -5,6 +5,7 @@ namespace SIU;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class sit extends Model
 {
@@ -80,4 +81,14 @@ class sit extends Model
         $fecha=Carbon::createFromFormat('Y-m-d',$this->fechasit);
         return $fecha->format('l d F Y');
     }
+    public function scopeResumen($query, $idbarrio){
+        return $query->where('idbarrio',$idbarrio)
+            ->join('catalogos', 'sit.status', '=', 'catalogos.id')
+            ->select(DB::raw( 'count(*) as total, status,catalogos.nombre as statusdsc'))
+//            ->where('status', '<>', 1)
+            ->groupBy('status')
+            ->get();
+    }
+
+
 }

@@ -102,7 +102,7 @@ Route::post('guardararchivoexterno/{token}',['uses'=>'SitController@uploadfileex
 Route::get('eliminararchivosit/{id}',['uses'=>'SitController@destroyfile','as'=>'eliminararchivosit','middleware'=>'auth','middleware' => 'permission:delete.filesit']);
 Route::put('actualizavalidadocomporbante/{id}', ['uses' => 'SitController@updatevalidadopor', 'as' => 'actualizavalidadocomporbante', 'middleware'=>'auth']);
 
-Route::get('buscarsits/{datosbuscar}/{year}',['uses'=>'SitController@search','as'=>'buscarsits','middleware' => 'permission:view.sit|edit.sit']);
+Route::get('buscarsits/{datosbuscar}/{year}/{status}',['uses'=>'SitController@search','as'=>'buscarsits','middleware' => 'permission:view.sit|edit.sit']);
 
 Route::get('mostrarinfosit/{id}/show', ['uses' => 'SitController@show', 'as' => 'mostrarinfosit','middleware'=>'auth']);
 Route::put('enviarcomprobantes/{id}', ['uses' => 'SitController@enviarcomprobantes', 'as' => 'enviarcomprobantes','middleware'=>'auth']);
@@ -161,3 +161,7 @@ Route::put('enviarcorreo/{id}/{modulo}',['uses'=>'EnviarCorreoController@enviarc
 
 //himnos
 Route::get('himnos/{valor}',['uses'=>'HimnosController@getautocompletarhimnos', 'as'=>'himnos','middleware'=>'auth']);
+
+
+Route::get('notificasit',['uses'=>'NotificacionesController@sits', 'as'=>'notificasit']);
+

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Mockery\CountValidator\Exception;
 use SIU\archivossit;
 use SIU\barrios;
+use SIU\catalogos;
 use SIU\Http\Requests;
 use Illuminate\Http\Request;
 use SIU\sit;
@@ -84,6 +85,8 @@ class HomeController extends Controller
             }
 
         $estaca=barrios::findorfail(528633);
+
+            
 //dd($estaca);
 
         return view('welcome',compact('eventosestaca','sits','eventosbarrio','sinvalidar','estaca','barrio','solicitudes'));

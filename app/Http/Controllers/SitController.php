@@ -98,12 +98,32 @@ class SitController extends Controller
         $barrio=barrios::findorfail($sit->idbarrio);
 
 
+//        dd($copiar);
         Mail::send('emails.nuevasolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit){
             $message->from($barrio->email,$barrio->nombreunidad);
             $message->subject('Registro de Solicitud');
             $message->to($sit->mail,$sit->solicitante);
         });
+        //notificar usuarios
+        $usuarios=User::where('idbarrio',$barrio->id)->get();
 
+        $rolenotificar=array(1,2,4,5,7);
+        $usuariosnotificar=array();
+        foreach ($usuarios as $usuario){
+            if(in_array($usuario->rolid,$rolenotificar)){
+                $usuariosnotificar[]=$usuario;
+            }
+        }
+//        dd($usuariosnotificar);
+        if(count($usuariosnotificar)>0) {
+            foreach ($usuariosnotificar as $usuaio) {
+                Mail::send('emails.notificasolicitud',['sit'=>$sit,'barrio'=>$barrio],function ($message) use ($barrio,$sit,$usuaio){
+                    $message->from($barrio->email,$barrio->nombreunidad);
+                    $message->subject('Nueva solicitud de Gasto');
+                    $message->to($usuaio->email,$usuaio->name);
+                });
+            }
+        }
 
         return redirect()->route('solicitud',[$sit->id,$sit->token]);
 
@@ -368,7 +388,7 @@ class SitController extends Controller
                 $message->from($barrio->email,$barrio->nombreunidad);
                 $message->subject('Solicitud De gasto '.$sit->id);
                 $message->to($sit->mail,$sit->solicitante);
-                $message->cc($barrio->email,$barrio->nombreunidad);
+//                $message->cc($barrio->email,$barrio->nombreunidad);
             });
         }
 
@@ -380,7 +400,7 @@ class SitController extends Controller
                 $message->from($barrio->email,$barrio->nombreunidad);
                 $message->subject('Solicitud De gasto '.$sit->id);
                 $message->to($sit->mail,$sit->solicitante);
-                $message->cc($barrio->email,$barrio->nombreunidad);
+//                $message->cc($barrio->email,$barrio->nombreunidad);
             });
         }
 
@@ -392,7 +412,7 @@ class SitController extends Controller
                 $message->from($barrio->email,$barrio->nombreunidad);
                 $message->subject('Solicitud De gasto '.$sit->id);
                 $message->to($sit->mail,$sit->solicitante);
-                $message->cc($barrio->email,$barrio->nombreunidad);
+//                $message->cc($barrio->email,$barrio->nombreunidad);
             });
         }
 
@@ -405,7 +425,7 @@ class SitController extends Controller
                 $message->from($barrio->email,$barrio->nombreunidad);
                 $message->subject('Solicitud De gasto '.$sit->id);
                 $message->to($sit->mail,$sit->solicitante);
-                $message->cc($barrio->email,$barrio->nombreunidad);
+//                $message->cc($barrio->email,$barrio->nombreunidad);
             });
         }
     }
@@ -870,7 +890,10 @@ class SitController extends Controller
             $years[$val->year]=$val->year;
         }
         $year=$year->year;
-        return view('sit.sits',compact('year','years'));
+        $status=catalogos::bycatalogo('statussolicitud')->lists('nombre','id');
+        $status['0']='Todos';
+
+        return view('sit.sits',compact('year','years','status'));
     }
 public function show($id){
     $sit=sit::findorfail($id);
@@ -931,16 +954,25 @@ public function show($id){
             'error'=>$validacion,'salida'=>$salida
         ]);
     }
-    public function search($datosbuscar,$year)
+    public function search($datosbuscar,$year,$status)
     {
-        if($datosbuscar=='vacio'){
+        if($datosbuscar=='vacio' && $status==0){
             $sits = sit::bybarrio(auth()->user()->idbarrio)->whereRaw('YEAR(fechasit)=?',[$year])->where('status', '<>', '63')->orderBy('fechasit', 'desc')->orderby('id', 'DESC')->paginate(10);
         }
-        else{
+        elseif($datosbuscar=='vacio' && $status>0){
+            $sits = sit::bybarrio(auth()->user()->idbarrio)->whereRaw('YEAR(fechasit)=?',[$year])->where('status', '<>', '63')->where('status',$status)->orderBy('fechasit', 'desc')->orderby('id', 'DESC')->paginate(10);
+        }
+        elseif ($datosbuscar!='vacio' && $status==0){
             $sits = sit::bybarrio(auth()->user()->idbarrio)
                 ->whereRaw("(pagable like '%$datosbuscar%' or  solicitante like '%$datosbuscar%' or idsit like '%$datosbuscar%')and (YEAR(fechasit)=$year)")
                 ->paginate(10);
             }
+        elseif($datosbuscar!='vacio' && $status>0){
+            $sits = sit::bybarrio(auth()->user()->idbarrio)
+                ->whereRaw("(pagable like '%$datosbuscar%' or  solicitante like '%$datosbuscar%' or idsit like '%$datosbuscar%')and (YEAR(fechasit)=$year)")
+                ->where('status',$status)
+                ->paginate(10);
+        }
         $combos['statussit']=catalogos::where('combo','statussolicitud')->lists('nombre','id');
 
 
